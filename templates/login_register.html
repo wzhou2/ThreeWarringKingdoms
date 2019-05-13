@@ -1,0 +1,21 @@
+{%  extends "template.html" %}
+
+{% block title %}Login/Register{% endblock %}
+{% block body %}
+<div>
+    <form action="/auth" method="post">
+        <div>
+        <label for="username">Username</label>
+        <input type="username" name="username" placeholder="Username" required>
+        </div>
+        
+        <div>
+        <label for="pw">Password</label>
+        <input type="password" name="pw" placeholder="password" required>
+        </div>
+
+        <input type="submit" name="submit" value="login">
+    </form>
+
+</div>
+{% endblock %}

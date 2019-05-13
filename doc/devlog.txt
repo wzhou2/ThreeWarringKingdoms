@@ -26,3 +26,8 @@ jackL -- 2019-05-13 01:25
 - Improved parts of database schema
 - Clarified some stretch goals
 - Added timeline of project
+
+jackL -- 2019-05-13 14:05
+--------------------------------------------------------------
+- Added login/register route for init
+- Started html page for login/register
