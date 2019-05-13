@@ -19,3 +19,10 @@ weiwenZ -- 2019-__-__ __:__
 --------------------------------------------------------------
 - Intialized devlog
 - Worked on README.md
+
+jackL -- 2019-05-13 01:25
+--------------------------------------------------------------
+- Revised design doc after feedback
+- Improved parts of database schema
+- Clarified some stretch goals
+- Added timeline of project
