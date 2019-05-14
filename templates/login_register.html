@@ -3,7 +3,8 @@
 {% block title %}Login/Register{% endblock %}
 {% block body %}
 <div>
-    <form action="/auth" method="post">
+    <p>Login</p>
+    <form action="/auth_login" method="post">
         <div>
         <label for="username">Username</label>
         <input type="username" name="username" placeholder="Username" required>
@@ -15,6 +16,23 @@
         </div>
 
         <input type="submit" name="submit" value="login">
+    </form>
+
+</div>
+<div>
+    <p>Register</p>
+    <form action="/auth_register" method="post">
+        <div>
+        <label for="username">Username</label>
+        <input type="username" name="username" placeholder="Username" required>
+        </div>
+        
+        <div>
+        <label for="pw">Password</label>
+        <input type="password" name="pw" placeholder="password" required>
+        </div>
+
+        <input type="submit" name="submit" value="register">
     </form>
 
 </div>

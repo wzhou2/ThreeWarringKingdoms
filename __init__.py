@@ -12,6 +12,14 @@ def index():
 def login_register():
     return render_template("login_register.html")
 
+@app.route("/auth_login")
+def auth_login():
+    pass
+
+@app.route("/auth_register")
+def auth_register():
+    pass
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0")
