@@ -12,13 +12,13 @@ def index():
 def login_register():
     return render_template("login_register.html")
 
-@app.route("/auth_login")
+@app.route("/auth_login", methods=['POST'])
 def auth_login():
-    pass
+    return "auth login"
 
-@app.route("/auth_register")
+@app.route("/auth_register", methods=['POST'])
 def auth_register():
-    pass
+    return "auth register"
 
 if __name__ == "__main__":
     app.debug = True
