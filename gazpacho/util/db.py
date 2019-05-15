@@ -28,14 +28,14 @@ class Database:
         """ Create a x column table with the name provided given it
         does not exist yet.
 
-        Args:
+        Args:   
             name (str): The name of the table
-            *cols: The list of column names
+            *cols: A variable length of columns
 
         Returns:
             bool: True if successful, False otherwise
         """
-        print(name, "ff", *cols)
+        print(cols, len(cols))
         return 1
 
     @openDB
@@ -114,5 +114,12 @@ class Database:
 
 if __name__=="__main__":
     db = Database("test.db")
+    args = ["user", ["first"], "last", "password"]
     a = db.createTable("users", ["user", "first", "last", "password"])
-    print(a)
+    b = db.createTable("users", "user", "first", "last", "password")
+    c = db.createTable("users", args)
+    d = db.createTable("users", *args)
+    # print(a)
+    # print(b)
+    # print(c)
+    # print(d)
