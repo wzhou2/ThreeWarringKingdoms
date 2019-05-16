@@ -9,11 +9,27 @@ go login
 for each worker
 <div>
     Assign to: List of Projects(Dropdown)
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <button class="dropdown-item" type="button">Action</button>
+    <button class="dropdown-item" type="button">Another action</button>
+    <button class="dropdown-item" type="button">Something else here</button>
+  </div>
+</div>
     Task: Empty field
+	<input type="text" name="task" required>
 </div>
 Set Dates:
 Clickable timeline
+<br>
 Issues:
 Popups/Cards
+  <div class="card">
+    <div class="card-body">bla bla bla</div>
+  </div>
+<br>
 {% endblock %}
 

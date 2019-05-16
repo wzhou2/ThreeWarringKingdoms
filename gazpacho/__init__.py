@@ -20,6 +20,10 @@ def auth_login():
 def auth_register():
     return "auth register"
 
+@app.route("/project")
+def project():
+    return render_template("project.html")
+	
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0")
