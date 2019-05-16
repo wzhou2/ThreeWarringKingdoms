@@ -2,51 +2,48 @@
 
 {% block title %}Login/Register{% endblock %}
 {% block body %}
-<div>
-    <p>Login</p>
-    <form action="/auth_login" method="post">
-        <div>
-            <label for="username">Username</label>
-            <input type="username" name="username" placeholder="Username" required>
-        </div>
+<div class="card bg-light mb-3">
+    <center>
+        <div class="card-header">Login</div>
+        <form action="/auth_login" method="post" id="login_form">
+            <div>
+                <label for="username">Username</label>
+                <input type="username" name="username" placeholder="Username" required>
+            </div>
 
-        <div>
-            <label for="pw">Password</label>
-            <input type="password" name="pw" placeholder="password" required>
-        </div>
+            <div>
+                <label for="pw">Password</label>
+                <input type="password" name="pw" placeholder="password" required>
+            </div>
 
-        <input type="submit" name="submit" value="login">
-    </form>
+            <button type="submit" class="btn btn-light btn-outline-dark">Login</button>
+        </form>
+    </center>
 
 </div>
-<div>
-    <p>Register</p>
-    <form action="/auth_register" method="post">
-        <div>
+<div class="card bg-light mb-3">
+    <center>
+        <div class="card-header">Register</div>
+        <form action="/auth_register" method="post">
+            <div>
+                <label for="first">First</label>
+                <input type="first" name="first" placeholder="first" required>
+                <label for="last">Last</label>
+                <input type="last" name="last" placeholder="last" required>
+                <br>
+                <label for="username">Username</label>
+                <input type="username" name="username" placeholder="Username" required>
+                <br>
+            </div>
 
-            <label for="first">First</label>
-            <input type="first" name="first" placeholder="first" required>
+            <div>
+                <label for="pw">Password</label>
+                <input type="password" name="pw" placeholder="password" required>
+            </div>
 
-            <br>
-
-            <label for="last">Last</label>
-            <input type="last" name="last" placeholder="last" required>
-
-            <br>
-
-            <label for="username">Username</label>
-            <input type="username" name="username" placeholder="Username" required>
-
-            <br>
-        </div>
-
-        <div>
-            <label for="pw">Password</label>
-            <input type="password" name="pw" placeholder="password" required>
-        </div>
-
-        <input type="submit" name="submit" value="register">
-    </form>
+            <button type="submit" class="btn btn-light btn-outline-dark">Register</button>
+        </form>
+    </center>
 </div>
 
 {% endblock %}

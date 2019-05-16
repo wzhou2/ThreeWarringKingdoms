@@ -14,6 +14,7 @@ def login_register():
 
 @app.route("/auth_login", methods=['POST'])
 def auth_login():
+    print( request.form ) 
     return "auth login"
 
 @app.route("/auth_register", methods=['POST'])
