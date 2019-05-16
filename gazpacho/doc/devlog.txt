@@ -31,3 +31,8 @@ jackL -- 2019-05-13 14:05
 --------------------------------------------------------------
 - Added login/register route for init
 - Started html page for login/register
+
+mingM -- 2019-05-15 22:45
+--------------------------------------------------------------
+- Added bootstrap elements
+- Started html page for projects
