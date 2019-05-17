@@ -20,23 +20,35 @@ class Database:
         """
         def inner(self, *args):
             with sqlite3.connect(self.DB_FILE) as db:
-                return func(self, *args)
+                return func(self, db, *args)
         return inner
 
     @openDB
-    def createTable(self, name, *cols):
+    def createTable(self, db, name, *cols):
         """ Create a x column table with the name provided given it
         does not exist yet.
 
-        Args:   
+        Args:
             name (str): The name of the table
-            *cols: A variable length of columns
+            *cols : A variable length of columns
 
         Returns:
             bool: True if successful, False otherwise
+
+        Note:
+            - col (tuple)
+            - SyntaxError: Column names can not be use with create table
+                "CREATE TABLE users (?,?,?,?)", (user, password, first, last)
         """
-        print(cols, len(cols))
-        return 1
+        # print(cols, len(cols))
+
+        c = db.cursor()
+        command = "CREATE TABLE users"
+        colName = str(cols)
+        c.execute(command + colName)
+        db.commit()
+
+        return True
 
     @openDB
     def tableInDB(self, name):
@@ -113,13 +125,8 @@ class Database:
         pass
 
 if __name__=="__main__":
-    db = Database("test.db")
-    args = ["user", ["first"], "last", "password"]
-    a = db.createTable("users", ["user", "first", "last", "password"])
-    b = db.createTable("users", "user", "first", "last", "password")
-    c = db.createTable("users", args)
-    d = db.createTable("users", *args)
-    # print(a)
-    # print(b)
-    # print(c)
-    # print(d)
+    data = Database("test.db")
+    args = ['cow', 'dog', 'peep', 'last']
+    args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT"]
+    a = data.createTable("users", *args)
+    print(a)
