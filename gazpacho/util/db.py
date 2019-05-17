@@ -51,7 +51,7 @@ class Database:
         return True
 
     @openDB
-    def tableInDB(self, name):
+    def tableInDB(self, db, name):
         """ Checks if a table exists in the database
 
         Args:
@@ -61,7 +61,15 @@ class Database:
             bool: True if successful, False otherwise
 
         """
-        pass
+        c = db.cursor()
+        cmd = 'SELECT name FROM sqlite_master WHERE type="table"'
+        tables = c.execute(cmd).fetchall()
+        tables = [a[0] for a in tables]
+        print(name)
+        print(tables)
+        if name in tables:
+            return True
+        return False
 
     @openDB
     def insert(self, name, values):
@@ -80,6 +88,7 @@ class Database:
             the row.
         """
         pass
+
 
     @openDB
     def get(self, name, *cols):
@@ -126,7 +135,10 @@ class Database:
 
 if __name__=="__main__":
     data = Database("test.db")
-    args = ['cow', 'dog', 'peep', 'last']
-    args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT"]
-    a = data.createTable("users", *args)
+    a = data.tableInDB('d')
     print(a)
+    #args = ['cow', 'dog', 'peep', 'last']
+    #args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT"]
+    #a = data.createTable("users", *args)
+    #print(a)
+
