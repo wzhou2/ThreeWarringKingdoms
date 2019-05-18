@@ -4,7 +4,19 @@ import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
-database = db.Database("data/block.db")
+
+# Database setup
+store = db.Database("data\\block.db")
+TABLES = {
+    'users': ['user TEXT', 'first TEXT', 'last TEXT', 'password TEXT', 'salary INTEGER', 'POSITION TEXT', 'HOURS TEXT', 'DAYS TEXT'],
+    'projects': ['id INTEGER', 'name TEXT', 'creator TEXT'],
+    'record' : ['target TEXT', 'initated_by TEXT', 'type TEXT', 'description TEXT', 'id INTEGER', 'timeStamp INTEGER', 'message TEXT', 'view_level INTEGER']
+}
+for name, cols in TABLES.items():
+    # print(name, cols)
+    state = store.createTable(name, *cols)
+    # print(state)
+
 @app.route("/")
 def index():
     return render_template("landing.html")

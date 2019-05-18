@@ -30,6 +30,7 @@ class Database:
 
         Args:
             name (str): The name of the table
+            db (obj): The sqlite3 object for the database
             *cols : A variable length of columns
 
         Returns:
@@ -41,12 +42,13 @@ class Database:
                 "CREATE TABLE users (?,?,?,?)", (user, password, first, last)
         """
         # print(cols, len(cols))
-
+        if self.tableInDB(name):
+            return False
         c = db.cursor()
-        command = "CREATE TABLE users"
-        colName = str(cols)
+        command = "CREATE TABLE " + name
+        colName = "("+ ",".join(cols) + ")"
+        # print(command + colName)
         c.execute(command + colName)
-        db.commit()
 
         return True
 
@@ -55,24 +57,21 @@ class Database:
         """ Checks if a table exists in the database
 
         Args:
+            db (obj): The sqlite3 object for the database
             name (str): The name of the table
 
         Returns:
-            bool: True if successful, False otherwise
+            int: 1 if in db, 0 otherwise
 
         """
         c = db.cursor()
-        cmd = 'SELECT name FROM sqlite_master WHERE type="table"'
-        tables = c.execute(cmd).fetchall()
-        tables = [a[0] for a in tables]
-        print(name)
-        print(tables)
-        if name in tables:
-            return True
-        return False
+        cmd = 'SELECT count(name) FROM sqlite_master WHERE type="table" AND name=?'
+        contain = c.execute(cmd, (name,)).fetchone()[0]
+        # print(contain)
+        return contain
 
     @openDB
-    def insert(self, name, values):
+    def insert(self, db, name, values):
         """ Inserts a row with the given values into a table with the
         corresponding name.
 
@@ -87,6 +86,10 @@ class Database:
             ValueError: The values param does not contain enough element to fill
             the row.
         """
+        c = db.cursor()
+        command = "INSERT INTO " + name + " values" + "(" + ",".join(["?" for x in values]) + ")"
+        # print(command)
+        c.execute(command, values)
         pass
 
 
@@ -137,8 +140,7 @@ if __name__=="__main__":
     data = Database("test.db")
     a = data.tableInDB('d')
     print(a)
-    #args = ['cow', 'dog', 'peep', 'last']
-    #args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT"]
-    #a = data.createTable("users", *args)
-    #print(a)
-
+    vals = ['cow', 'dog', 'peep']
+    args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT"]
+    b = data.createTable("users", *args)
+    c = data.insert("users", vals)
