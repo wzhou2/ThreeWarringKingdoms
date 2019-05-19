@@ -1,5 +1,5 @@
-# import sqlalchemy as db #waiting for permission to use
 import sqlite3
+
 class Database:
     """A class to faciliate database read/write.
     """
@@ -18,9 +18,9 @@ class Database:
         Returns:
             obj: A function object
         """
-        def inner(self, *args):
+        def inner(self, *args, **kwargs):
             with sqlite3.connect(self.DB_FILE) as db:
-                return func(self, db, *args)
+                return func(self, db, *args, **kwargs)
         return inner
 
     @openDB
@@ -61,14 +61,14 @@ class Database:
             name (str): The name of the table
 
         Returns:
-            int: 1 if in db, 0 otherwise
+            bool: True(!0) if in db, False(0) otherwise
 
         """
         c = db.cursor()
         cmd = 'SELECT count(name) FROM sqlite_master WHERE type="table" AND name=?'
         contain = c.execute(cmd, (name,)).fetchone()[0]
         # print(contain)
-        return contain
+        return contain != 0
 
     @openDB
     def insert(self, db, name, values):
@@ -83,18 +83,23 @@ class Database:
             bool: True if successful, False otherwise
 
         Raises:
-            ValueError: The values param does not contain enough element to fill
+            sqlite3.OperationalError: The values param does not contain enough element to fill
             the row.
         """
         c = db.cursor()
         command = "INSERT INTO " + name + " values" + "(" + ",".join(["?" for x in values]) + ")"
+
         # print(command)
-        c.execute(command, values)
-        pass
+        try:
+            c.execute(command, values)
+        except (sqlite3.OperationalError):
+            # print("Oopsies")
+            return False
+        return True
 
 
     @openDB
-    def get(self, name, *cols):
+    def get(self, db, name, *cols, **conditions):
         """ Gets values for the columns in cols that satisfy the the conditions
         from the a table
 
@@ -102,13 +107,41 @@ class Database:
             name (str): The name of the table
             *cols: The list of column names
             **conditions: A dictionary of conditions. The key is the column name
-            and the value is the logic condition
+                and the value is the logic condition
 
         Returns:
             list : a list of table rows that satisfy the conditiions
 
         """
-        pass
+        c = db.cursor()
+
+        command = "SELECT {} from {}".format(",".join([x for x in cols]), name)
+        # print(conditions)
+        if conditions:
+            conditionals = " ".join(conditions.values())
+            # print(conditionals)
+            command += " " + conditionals
+
+        # print(command)
+        c.execute(command)
+
+        result = c.fetchall()
+        # print(result)
+
+        return result
+
+    def checkUser(self, user):
+        """Checks if the user is in the the database
+
+        Args:
+            user (str): The name of the user
+
+        Return:
+            bool : True if user exists in database, False otherwise
+        """
+        contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user))[0][0]
+
+        return contain != 0
 
     def verifyUser(self, user, password):
         """ Verifies that the user is
@@ -123,7 +156,9 @@ class Database:
             bool: True if successful, False otherwise
 
         """
-        pass
+        contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user), b = "AND password = '{}''".format(password))[0][0]
+
+        return contain != 0
 
     def insertUser(self, **info):
         """ Adds a row entry into the table of users
@@ -133,14 +168,12 @@ class Database:
 
         Returns:
             bool: True if successful, False otherwise
-        """
-        pass
 
-if __name__=="__main__":
-    data = Database("test.db")
-    a = data.tableInDB('d')
-    print(a)
-    vals = ['cow', 'dog', 'peep']
-    args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT"]
-    b = data.createTable("users", *args)
-    c = data.insert("users", vals)
+        Raises:
+            UserExistsError: The user already exists in the table
+        """
+        if self.checkUser(info['user']):
+            raise UserExistsError("The username is already taken")
+        values = [ info['user'], info['first'], info['last'], info['password'] ]
+        
+        return self.insert("users", *values)
