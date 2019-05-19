@@ -10,3 +10,9 @@ c = data.insert("users", vals)
 
 d = data.get("users", "user", "password")
 e = data.checkUser("a")
+dict = {
+    "user": "c",
+    "password": "b",
+    "num" : 10
+}
+f = data.insertUser(dict)

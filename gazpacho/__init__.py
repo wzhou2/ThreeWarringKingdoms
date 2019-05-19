@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, url_for, redirect, flash, send_file
 from util import db
+from util import exceptions
 import os
 
 app = Flask(__name__)
@@ -8,8 +9,8 @@ app.secret_key = os.urandom(32)
 # Database setup
 store = db.Database("data\\block.db")
 TABLES = {
-    'users': ['user TEXT', 'first TEXT', 'last TEXT', 'password TEXT', 'salary INTEGER', 'POSITION TEXT', 'HOURS TEXT', 'DAYS TEXT'],
-    'projects': ['id INTEGER', 'name TEXT', 'creator TEXT'],
+    'users': ['user TEXT PRIMARY KEY', 'first TEXT', 'last TEXT', 'password TEXT', 'salary INTEGER', 'POSITION TEXT', 'HOURS TEXT', 'DAYS TEXT'],
+    'projects': ['id INTEGER AUTOINCREMENT', 'name TEXT PRIMARY KEY', 'creator TEXT'],
     'record' : ['target TEXT', 'initated_by TEXT', 'type TEXT', 'description TEXT', 'id INTEGER', 'timeStamp INTEGER', 'message TEXT', 'view_level INTEGER']
 }
 for name, cols in TABLES.items():
@@ -32,7 +33,12 @@ def auth_login():
 
 @app.route("/auth_register", methods=['POST'])
 def auth_register():
-    return "auth register"
+    a = request.form
+    print(a)
+    if store.insertUser():
+        return "auth register"
+    else:
+        return "fail"
 
 @app.route("/project")
 def project():

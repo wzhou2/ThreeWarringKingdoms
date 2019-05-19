@@ -160,7 +160,7 @@ class Database:
 
         return contain != 0
 
-    def insertUser(self, **info):
+    def insertUser(self, *info):
         """ Adds a row entry into the table of users
 
         Args:
@@ -172,8 +172,14 @@ class Database:
         Raises:
             UserExistsError: The user already exists in the table
         """
+        info = info[0]
+        # print(info)
         if self.checkUser(info['user']):
             raise UserExistsError("The username is already taken")
         values = [ info['user'], info['first'], info['last'], info['password'] ]
-        
-        return self.insert("users", *values)
+        # values = [ info['user'], info['password'] , info['num'] ]
+
+        return self.insert("users", values)
+
+class UserExistsError(Exception):
+    pass
