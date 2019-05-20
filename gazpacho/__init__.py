@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
 # Database setup
-store = db.Database("data\\block.db")
+store = db.Database("./data/block.db")
 TABLES = {
     'users': ['user TEXT PRIMARY KEY', 'first TEXT', 'last TEXT', 'password TEXT', 'salary INTEGER', 'POSITION TEXT', 'HOURS TEXT', 'DAYS TEXT'],
     'projects': ['id INTEGER AUTOINCREMENT', 'name TEXT PRIMARY KEY', 'creator TEXT'],
@@ -22,9 +22,13 @@ for name, cols in TABLES.items():
 def index():
     return render_template("landing.html")
 
-@app.route("/login_register")
-def login_register():
-    return render_template("login_register.html")
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/register")
+def register():
+    return render_template("register.html")
 
 @app.route("/auth_login", methods=['POST'])
 def auth_login():
@@ -35,7 +39,7 @@ def auth_login():
         return redirect(url_for("project"))
     else:
         flash("The username and password do not match")
-        return redirect(url_for("login_register"))
+        return redirect(url_for("login"))
 
 @app.route("/auth_register", methods=['POST'])
 def auth_register():
@@ -45,7 +49,7 @@ def auth_register():
         return redirect(url_for("project"))
     else:
         flash("Username is already taken")
-        return redirect(url_for("login_register"))
+        return redirect(url_for("register"))
 
 @app.route("/project")
 def project():

@@ -1,26 +1,8 @@
+
 {%  extends "template.html" %}
 
-{% block title %}Login/Register{% endblock %}
+{% block title %}Register{% endblock %}
 {% block body %}
-<div class="card bg-light mb-3">
-    <center>
-        <div class="card-header">Login</div>
-        <form action="/auth_login" method="post" id="login_form">
-            <div>
-                <label for="username">Username</label>
-                <input type="username" name="username" placeholder="Username" required>
-            </div>
-
-            <div>
-                <label for="pw">Password</label>
-                <input type="password" name="pw" placeholder="password" required>
-            </div>
-
-            <button type="submit" class="btn btn-light btn-outline-dark">Login</button>
-        </form>
-    </center>
-
-</div>
 <div class="card bg-light mb-3">
     <center>
         <div class="card-header">Register</div>
@@ -45,5 +27,4 @@
         </form>
     </center>
 </div>
-
 {% endblock %}
