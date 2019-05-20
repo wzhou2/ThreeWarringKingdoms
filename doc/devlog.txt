@@ -45,3 +45,8 @@ jackL -- 2019-05-16 14:06
 jackL -- 2019-05-17 14:06
 --------------------------------------------------------------
 - worked on db.py
+
+weiwenZ -- 2019-05-20 12:20
+--------------------------------------------------------------
+- register and login working now
+- database insertion and verification for user/login verification

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, url_for, redirect, flash, send_file
 from util import db
-from util import exceptions
+# from util import exceptions
 import os
 
 app = Flask(__name__)
@@ -28,17 +28,24 @@ def login_register():
 
 @app.route("/auth_login", methods=['POST'])
 def auth_login():
-    print( request.form )
-    return "auth login"
+    name = request.form['username']
+    pd = request.form['pw']
+    print(name, pd)
+    if store.verifyUser(name, pd):
+        return redirect(url_for("project"))
+    else:
+        flash("The username and password do not match")
+        return redirect(url_for("login_register"))
 
 @app.route("/auth_register", methods=['POST'])
 def auth_register():
-    a = request.form
-    print(a)
-    if store.insertUser():
-        return "auth register"
+    form = request.form
+    # print(form)
+    if store.insertUser(form):
+        return redirect(url_for("project"))
     else:
-        return "fail"
+        flash("Username is already taken")
+        return redirect(url_for("login_register"))
 
 @app.route("/project")
 def project():

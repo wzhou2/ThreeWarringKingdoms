@@ -122,7 +122,7 @@ class Database:
             # print(conditionals)
             command += " " + conditionals
 
-        # print(command)
+        print(command)
         c.execute(command)
 
         result = c.fetchall()
@@ -156,7 +156,7 @@ class Database:
             bool: True if successful, False otherwise
 
         """
-        contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user), b = "AND password = '{}''".format(password))[0][0]
+        contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user), b = "AND password = '{}'".format(password))[0][0]
 
         return contain != 0
 
@@ -169,17 +169,12 @@ class Database:
         Returns:
             bool: True if successful, False otherwise
 
-        Raises:
-            UserExistsError: The user already exists in the table
         """
         info = info[0]
         # print(info)
         if self.checkUser(info['user']):
-            raise UserExistsError("The username is already taken")
-        values = [ info['user'], info['first'], info['last'], info['password'] ]
+            return False
+        values = [ info['user'], info['first'], info['last'], info['password'], 0, "", "", "" ]
         # values = [ info['user'], info['password'] , info['num'] ]
 
         return self.insert("users", values)
-
-class UserExistsError(Exception):
-    pass
