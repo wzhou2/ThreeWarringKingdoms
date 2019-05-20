@@ -178,3 +178,15 @@ class Database:
         # values = [ info['user'], info['password'] , info['num'] ]
 
         return self.insert("users", values)
+
+    def createProject(self, project, creator):
+        """ Adds a project into the table projects
+
+        Args:
+            project (str): The name of the project
+            creator (str): The user who is creating the project
+
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        pass
