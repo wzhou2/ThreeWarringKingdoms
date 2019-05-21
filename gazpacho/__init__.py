@@ -8,14 +8,14 @@ app.secret_key = os.urandom(32)
 
 # Database setup
 store = db.Database("./data/block.db")
-TABLES = {
-    'users': ['user TEXT PRIMARY KEY', 'first TEXT', 'last TEXT', 'password TEXT', 'salary INTEGER', 'POSITION TEXT', 'HOURS TEXT', 'DAYS TEXT'],
-    'projects': ['id INTEGER', 'name TEXT PRIMARY KEY', 'creator TEXT'],
-    'record' : ['target TEXT', 'initated_by TEXT', 'type TEXT', 'description TEXT', 'id INTEGER', 'timeStamp INTEGER', 'message TEXT', 'view_level INTEGER']
-}
-for name, cols in TABLES.items():
-    # print(name, cols)
-    state = store.createTable(name, *cols)
+#TABLES = {
+#    'users': ['user TEXT PRIMARY KEY', 'first TEXT', 'last TEXT', 'password TEXT', 'salary INTEGER', 'POSITION TEXT', 'HOURS TEXT', 'DAYS TEXT'],
+#    'projects': ['id INTEGER', 'name TEXT PRIMARY KEY', 'creator TEXT'],
+#    'record' : ['target TEXT', 'initated_by TEXT', 'type TEXT', 'description TEXT', 'id INTEGER', 'timeStamp INTEGER', 'message TEXT', 'view_level INTEGER']
+#}
+#for name, cols in TABLES.items():
+#    # print(name, cols)
+#    state = store.createTable(name, *cols)
     # print(state)
 
 @app.route("/")
@@ -36,6 +36,7 @@ def auth_login():
     pd = request.form['pw']
     print(name, pd)
     if store.verifyUser(name, pd):
+        session['name'] = pd
         return redirect(url_for("project"))
     else:
         flash("The username and password do not match")
@@ -50,6 +51,12 @@ def auth_register():
     else:
         flash("Username is already taken")
         return redirect(url_for("register"))
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for("index"))
+
 
 @app.route("/project")
 def project():

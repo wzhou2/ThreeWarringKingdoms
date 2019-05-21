@@ -54,3 +54,4 @@ weiwenZ -- 2019-05-20 12:20
 jackL -- 2019-05-20 21:15
 --------------------------------------------------------------
 - fixed database error (autoincrement to rowid)
+- Proper session login/logout working
