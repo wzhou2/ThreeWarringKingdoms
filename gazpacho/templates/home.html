@@ -1,0 +1,26 @@
+{%  extends "template.html" %}
+
+{% block title %}Homepage{% endblock %}
+{% block body %}
+<nav class="navbar navbar-expand-lg">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <a class="nav-item nav-link" href="account">Account</a>
+      <a class="nav-item nav-link" href="logout">Logout</a>
+    </ul>
+  </nav>
+Welcome, {{user}}
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Featured
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a href="project">Project 1</a></li>
+    <li class="list-group-item"><a href="project">Project 2</a></li>
+    <li class="list-group-item"><a href="project">Project 3</a></li>
+  </ul>
+</div>
+<a class="btn btn-primary" href="project" role="button">Create Project</a>
+{% endblock %}
+
