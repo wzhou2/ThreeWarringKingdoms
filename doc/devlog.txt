@@ -55,3 +55,4 @@ jackL -- 2019-05-20 21:15
 --------------------------------------------------------------
 - fixed database error (autoincrement to rowid)
 - Proper session login/logout working
+- Implemented flashing messages in template

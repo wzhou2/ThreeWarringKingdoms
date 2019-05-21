@@ -42,6 +42,7 @@ def auth_login():
         session['username'] = name
         return redirect(url_for("project"))
     else:
+        print("FLASH")
         flash("The username and password do not match")
         return redirect(url_for("login"))
 
