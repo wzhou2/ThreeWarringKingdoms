@@ -8,22 +8,22 @@ app.secret_key = os.urandom(32)
 
 # Database setup
 store = db.Database("./data/block.db")
-#TABLES = {
-#    'users': ['user TEXT PRIMARY KEY', 'first TEXT', 'last TEXT', 'password TEXT', 'salary INTEGER', 'POSITION TEXT', 'HOURS TEXT', 'DAYS TEXT'],
-#    'projects': ['id INTEGER', 'name TEXT PRIMARY KEY', 'creator TEXT'],
-#    'record' : ['target TEXT', 'initated_by TEXT', 'type TEXT', 'description TEXT', 'id INTEGER', 'timeStamp INTEGER', 'message TEXT', 'view_level INTEGER']
-#}
-#for name, cols in TABLES.items():
-#    # print(name, cols)
-#    state = store.createTable(name, *cols)
+TABLES = {
+    'users': ['user TEXT PRIMARY KEY', 'first TEXT', 'last TEXT', 'password TEXT', 'salary INTEGER', 'POSITION TEXT', 'HOURS TEXT', 'DAYS TEXT'],
+    'projects': ['id INTEGER', 'name TEXT PRIMARY KEY', 'creator TEXT'],
+    'record' : ['target TEXT', 'initated_by TEXT', 'type TEXT', 'description TEXT', 'id INTEGER', 'timeStamp INTEGER', 'message TEXT', 'view_level INTEGER']
+}
+for name, cols in TABLES.items():
+    # print(name, cols)
+    state = store.createTable(name, *cols)
     # print(state)
 
 @app.route("/")
 def index():
     print( session.get('username') ) 
     if session.get('username') != None:
-        return redirect(url_for("project"))
-    return render_template("landing.html")
+        return redirect(url_for("home"))
+    return render_template("welcome.html")
 
 @app.route("/login")
 def login():
@@ -51,22 +51,33 @@ def auth_register():
     form = request.form
     # print(form)
     if store.insertUser(form):
-        return redirect(url_for("project"))
+        return redirect(url_for("home"))
     else:
         flash("Username is already taken")
         return redirect(url_for("register"))
-
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for("index"))
 
+@app.route("/home")
+def homepage():
+    username=session.get('username')
+    if username == None:
+        return redirect(url_for("index"))
+    return render_template("home.html",user=username)
 
 @app.route("/project")
 def project():
-    if session.get('username') == None:
-        return redirect(url_for("index"))
     return render_template("project.html")
+
+@app.route("/account")
+def account():
+    return render_template("account.html")
+
+@app.route("/task")
+def task():
+    return render_template("task.html")
 
 if __name__ == "__main__":
     app.debug = True
