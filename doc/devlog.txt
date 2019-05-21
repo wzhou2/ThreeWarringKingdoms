@@ -50,3 +50,7 @@ weiwenZ -- 2019-05-20 12:20
 --------------------------------------------------------------
 - register and login working now
 - database insertion and verification for user/login verification
+
+jackL -- 2019-05-20 21:15
+--------------------------------------------------------------
+- fixed database error (autoincrement to rowid)

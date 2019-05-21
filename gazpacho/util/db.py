@@ -48,7 +48,7 @@ class Database:
         command = "CREATE TABLE " + name
         colName = "(" + ",".join(cols) + ")"
         print(command + colName)
-        #c.execute(command + colName)
+        c.execute(command + colName)
 
         return True
 
