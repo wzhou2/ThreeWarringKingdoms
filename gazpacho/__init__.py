@@ -61,7 +61,7 @@ def logout():
     return redirect(url_for("index"))
 
 @app.route("/home")
-def homepage():
+def home():
     username=session.get('username')
     if username == None:
         return redirect(url_for("index"))
