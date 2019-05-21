@@ -20,6 +20,9 @@ store = db.Database("./data/block.db")
 
 @app.route("/")
 def index():
+    print( session.get('username') ) 
+    if session.get('username') != None:
+        return redirect(url_for("project"))
     return render_template("landing.html")
 
 @app.route("/login")
@@ -36,7 +39,7 @@ def auth_login():
     pd = request.form['pw']
     print(name, pd)
     if store.verifyUser(name, pd):
-        session['name'] = pd
+        session['username'] = name
         return redirect(url_for("project"))
     else:
         flash("The username and password do not match")
