@@ -20,7 +20,10 @@ for name, cols in TABLES.items():
 
 @app.route("/")
 def index():
-    return render_template("landing.html")
+    print( session.get('username') ) 
+    if session.get('username') != None:
+        return redirect(url_for("home"))
+    return render_template("welcome.html")
 
 @app.route("/login")
 def login():
@@ -36,8 +39,10 @@ def auth_login():
     pd = request.form['pw']
     print(name, pd)
     if store.verifyUser(name, pd):
+        session['username'] = name
         return redirect(url_for("project"))
     else:
+        print("FLASH")
         flash("The username and password do not match")
         return redirect(url_for("login"))
 
@@ -46,14 +51,33 @@ def auth_register():
     form = request.form
     # print(form)
     if store.insertUser(form):
-        return redirect(url_for("project"))
+        return redirect(url_for("home"))
     else:
         flash("Username is already taken")
         return redirect(url_for("register"))
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for("index"))
+
+@app.route("/home")
+def home():
+    username=session.get('username')
+    if username == None:
+        return redirect(url_for("index"))
+    return render_template("home.html",user=username)
 
 @app.route("/project")
 def project():
     return render_template("project.html")
+
+@app.route("/account")
+def account():
+    return render_template("account.html")
+
+@app.route("/task")
+def task():
+    return render_template("task.html")
 
 if __name__ == "__main__":
     app.debug = True

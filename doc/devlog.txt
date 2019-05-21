@@ -50,3 +50,14 @@ weiwenZ -- 2019-05-20 12:20
 --------------------------------------------------------------
 - register and login working now
 - database insertion and verification for user/login verification
+
+jackL -- 2019-05-20 21:15
+--------------------------------------------------------------
+- fixed database error (autoincrement to rowid)
+- Proper session login/logout working
+- Implemented flashing messages in template
+
+mingM -- 2019-05-20 23:45
+--------------------------------------------------------------
+- Added remaining html pages
+- Added routing for new html pages
