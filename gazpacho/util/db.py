@@ -190,3 +190,6 @@ class Database:
             bool: True if successful, False otherwise
         """
         pass
+
+    def addMember(self, project, user):
+        pass
