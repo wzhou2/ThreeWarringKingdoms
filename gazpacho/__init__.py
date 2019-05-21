@@ -64,6 +64,8 @@ def logout():
 
 @app.route("/project")
 def project():
+    if session.get('username') == None:
+        return redirect(url_for("index"))
     return render_template("project.html")
 
 if __name__ == "__main__":
