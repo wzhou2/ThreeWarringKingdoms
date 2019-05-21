@@ -20,7 +20,7 @@ for name, cols in TABLES.items():
 
 @app.route("/")
 def index():
-    print( session.get('username') ) 
+    print( session.get('username') )
     if session.get('username') != None:
         return redirect(url_for("home"))
     return render_template("welcome.html")
@@ -40,9 +40,9 @@ def auth_login():
     print(name, pd)
     if store.verifyUser(name, pd):
         session['username'] = name
-        return redirect(url_for("project"))
+        return redirect(url_for("home"))
     else:
-        print("FLASH")
+        # print("FLASH")
         flash("The username and password do not match")
         return redirect(url_for("login"))
 

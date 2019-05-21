@@ -174,7 +174,7 @@ class Database:
         # print(info)
         if self.checkUser(info['user']):
             return False
-        values = [ info['user'], info['first'], info['last'], info['password'], 0, "", "", "" ]
+        values = [ info['user'], info['first'], info['last'], info['password'], 0, info['position'], "", "" ]
         # values = [ info['user'], info['password'] , info['num'] ]
 
         return self.insert("users", values)
