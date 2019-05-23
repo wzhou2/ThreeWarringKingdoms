@@ -69,3 +69,10 @@ weiwenZ -- 2019-05-21 13:00
 weiwenZ -- 2019-05-23 10:15
 --------------------------------------------------------------
 - Fix the path issue on the droplet
+
+weiwenZ -- 2019-05-23 12:00
+--------------------------------------------------------------
+- create demo for time.
+- functions for timestamps are written in timestamp.py
+- create a new table to hold the hours and days instead of 2
+columns in the users table.
