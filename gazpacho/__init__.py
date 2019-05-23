@@ -6,8 +6,12 @@ import os
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
+DIR = os.path.dirname(__file__) or '.'
+DIR += '/'
+DB_PATH = DIR + 'data/block.db'
+print(DB_PATH)
 # Database setup
-store = db.Database("./data/block.db")
+store = db.Database(DB_PATH)
 TABLES = {
     'users': ['user TEXT PRIMARY KEY', 'first TEXT', 'last TEXT', 'password TEXT', 'salary INTEGER', 'POSITION TEXT', 'HOURS TEXT', 'DAYS TEXT'],
     'projects': ['id INTEGER', 'name TEXT PRIMARY KEY', 'creator TEXT'],
