@@ -61,3 +61,11 @@ mingM -- 2019-05-20 23:45
 --------------------------------------------------------------
 - Added remaining html pages
 - Added routing for new html pages
+
+weiwenZ -- 2019-05-21 13:00
+--------------------------------------------------------------
+- Work on db and added position to form
+
+weiwenZ -- 2019-05-23 10:15
+--------------------------------------------------------------
+- Fix the path issue on the droplet
