@@ -70,6 +70,7 @@ def home():
     username=session.get('username')
     if username == None:
         return redirect(url_for("index"))
+    store.getProjects(username)
     return render_template("home.html",user=username)
 
 @app.route("/project")

@@ -4,9 +4,9 @@ class Database:
     """A class to faciliate database read/write.
     """
 
-    def __init__(self, file):
-        self.DB_FILE = file
-        self.conn = sqlite3.connect(file)
+    def __init__(self, f):
+        self.DB_FILE = f
+        self.conn = sqlite3.connect(f)
         self.conn.close()
 
     def openDB(func):
@@ -190,6 +190,14 @@ class Database:
             bool: True if successful, False otherwise
         """
         pass
+
+    @openDB
+    def getProjects(self, db, user):
+        """ Gets all projects a user is part of
+        """
+        # projects = get(user, )
+
+
 
     def addMember(self, project, user):
         pass

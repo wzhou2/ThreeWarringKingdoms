@@ -76,3 +76,8 @@ weiwenZ -- 2019-05-23 12:00
 - functions for timestamps are written in timestamp.py
 - create a new table to hold the hours and days instead of 2
 columns in the users table.
+
+jackL -- 2019-05-20 21:15
+--------------------------------------------------------------
+- worked on project table in database
+- worked on function to get all projects a user is part of
