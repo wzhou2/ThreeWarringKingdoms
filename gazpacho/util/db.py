@@ -174,10 +174,10 @@ class Database:
         # print(info)
         if self.checkUser(info['user']):
             return False
-        values = [ info['user'], info['first'], info['last'], info['password'], 0, info['position'], "", "" ]
+        values = [ info['user'], info['first'], info['last'], info['password'], 0, info['position'] ]
         # values = [ info['user'], info['password'] , info['num'] ]
-
-        return self.insert("users", values)
+        timeTable = [ info['user'], '', '', '', '', '', '', '']
+        return self.insert("users", values) and self.insert("schedules", timeTable)
 
     def createProject(self, project, creator):
         """ Adds a project into the table projects
