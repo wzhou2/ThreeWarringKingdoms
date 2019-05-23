@@ -25,24 +25,34 @@ for name, cols in TABLES.items():
 
 @app.route("/")
 def index():
-    print( session.get('username') )
+    """Returns the welcome page if there is
+    a user in session, otherwise return the
+    register/login page.
+    """
+    # print( session.get('username') )
     if session.get('username') != None:
         return redirect(url_for("home"))
     return render_template("welcome.html")
 
 @app.route("/login")
 def login():
+    """ Returns the login form
+    """
     return render_template("login.html")
 
 @app.route("/register")
 def register():
+    """ Returns the register form
+    """
     return render_template("register.html")
 
 @app.route("/auth_login", methods=['POST'])
 def auth_login():
+    """ Verifiy the login information
+    """
     name = request.form['username']
     pd = request.form['pw']
-    print(name, pd)
+    # print(name, pd)
     if store.verifyUser(name, pd):
         session['username'] = name
         return redirect(url_for("home"))
@@ -53,6 +63,8 @@ def auth_login():
 
 @app.route("/auth_register", methods=['POST'])
 def auth_register():
+    """ Inserts the user into database if valid
+    """
     form = request.form
     # print(form)
     if store.insertUser(form):
@@ -60,28 +72,36 @@ def auth_register():
     else:
         flash("Username is already taken")
         return redirect(url_for("register"))
+
 @app.route('/logout')
 def logout():
-    session.clear()
+    """ Logs the user out and clears the session info
+    """
+    session.pop('username', None)
     return redirect(url_for("index"))
 
 @app.route("/home")
 def home():
-    username=session.get('username')
-    if username == None:
+    if session['username'] == None:
         return redirect(url_for("index"))
-    return render_template("home.html",user=username)
+    return render_template("home.html")
 
 @app.route("/project")
 def project():
+    """ Returns the project page
+    """
     return render_template("project.html")
 
 @app.route("/account")
 def account():
+    """ Returns the account page
+    """
     return render_template("account.html")
 
 @app.route("/task")
 def task():
+    """ Return the task creation page
+    """
     return render_template("task.html")
 
 if __name__ == "__main__":
