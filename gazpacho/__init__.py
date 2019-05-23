@@ -84,6 +84,7 @@ def logout():
 def home():
     if session['username'] == None:
         return redirect(url_for("index"))
+    projects = store.getProjects(session['username'])
     return render_template("home.html")
 
 @app.route("/project")
