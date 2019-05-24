@@ -206,7 +206,12 @@ class Database:
         Returns:
             list: the schedule
         """
-        pass
+        contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user))[0][0]
+        print(contain)
+    # def get(self, db, name, *cols, **conditions):
+        
+        # sch = self.get( 'schedules' )
+
 
     def createProject(self, project, creator):
         """ Adds a project into the table projects

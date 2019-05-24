@@ -66,8 +66,9 @@ def auth_register():
     """ Inserts the user into database if valid
     """
     form = request.form
-    # print(form)
+    name = form['user']
     if store.insertUser(form):
+        session['username'] = name
         return redirect(url_for("home"))
     else:
         flash("Username is already taken")
@@ -82,7 +83,10 @@ def logout():
 
 @app.route("/home")
 def home():
-    if session['username'] == None:
+    # print( session.get('username') )
+    # print( session['username'] )
+    print( session )
+    if session.get('username') == None:
         return redirect(url_for("index"))
     projects = store.getProjects(session['username'])
     return render_template("home.html")
