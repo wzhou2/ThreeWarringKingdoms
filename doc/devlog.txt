@@ -77,7 +77,14 @@ weiwenZ -- 2019-05-23 12:00
 - create a new table to hold the hours and days instead of 2
 columns in the users table.
 
-jackL -- 2019-05-20 21:15
+jackL -- 2019-05-23 14:00
 --------------------------------------------------------------
 - worked on project table in database
 - worked on function to get all projects a user is part of
+
+weiwenZ -- 2019-05-24 12:20
+--------------------------------------------------------------
+- wrote the method names and docstrings for projects and schedules table
+- using row number for id
+- wrote the function names and docstrings for conversion between
+string and list
