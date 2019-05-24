@@ -206,10 +206,10 @@ class Database:
         Returns:
             list: the schedule
         """
-        contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user))[0][0]
-        print(contain)
-    # def get(self, db, name, *cols, **conditions):
-        
+        #contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user))[0][0]
+        # def get(self, db, name, *cols, **conditions):
+
+        print(user) 
         # sch = self.get( 'schedules' )
 
 
@@ -265,3 +265,6 @@ class Database:
         pass
 
     # RECORD TABLE METHODS
+if __name__ == "__main__":
+    pass
+

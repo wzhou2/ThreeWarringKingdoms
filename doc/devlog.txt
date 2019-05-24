@@ -88,3 +88,8 @@ weiwenZ -- 2019-05-24 12:20
 - using row number for id
 - wrote the function names and docstrings for conversion between
 string and list
+
+jackL -- 2019-05-24 14:07
+--------------------------------------------------------------
+- fixed bug with registering new user
+- worked on getting schedule from database
