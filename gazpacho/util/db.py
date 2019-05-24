@@ -160,24 +160,53 @@ class Database:
 
         return contain != 0
 
-    def insertUser(self, *info):
+    def insertUser(self, info):
         """ Adds a row entry into the table of users
 
         Args:
-            **info : Dictionary of user inputted information
+            info : Dictionary of user inputted information
 
         Returns:
             bool: True if successful, False otherwise
 
         """
-        info = info[0]
         # print(info)
         if self.checkUser(info['user']):
             return False
+
         values = [ info['user'], info['first'], info['last'], info['password'], 0, info['position'] ]
-        # values = [ info['user'], info['password'] , info['num'] ]
         timeTable = [ info['user'], '', '', '', '', '', '', '']
+
         return self.insert("users", values) and self.insert("schedules", timeTable)
+
+    def updateSchedule(self, user, updates):
+        """ Updates the hours for an user
+
+        Args:
+            user (str): The name of the user
+            updates (dict): a dictionary of weekdays to update
+
+        Returns:
+            bool: True if successful, False otherwise
+
+        Raises:
+            - ValueError: if updates (dict) does not contain any
+            valid keys
+        Notes:
+            - only the days of week are valid keys in updates (dict)
+        """
+        pass
+
+    def getSchedule(self, user):
+        """ Get the schedule of the user
+
+        Args:
+            user (str): The name of the user
+
+        Returns:
+            list: the schedule
+        """
+        pass
 
     def createProject(self, project, creator):
         """ Adds a project into the table projects
@@ -191,13 +220,43 @@ class Database:
         """
         pass
 
-    @openDB
-    def getProjects(self, db, user):
+    def getProjects(self, user):
         """ Gets all projects a user is part of
+
+        Args:
+            user (str): The name of the user
+
+        Returns:
+            list: list of projects
         """
-        # projects = get(user, )
-
-
-
-    def addMember(self, project, user):
         pass
+
+    def addMembers(self, project, *user):
+        """ Adds new users to the project
+
+        Args:
+            project (str): the name of the project
+            *user : a variable number of new users to add to projects
+
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        pass
+
+    def removeMembers(self, project, *user):
+        """ Removes the users from the project
+
+        Args:
+            project (str): the name of the project
+            *user : a variable number of users to remove from the project
+
+        Returns:
+            bool: True if successful, False otherwise
+
+        Raises:
+            - ValueError: if a user requested to be removed is not in
+            the project
+        """
+        pass
+
+    # RECORD TABLE METHODS
