@@ -11,11 +11,18 @@
     </ul>
   </nav>
 <h2>Account Info:</h2>
+{% if userloggedin and noteditableyet %}
 <a class="btn btn-primary" href="account" role="button">Edit Profile</a>
+{% endif %}
 <br>
+{% if newuser %}
 Name :{{name}}<br>
 Profession: {{profession}}<br>
 Salary: {{salary}}<br>
 Seniority: {{seniority}}<!--based off of years worked--><br>
+{% else %}
+<a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Create your profile here</a>
+
+{% endif %}
 {% endblock %}
 

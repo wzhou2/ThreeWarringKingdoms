@@ -2,3 +2,8 @@
     /* Removes link underline from title link to landing */
     text-decoration: none;
 }
+.container {
+height: 500px;
+overflow:hidden
+
+}
