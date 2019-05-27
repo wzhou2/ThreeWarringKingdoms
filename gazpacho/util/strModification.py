@@ -15,7 +15,20 @@ def stringToList(str, seperator=","):
     >> stringToList("0,cow")
     ["0", "cow"]
     """
-    pass
+    if str=="":
+        return []
+    if seperator not in str:
+        return [str]
+    a=[]
+    i=0
+    start=0
+    str+=","
+    while i<len(str):
+        if str[i]==seperator:
+            a.append(str[start:i])
+            start=i+1
+        i+=1
+    return a
 
 def listToString(list, seperator=","):
     """ Converts a list to a string
@@ -34,4 +47,13 @@ def listToString(list, seperator=","):
     >> listToString(["0","cow"])
     "0,cow"
     """
-    pass
+    a=""
+    if len(list)==0:
+        return a
+    if len(list)==1:
+        return str(list[0])
+    for i in list:
+        a+=str(i)
+        a+=","
+    return a[:-1]
+        
