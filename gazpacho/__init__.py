@@ -101,6 +101,9 @@ def project():
 def account():
     """ Returns the account page
     """
+    #if store.get('block.db',session['username'],salary,0):
+    #    return render_template("account.html")
+    #return render_template("account.html",editable=True)  ## not sure how db conditionals work 
     return render_template("account.html")
 
 @app.route("/task")
