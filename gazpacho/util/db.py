@@ -195,7 +195,8 @@ class Database:
         Notes:
             - only the days of week are valid keys in updates (dict)
         """
-        pass
+        values = [ updates['monday'], updates['tuesday'], updates['wednesday'], updates['thursday'], updates['friday'], updates['saturday'], updates['sunday']]
+        return self.insert("schedules", values)
 
     def getSchedule(self, user):
         """ Get the schedule of the user
@@ -206,12 +207,24 @@ class Database:
         Returns:
             list: the schedule
         """
-        #contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user))[0][0]
-        # def get(self, db, name, *cols, **conditions):
+        # contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user), b = "AND password = '{}'".format(password))[0][0]
 
-        print(user) 
-        # sch = self.get( 'schedules' )
+        sch = self.get( 'schedules', '*', a = "WHERE user = '{}'".format(user))
+        return sch
 
+
+    def checkProject(self, project_name):
+        """Checks if the project is in the the database
+
+        Args:
+            project (str): The name of the user
+
+        Return:
+            bool : True if user exists in database, False otherwise
+        """
+        contain = self.get("projects", "count(name)", a = "WHERE name = '{}'".format(project_name))[0][0]
+
+        return contain != 0
 
     def createProject(self, project, creator):
         """ Adds a project into the table projects
@@ -223,7 +236,11 @@ class Database:
         Returns:
             bool: True if successful, False otherwise
         """
-        pass
+        if self.checkProject(project):
+            # already exist
+            return False
+        values = [project, creator, '']
+        return self.insert('projects', values)
 
     def getProjects(self, user):
         """ Gets all projects a user is part of
@@ -234,7 +251,8 @@ class Database:
         Returns:
             list: list of projects
         """
-        pass
+        projects = self.get("projects", "*", a = "WHERE name = '{}'".format(user))
+        return projects
 
     def addMembers(self, project, *user):
         """ Adds new users to the project
@@ -246,7 +264,11 @@ class Database:
         Returns:
             bool: True if successful, False otherwise
         """
-        pass
+
+        p = self.get("projects", "*", a = "WHERE name = '{}'".format(project))[0]
+        values = [project, p[1], users]
+        
+        return self.insert(project, values)
 
     def removeMembers(self, project, *user):
         """ Removes the users from the project
@@ -262,7 +284,16 @@ class Database:
             - ValueError: if a user requested to be removed is not in
             the project
         """
-        pass
+        info = self.get("projects", "members", a = "WHERE name = '{}'".format(project))[0]
+        userlist = info[2].split(',')
+        for u in user:
+            try:
+                userlist.remove(u)
+            except:
+                print("user not in list")
+        values = [project, info[1], userlist]
+        return self.insert('projects', values)
+
 
     # RECORD TABLE METHODS
 if __name__ == "__main__":

@@ -98,3 +98,9 @@ mingM -- 2019-05-26 23:45
 --------------------------------------------------------------
 - Added style.css
 - Applied more session variables to templates
+
+JackL -- 2019-05-28 02:59
+--------------------------------------------------------------
+- Completed functions in util/db.py untested
+    - Schedule db functions
+    - Project db functions
