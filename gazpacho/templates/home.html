@@ -10,7 +10,7 @@
       <a class="nav-item nav-link" href="logout">Logout</a>
     </ul>
   </nav>
-Welcome, {{user}}
+Welcome, {{session["username"]}}
 <div class="card" style="width: 18rem;">
   <div class="card-header">
     Featured
@@ -23,4 +23,3 @@ Welcome, {{user}}
 </div>
 <a class="btn btn-primary" href="project" role="button">Create Project</a>
 {% endblock %}
-
