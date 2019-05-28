@@ -111,7 +111,11 @@ def task():
     """ Return the task creation page
     """
     return render_template("task.html")
-
+@app.route("/schedule")
+def schedule():
+    """Return the schedule page
+    """
+    return render_template("schedule.html")
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0")
