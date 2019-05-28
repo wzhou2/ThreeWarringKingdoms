@@ -174,7 +174,7 @@ class Database:
         if self.checkUser(info['user']):
             return False
 
-        values = [ info['user'], info['first'], info['last'], info['password'], 0, info['position'] ]
+        values = [ info['user'], info['first'], info['last'], info['password'] ]
         timeTable = [ info['user'], '', '', '', '', '', '', '']
 
         return self.insert("users", values) and self.insert("schedules", timeTable)

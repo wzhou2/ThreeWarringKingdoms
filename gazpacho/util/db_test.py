@@ -4,22 +4,28 @@ from db import *
 # d = data.get("users", "*", "WHERE user='asd'")
 # print(d)
 
-# data = Database("test.db")
-# a = data.tableInDB('d')
-# # print(a)
-# vals = ['cow', 'dog', 'peep', 'a']
-# args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT"]
-# b = data.createTable("users", *args)
-# c = data.insert("users", vals)
+data = Database("test.db")
+a = data.tableInDB('d')
+# print(a)
 
-# d = data.get("users", "user", "password")
-# e = data.checkUser("a")
-# dict = {
-#     "user": "c",
-#     "password": "b",
-#     "num" : 10
-# }
-# f = data.insertUser(dict)
+# CREATE TABLE and INSERT USER
+# vals = ['userna', 'ja', 'ck', 'pw']
+# args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT"]
+# b = data.createTable("test_user", *args)
+# c = data.insert("test_user", vals)
+
+# GET USER
+d = data.get("users", "user", "password")
+print(d)
+e = data.checkUser("c")
+print(e)
+di = {
+    "user": "c",
+    "first": "frist",
+    "last": "lsat",
+    "password": "b",
+}
+f = data.insertUser(di)
 
 # def test(*a):
 #     print(a)
