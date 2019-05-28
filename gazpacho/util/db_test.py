@@ -8,24 +8,33 @@ data = Database("test.db")
 a = data.tableInDB('d')
 # print(a)
 
-# CREATE TABLE and INSERT USER
+'''
+create table and insert stuff, check for existing tables
+'''
 # vals = ['userna', 'ja', 'ck', 'pw']
 # args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT"]
 # b = data.createTable("test_user", *args)
 # c = data.insert("test_user", vals)
 
-# GET USER
-d = data.get("users", "user", "password")
-print(d)
-e = data.checkUser("c")
-print(e)
-di = {
-    "user": "c",
-    "first": "frist",
-    "last": "lsat",
-    "password": "b",
-}
-f = data.insertUser(di)
+'''
+get and insert users, check for existing
+'''
+# d = data.get("users", "user", "password")
+# print(d)
+# e = data.checkUser("c")
+# print(e)
+# di = {
+#     "user": "c",
+#     "first": "frist",
+#     "last": "lsat",
+#     "password": "b",
+# }
+# f = data.insertUser(di)
+
+'''
+test updating schedule
+'''
+
 
 # def test(*a):
 #     print(a)

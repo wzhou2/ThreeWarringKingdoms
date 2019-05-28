@@ -104,3 +104,9 @@ JackL -- 2019-05-28 02:59
 - Completed functions in util/db.py untested
     - Schedule db functions
     - Project db functions
+
+JackL -- 2019-05-28 14:00
+--------------------------------------------------------------
+- Testing all database functions (WIP)
+    - Done testing creating table and inserting into table
+    - Done testing user related DB functions
