@@ -172,12 +172,14 @@ class Database:
             bool: True if successful, False otherwise
 
         """
-        # print(info)
+        print(info)
         if self.checkUser(info[USER]):
             return False
 
         values = [ info[USER], info[FIRST], info[LAST], info[PASSWORD], 0, info[POSITION] ]
         timeTable = [ info[USER], '', '', '', '', '', '', '']
+        print("VALUES")
+        print(values)
 
         a = self.insert("users", values)
         b = self.insert("schedules", timeTable)
