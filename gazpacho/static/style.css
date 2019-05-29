@@ -7,3 +7,7 @@
     height: 600px;
     overflow:hidden
 }
+
+li {
+    height: 10px
+}
