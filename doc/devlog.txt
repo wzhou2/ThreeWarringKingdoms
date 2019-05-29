@@ -111,6 +111,10 @@ JackL -- 2019-05-28 14:00
     - Done testing creating table and inserting into table
     - Done testing user related DB functions
 
-mingM -- 2019-05-29 23:20
+mingM -- 2019-05-28 23:20
 --------------------------------------------------------------
 - Fixed styling on templates
+
+weiwenZ -- 2019-05-29 6:30
+--------------------------------------------------------------
+- added launch instructions to the README
