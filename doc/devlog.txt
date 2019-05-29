@@ -110,3 +110,7 @@ JackL -- 2019-05-28 14:00
 - Testing all database functions (WIP)
     - Done testing creating table and inserting into table
     - Done testing user related DB functions
+
+mingM -- 2019-05-29 23:20
+--------------------------------------------------------------
+- Fixed styling on templates
