@@ -123,4 +123,9 @@ weiwenZ -- 2019-05-29 11:55
 --------------------------------------------------------------
 - edit login/register form input names to be consistent with backend
 - constants.py to store constants for easy integration and consistency
-- register is broken for db. 
+- register is broken for db.
+
+weiwenZ -- 2019-05-29 14:05
+--------------------------------------------------------------
+- fix register function. salary and position were missing
+- remember to print error message when catching ERRORS or else it disappears

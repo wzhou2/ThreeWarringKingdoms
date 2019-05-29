@@ -92,9 +92,10 @@ class Database:
 
         # print(command)
         try:
+            # print(command)
             c.execute(command, values)
         except (sqlite3.OperationalError):
-            # print("Oopsies")
+            print("Sqlite3 insertion error check command")
             return False
         return True
 
@@ -175,10 +176,15 @@ class Database:
         if self.checkUser(info[USER]):
             return False
 
-        values = [ info[USER], info[FIRST], info[LAST], info[PASSWORD] ]
+        values = [ info[USER], info[FIRST], info[LAST], info[PASSWORD], 0, info[POSITION] ]
         timeTable = [ info[USER], '', '', '', '', '', '', '']
 
-        return self.insert("users", values) and self.insert("schedules", timeTable)
+        a = self.insert("users", values)
+        b = self.insert("schedules", timeTable)
+        c = a and b
+
+        # print(a, b, c)
+        return c
 
     def updateSchedule(self, user, updates):
         """ Updates the hours for an user
