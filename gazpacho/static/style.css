@@ -2,6 +2,7 @@
     /* Removes link underline from title link to landing */
     text-decoration: none;
 }
+
 .container {
 height: 600px;
 overflow:hidden
