@@ -171,14 +171,24 @@ class Database:
             bool: True if successful, False otherwise
 
         """
-        # print(info)
+        print(info)
         if self.checkUser(info[USER]):
             return False
 
         values = [ info[USER], info[FIRST], info[LAST], info[PASSWORD] ]
         timeTable = [ info[USER], '', '', '', '', '', '', '']
+        print("VALUES")
+        print(values)
 
-        return self.insert("users", values) and self.insert("schedules", timeTable)
+        if self.insert("schedules", timeTable) != True:
+            print("ISNERT sched")
+            return False
+        if self.insert("users", values) != True:
+            print("ISNERT USER")
+            return False
+        return True
+
+        # return self.insert("users", values) and self.insert("schedules", timeTable)
 
     def updateSchedule(self, user, updates):
         """ Updates the hours for an user
