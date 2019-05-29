@@ -1,4 +1,5 @@
 import sqlite3
+from util.constants import *
 
 class Database:
     """A class to faciliate database read/write.
@@ -171,11 +172,11 @@ class Database:
 
         """
         # print(info)
-        if self.checkUser(info['user']):
+        if self.checkUser(info[USER]):
             return False
 
-        values = [ info['user'], info['first'], info['last'], info['password'] ]
-        timeTable = [ info['user'], '', '', '', '', '', '', '']
+        values = [ info[USER], info[FIRST], info[LAST], info[PASSWORD] ]
+        timeTable = [ info[USER], '', '', '', '', '', '', '']
 
         return self.insert("users", values) and self.insert("schedules", timeTable)
 
@@ -267,7 +268,7 @@ class Database:
 
         p = self.get("projects", "*", a = "WHERE name = '{}'".format(project))[0]
         values = [project, p[1], users]
-        
+
         return self.insert(project, values)
 
     def removeMembers(self, project, *user):
@@ -296,6 +297,3 @@ class Database:
 
 
     # RECORD TABLE METHODS
-if __name__ == "__main__":
-    pass
-

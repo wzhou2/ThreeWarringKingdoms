@@ -1,7 +1,7 @@
+import os
 from flask import Flask, render_template, request, session, url_for, redirect, flash, send_file
 from util import db
-# from util import exceptions
-import os
+from util.constants import *
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -11,13 +11,9 @@ DIR += '/'
 DB_PATH = DIR + 'data/block.db'
 print(DB_PATH)
 # Database setup
+
 store = db.Database(DB_PATH)
-TABLES = {
-    'users': ['user TEXT PRIMARY KEY', 'first TEXT', 'last TEXT', 'password TEXT', 'salary INTEGER', 'POSITION TEXT'],
-    'projects': [ 'name TEXT PRIMARY KEY', 'creator TEXT', 'members TEXT'],
-    'schedules': ['user TEXT PRIMARY KEY', 'monday TEXT', 'tuesday TEXT', 'wednesday TEXT', 'thursday TEXT', 'friday TEXT', 'saturday TEXT', 'sunday TEXT'],
-    'record' : ['target TEXT', 'initated_by TEXT', 'type TEXT', 'description TEXT', 'id INTEGER', 'timeStamp INTEGER', 'message TEXT', 'view_level INTEGER']
-}
+
 for name, cols in TABLES.items():
     # print(name, cols)
     state = store.createTable(name, *cols)
@@ -30,7 +26,7 @@ def index():
     register/login page.
     """
     # print( session.get('username') )
-    if session.get('username') != None:
+    if session.get(USER) != None:
         return redirect(url_for("home"))
     return render_template("welcome.html")
 
@@ -50,11 +46,11 @@ def register():
 def auth_login():
     """ Verifiy the login information
     """
-    name = request.form['username']
-    pd = request.form['pw']
+    name = request.form[USER]
+    pd = request.form[PASSWORD]
     # print(name, pd)
     if store.verifyUser(name, pd):
-        session['username'] = name
+        session[USER] = name
         return redirect(url_for("home"))
     else:
         # print("FLASH")
@@ -66,9 +62,9 @@ def auth_register():
     """ Inserts the user into database if valid
     """
     form = request.form
-    name = form['user']
+    name = form[USER]
     if store.insertUser(form):
-        session['username'] = name
+        session[USER] = name
         return redirect(url_for("home"))
     else:
         flash("Username is already taken")
@@ -78,17 +74,17 @@ def auth_register():
 def logout():
     """ Logs the user out and clears the session info
     """
-    session.pop('username', None)
+    session.pop(USER, None)
     return redirect(url_for("index"))
 
 @app.route("/home")
 def home():
     # print( session.get('username') )
     # print( session['username'] )
-    print( session )
-    if session.get('username') == None:
+    # print( session )
+    if session.get(USER) == None:
         return redirect(url_for("index"))
-    projects = store.getProjects(session['username'])
+    projects = store.getProjects(session[USER])
     return render_template("home.html")
 
 @app.route("/project")
@@ -103,7 +99,7 @@ def account():
     """
     #if store.get('block.db',session['username'],salary,0):
     #    return render_template("account.html")
-    #return render_template("account.html",editable=True)  ## not sure how db conditionals work 
+    #return render_template("account.html",editable=True)  ## not sure how db conditionals work
     return render_template("account.html")
 
 @app.route("/task")
