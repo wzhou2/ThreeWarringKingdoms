@@ -118,3 +118,9 @@ mingM -- 2019-05-28 23:20
 weiwenZ -- 2019-05-29 6:30
 --------------------------------------------------------------
 - added launch instructions to the README
+
+weiwenZ -- 2019-05-29 11:55
+--------------------------------------------------------------
+- edit login/register form input names to be consistent with backend
+- constants.py to store constants for easy integration and consistency
+- register is broken for db. 
