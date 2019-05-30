@@ -166,9 +166,10 @@ class Database:
         Return:
             bool : True if user exists in database, False otherwise
         """
-        contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user))[0][0]
+        in_User = self.get(USER_TABLE, "count(user)", a = "WHERE user = '{}'".format(user))[0][0]
+        in_Schedule = self.get(SCHEDULES_TABLE, "count(user)", a = "WHERE user = '{}'".format(user))[0][0]
 
-        return contain != 0
+        return in_User + in_Schedule != 0
 
     def verifyUser(self, user, password):
         """ Verifies that the user is
@@ -188,7 +189,7 @@ class Database:
         return contain != 0
 
     def insertUser(self, info):
-        """ Adds a row entry into the table of users
+        """ Adds a row entry into the table of users and schedules
 
         Args:
             info : Dictionary of user inputted information
@@ -201,7 +202,7 @@ class Database:
         if self.checkUser(info[USER]):
             return False
 
-        values = [ info[USER], info[FIRST], info[LAST], info[PASSWORD], info[SALARY], info[POSITION] ]
+        values = [ info[USER], info[FIRST], info[LAST], info[PASSWORD], 0, info[POSITION] ]
         timeTable = [ info[USER], '', '', '', '', '', '', '']
         print("VALUES")
         print(values)
