@@ -140,3 +140,8 @@ weiwenz -- 2019-05-30 13:25
 --------------------------------------------------------------
 - added access level to constants
 - fix insertUser issue where salary is not given at registrations
+
+JackL -- 2019-05-30 14:04
+--------------------------------------------------------------
+- Added getUser
+- Working on project db functions
