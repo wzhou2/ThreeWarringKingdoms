@@ -145,3 +145,11 @@ JackL -- 2019-05-30 14:04
 --------------------------------------------------------------
 - Added getUser
 - Working on project db functions
+
+weiwenZ -- 2019-05-30 14:30
+--------------------------------------------------------------
+- remove li leftover
+- rework the navbar in templates.html
+    - align to the right
+    - if else block on the navbar that changes the item depending on
+    whether there is a user logged in
