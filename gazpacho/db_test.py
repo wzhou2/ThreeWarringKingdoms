@@ -59,8 +59,9 @@ sch = {
         'saturday': 'a5',
         'sunday': 'a6',
         }
-s = data.updateSchedule( 'test1', sch )
-print(s)
+# s = data.updateSchedule( 'test0', sch )
+gets = data.getSchedule('test1')
+print(gets)
 
 
 

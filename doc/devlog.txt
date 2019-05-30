@@ -129,3 +129,9 @@ weiwenZ -- 2019-05-29 14:05
 --------------------------------------------------------------
 - fix register function. salary and position were missing
 - remember to print error message when catching ERRORS or else it disappears
+
+JackL -- 2019-05-30 01:24
+--------------------------------------------------------------
+- Added new function update
+    - Updates specified values given user, table and new values
+- Tested and debugged functions in line order up to updateSchedule and getSchedule

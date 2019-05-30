@@ -145,7 +145,17 @@ class Database:
             bool: True if update succeeds
 
         """
-        pass
+        values = ",".join( [ "=".join([x, "'" + updates[x] + "'"]) for x in updates] )
+        print(values)
+        command = "UPDATE {} SET {} WHERE user='{}'".format(table, values, user)
+        print(command)
+        c = db.cursor()
+        try:
+            c.execute(command)
+            return True
+        except:
+            print('insert schedule error')
+            return False
 
     def checkUser(self, user):
         """Checks if the user is in the the database
@@ -220,25 +230,8 @@ class Database:
         Notes:
             - only the days of week are valid keys in updates (dict)
         """
-        # current = self.get('schedules', '*', a = "WHERE user = '{}'".format(user))
-        # print(current)
-        # print(updates)
+        return self.update( user, 'schedules', updates )
 
-        values = ",".join( [ "=".join([day, "'" + updates[day] + "'"]) for day in updates] )
-        print(values)
-        command = "UPDATE {} SET {} WHERE user='{}'".format('schedules', values, user)
-        print(command)
-        c = db.cursor()
-        try:
-            c.execute(command)
-            return True
-        except:
-            print('insert schedule error')
-            return False
-        # values = [ updates['monday'], updates['tuesday'], updates['wednesday'], updates['thursday'], updates['friday'], updates['saturday'], updates['sunday']]
-        # print(updates)
-        # print(values)
-        # return self.insert("schedules", values)
 
     def getSchedule(self, user):
         """ Get the schedule of the user
@@ -251,7 +244,7 @@ class Database:
         """
         # contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user), b = "AND password = '{}'".format(password))[0][0]
 
-        sch = self.get( 'schedules', '*', a = "WHERE user = '{}'".format(user))
+        sch = self.get( 'schedules', '*', a = "WHERE user = '{}'".format(user))[0]
         return sch
 
 
