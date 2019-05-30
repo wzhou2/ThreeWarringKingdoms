@@ -1,5 +1,7 @@
 import sqlite3
 from util.constants import *
+from util.timestamp import *
+
 
 class Database:
     """A class to faciliate database read/write.
@@ -274,21 +276,42 @@ class Database:
 
         return contain != 0
 
-    def createProject(self, project, creator):
+    def createProject(self, project_name, creator, record_info):
         """ Adds a project into the table projects
+            Adds a row to records table corresponding to project entry
 
         Args:
-            project (str): The name of the project
+            project_name (str): The name of the project
             creator (str): The user who is creating the project
+            record_info (dict): specifies details of project (filled out by form)
 
         Returns:
             bool: True if successful, False otherwise
         """
-        if self.checkProject(project):
+        if self.checkProject(project_name):
             # already exist
             return False
-        values = [project, creator, '']
-        return self.insert('projects', values)
+        values = [project_name, creator, '']
+        if self.insert('projects', values) != True:
+            print('insert project fail')
+            return False
+        if self.createRecord(creator, record_info) != True:
+            print('insert record fail')
+            return False
+        return True
+        # return self.insert('projects', values)
+
+    def createRecord(self, creator, info):
+        """ inserts row in record table corresponding to a project
+
+        Args:
+            creator (str): name of creator
+            info (dict): dict of info to be inserted
+
+        Returns:
+            bool: True if successful
+        """
+        pass
 
     def getProjects(self, user):
         """ Gets all projects a user is part of
