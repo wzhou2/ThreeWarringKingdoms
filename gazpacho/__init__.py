@@ -91,6 +91,8 @@ def home():
 def project():
     """ Returns the project page
     """
+    if session.get(USER) == None:
+        return redirect(url_for("index"))
     return render_template("project.html")
 
 @app.route("/account")
@@ -100,12 +102,16 @@ def account():
 ##    if store.get('block.db',session['username'],salary,WHERE salary != 0):
 ##        return render_template("account.html")
 ##    return render_template("account.html",editable=True)
+    if session.get(USER) == None:
+        return redirect(url_for("index"))
     return render_template("account.html")
 
 @app.route("/task")
 def task():
     """ Return the task creation page
     """
+    if session.get(USER) == None:
+        return redirect(url_for("index"))
     return render_template("task.html")
 
 @app.route("/schedule")
@@ -113,6 +119,11 @@ def schedule():
     """Return the schedule page
     """
     return render_template("schedule.html")
+@app.route("/inbox")
+def inbox():
+    """Return the messages
+    """
+    return render_template("inbox.html")
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0")
