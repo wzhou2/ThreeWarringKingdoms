@@ -213,7 +213,19 @@ class Database:
         # print(a, b, c)
         return c
 
-    @openDB
+    def getUser(self, user):
+        """ Gets first and last name of user
+
+        Args:
+            Username (str)
+
+        Returns:
+            List of info [user, first, last]
+        """
+        info = self.get("users", "first, last", a = "WHERE user = '{}'".format(user))[0]
+        print(info)
+        return info
+
     def updateSchedule(self, db, user, updates):
         """ Updates the hours for an user
 

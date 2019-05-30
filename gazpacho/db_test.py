@@ -27,6 +27,7 @@ get
 checkUser
 insertUser
 verifyuser
+getUser
 '''
 # d = data.get("users", "user", "password")
 # print(d)
@@ -44,6 +45,7 @@ verifyuser
 # print(f)
 # ver = data.verifyUser( 'test1', 'cba' )
 # print(ver)
+# guser = data.getUser('test1')
 
 '''
 updateSchedule
@@ -60,8 +62,8 @@ sch = {
         'sunday': 'a6',
         }
 # s = data.updateSchedule( 'test0', sch )
-gets = data.getSchedule('test1')
-print(gets)
+# gets = data.getSchedule('test1')
+# print(gets)
 
 
 
