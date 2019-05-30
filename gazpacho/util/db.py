@@ -124,13 +124,28 @@ class Database:
             # print(conditionals)
             command += " " + conditionals
 
-        print(command)
+        # print(command)
         c.execute(command)
 
         result = c.fetchall()
         # print(result)
 
         return result
+
+    @openDB
+    def update(self, db, user, table, updates):
+        """ Updates select columns for a specified user. Update schedule or user info.
+
+        Args:
+            user (str): name of user
+            table (str): table being updated
+            updates (dict): dict of column name and new values
+
+        Return:
+            bool: True if update succeeds
+
+        """
+        pass
 
     def checkUser(self, user):
         """Checks if the user is in the the database
@@ -176,7 +191,7 @@ class Database:
         if self.checkUser(info[USER]):
             return False
 
-        values = [ info[USER], info[FIRST], info[LAST], info[PASSWORD], 0, info[POSITION] ]
+        values = [ info[USER], info[FIRST], info[LAST], info[PASSWORD], info[SALARY], info[POSITION] ]
         timeTable = [ info[USER], '', '', '', '', '', '', '']
         print("VALUES")
         print(values)
@@ -188,7 +203,8 @@ class Database:
         # print(a, b, c)
         return c
 
-    def updateSchedule(self, user, updates):
+    @openDB
+    def updateSchedule(self, db, user, updates):
         """ Updates the hours for an user
 
         Args:
@@ -204,8 +220,25 @@ class Database:
         Notes:
             - only the days of week are valid keys in updates (dict)
         """
-        values = [ updates['monday'], updates['tuesday'], updates['wednesday'], updates['thursday'], updates['friday'], updates['saturday'], updates['sunday']]
-        return self.insert("schedules", values)
+        # current = self.get('schedules', '*', a = "WHERE user = '{}'".format(user))
+        # print(current)
+        # print(updates)
+
+        values = ",".join( [ "=".join([day, "'" + updates[day] + "'"]) for day in updates] )
+        print(values)
+        command = "UPDATE {} SET {} WHERE user='{}'".format('schedules', values, user)
+        print(command)
+        c = db.cursor()
+        try:
+            c.execute(command)
+            return True
+        except:
+            print('insert schedule error')
+            return False
+        # values = [ updates['monday'], updates['tuesday'], updates['wednesday'], updates['thursday'], updates['friday'], updates['saturday'], updates['sunday']]
+        # print(updates)
+        # print(values)
+        # return self.insert("schedules", values)
 
     def getSchedule(self, user):
         """ Get the schedule of the user
