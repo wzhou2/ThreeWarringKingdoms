@@ -135,3 +135,8 @@ JackL -- 2019-05-30 01:24
 - Added new function update
     - Updates specified values given user, table and new values
 - Tested and debugged functions in line order up to updateSchedule and getSchedule
+
+weiwenz -- 2019-05-30 13:25
+--------------------------------------------------------------
+- added access level to constants
+- fix insertUser issue where salary is not given at registrations

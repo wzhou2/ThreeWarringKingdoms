@@ -19,5 +19,12 @@ PASSWORD = "password"
 SALARY = "salary"
 POSITION = "position"
 
+# ACCESS LEVEL
+ACCESS = {
+    'Employee': 0,
+    'Admin': 1
+}
+
+
 if __name__ == "__main__":
     print(TABLES)
