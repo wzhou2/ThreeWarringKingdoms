@@ -153,3 +153,11 @@ weiwenZ -- 2019-05-30 14:30
     - align to the right
     - if else block on the navbar that changes the item depending on
     whether there is a user logged in
+
+weiwenZ -- 2019-05-31 0:23
+--------------------------------------------------------------
+- added apache2 launch instructions to README
+
+mingM -- 2019-05-31 7:42
+--------------------------------------------------------------
+- Attempted adding sessions to templates

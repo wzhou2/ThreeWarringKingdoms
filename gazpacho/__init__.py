@@ -99,13 +99,14 @@ def project():
 def account():
     """ Returns the account page
     """
-##    if store.get('block.db',session['username'],salary,WHERE salary != 0):
-##        return render_template("account.html")
-##    return render_template("account.html",editable=True)
     if session.get(USER) == None:
         return redirect(url_for("index"))
     return render_template("account.html", info = store.getUser(session[USER]))
 
+##    if store.get('block.db',session[USER],salary,WHERE salary != 0):
+##        return render_template("account.html")
+##    return render_template("account.html",editable=True)
+    
 @app.route("/task")
 def task():
     """ Return the task creation page
