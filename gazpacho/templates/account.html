@@ -14,12 +14,12 @@
                     <li class="list-group-item">
                         <div class="row">
                             <span class = "col text-center text-capitalize">{{item}}:</span>
-                            <span class = "col"></span>
-                            {% if item == "salary" and info[category][item] == 0 %}
-                                <span class = "col text-center">Unavailable</span>
-                            {% else %}
-                                <span class = "col text-center">{{info[category][item]}}</span>
-                            {% endif %}
+                                {% if item == "salary" and info[category][item] == 0 %}
+                                    <span class = "col text-center">Unavailable</span>
+                                {% else %}
+                                    <span class = "col text-center">{{info[category][item]}}</span>
+                                {% endif %}
+                            <button class = "col" onclick="update(this, 'b')">Update <span class="text-capitalize">{{item}}</span></button>
                         </div>
                     </li>
                 {% endfor %}
