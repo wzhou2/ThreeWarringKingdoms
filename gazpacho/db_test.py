@@ -28,6 +28,7 @@ checkUser
 insertUser
 verifyuser
 getUser
+updateUser
 '''
 # d = data.get("users", "user", "password")
 # print(d)
@@ -46,6 +47,15 @@ getUser
 # ver = data.verifyUser( 'test1', 'cba' )
 # print(ver)
 # guser = data.getUser('test1')
+# upda = {
+#         'first': 'u first',
+#         'last': 'u last',
+#         'password': 'pwpwpw',
+#         'salary': 2334343,
+#         'position': 'updated pos'
+#         }
+# up = data.updateUser('test0', upda)
+# print(up)
 
 '''
 updateSchedule
@@ -69,16 +79,16 @@ checkProject
 createProject
 getProjects
 '''
-info = {
-    'target': 'target text',
-    'type': 'type txt',
-    'description': 'descr text',
-    'timestamp': 12345,
-    'message': 'msg text',
-    'view_level': 900
-        }
-a = data.checkProject('project0')
-print(a)
+# info = {
+#     'target': 'target text',
+#     'type': 'type txt',
+#     'description': 'descr text',
+#     'timestamp': 12345,
+#     'message': 'msg text',
+#     'view_level': 900
+#         }
+# a = data.checkProject('project0')
+# print(a)
 # proj = createProject('project0', 'test0', info)
 # print(data.checkProject('project0'))
 

@@ -147,7 +147,7 @@ class Database:
             bool: True if update succeeds
 
         """
-        values = ",".join( [ "=".join([x, "'" + updates[x] + "'"]) for x in updates] )
+        values = ",".join( [ "=".join([x, "'" + str(updates[x]) + "'"]) for x in updates] )
         print(values)
         command = "UPDATE {} SET {} WHERE {}='{}'".format(table, values, USER, user)
         print(command)
@@ -215,6 +215,30 @@ class Database:
 
         # print(a, b, c)
         return c
+
+    def updateUser(self, user, info):
+        """ Updates info for specified user, cannot update username
+        Args:
+            user (str): username
+            info : Dictionary of user inputted information
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        print('ppppppppppppppppppp')
+        return self.update(user, 'users', info)
+
+
+    def getAllEmployees(self):
+        """ get all users with 'employee' position sorted by lastname
+
+        Returns:
+            dict: dictionary of user info
+                {
+                    personal: [USER, FIRST, LAST, SALARY or None]
+                    schedule: [MONDAY, TUESDAY, ... , SUNDAY]
+                }
+        """
+        pass
 
     def getUser(self, user):
         """ Gets profile info of user

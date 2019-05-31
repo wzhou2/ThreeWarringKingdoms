@@ -161,3 +161,9 @@ weiwenZ -- 2019-05-31 0:23
 mingM -- 2019-05-31 7:42
 --------------------------------------------------------------
 - Attempted adding sessions to templates
+
+JackL -- 2019-05-31 14:02
+--------------------------------------------------------------
+- finished getUser
+- working on getAllUsers
+- working on project db functions and record db functions
