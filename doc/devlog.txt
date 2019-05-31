@@ -157,3 +157,7 @@ weiwenZ -- 2019-05-30 14:30
 weiwenZ -- 2019-05-31 0:23
 --------------------------------------------------------------
 - added apache2 launch instructions to README
+
+mingM -- 2019-05-31 7:42
+--------------------------------------------------------------
+- Attempted adding sessions to templates
