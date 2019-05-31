@@ -104,7 +104,7 @@ def account():
 ##    return render_template("account.html",editable=True)
     if session.get(USER) == None:
         return redirect(url_for("index"))
-    return render_template("account.html")
+    return render_template("account.html", info = store.getUser(session[USER]))
 
 @app.route("/task")
 def task():

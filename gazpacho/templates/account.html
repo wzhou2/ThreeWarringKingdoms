@@ -2,19 +2,31 @@
 
 {% block title %}Account{% endblock %}
 {% block body %}
-<h2>Account Info:</h2>
-{% if userloggedin and noteditableyet %}
-<a class="btn btn-primary" href="account" role="button">Edit Profile</a>
-{% endif %}
-<br>
-{% if newuser %}
-Name :{{name}}<br>
-Profession: {{profession}}<br>
-Salary: {{salary}}<br>
-Seniority: {{seniority}}<!--based off of years worked--><br>
-{% else %}
-<a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Create your profile here</a>
 
-{% endif %}
+<div class="card">
+    <h2 class="card-header">Account Info: </h2>
+    {% for category in info %}
+        <br>
+        <h5 class="card-title text-center text-capitalize"> {{category}} </h5>
+        {% if info[category] %}
+            <ul class="list-group list-group-flush">
+                {% for item in info[category] %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <span class = "col text-center text-capitalize">{{item}}:</span>
+                            <span class = "col"></span>
+                            {% if item == "salary" and info[category][item] == 0 %}
+                                <span class = "col text-center">Unavailable</span>
+                            {% else %}
+                                <span class = "col text-center">{{info[category][item]}}</span>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-center"> No information available yet. Contact your employer. </p>
+        {% endif %}
+    {% endfor %}
+</div>
 {% endblock %}
-
