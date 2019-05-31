@@ -9,11 +9,12 @@
     Dropdown
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-    <button class="dropdown-item" type="button">Claurice</button>
-    <button class="dropdown-item" type="button">Nathan</button>
-    <button class="dropdown-item" type="button">Robert</button>
+    <button class="dropdown-item" type="button" id="Claurice">Claurice</button>
+    <button class="dropdown-item" type="button" id="Nathan">Nathan</button>
+    <button class="dropdown-item" type="button" id="Robert">Robert</button>
   </div>
 </div>
+<p id="name"></p>
     Task:
 	<input type="text" name="task" required>
 	<br>
@@ -32,4 +33,13 @@ Issues:
   <input class="btn btn-primary" type="submit" value="Create Issue">
 <br>
 {% endblock %}
-
+<script>
+var buttons = document.getElementsByTagName("button");
+var buttonsCount = buttons.length;
+for (var i = 0; i <= buttonsCount; i += 1) {
+    buttons[i].onclick = function(e) {
+        document.getElementById("name").innerHTML = this.id;
+    };
+}​
+//document.getElementById("name").innerHTML = "Claurice";
+</script>
