@@ -161,3 +161,11 @@ weiwenZ -- 2019-05-31 0:23
 mingM -- 2019-05-31 7:42
 --------------------------------------------------------------
 - Attempted adding sessions to templates
+
+weiwenZ -- 2019-05-31 13:00
+--------------------------------------------------------------
+- change user to username in database columns
+- change db.getUser to return a dictionary of user profile info
+- change db.getSchedule to return of dict of dayOfWeek: hours
+- added days of the week constants to constants.py
+- work on accounts page display
