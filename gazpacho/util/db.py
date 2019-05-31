@@ -149,7 +149,7 @@ class Database:
         """
         values = ",".join( [ "=".join([x, "'" + updates[x] + "'"]) for x in updates] )
         print(values)
-        command = "UPDATE {} SET {} WHERE user='{}'".format(table, values, user)
+        command = "UPDATE {} SET {} WHERE {}='{}'".format(table, values, USER, user)
         print(command)
         c = db.cursor()
         try:
@@ -168,8 +168,8 @@ class Database:
         Return:
             bool : True if user exists in database, False otherwise
         """
-        in_User = self.get(USER_TABLE, "count(user)", a = "WHERE user = '{}'".format(user))[0][0]
-        in_Schedule = self.get(SCHEDULES_TABLE, "count(user)", a = "WHERE user = '{}'".format(user))[0][0]
+        in_User = self.get(USER_TABLE, "count({})".format(USER), a = "WHERE {} = '{}'".format(USER, user))[0][0]
+        in_Schedule = self.get(SCHEDULES_TABLE, "count({})".format(USER), a = "WHERE {} = '{}'".format(USER, user))[0][0]
 
         return in_User + in_Schedule != 0
 
@@ -186,7 +186,7 @@ class Database:
             bool: True if successful, False otherwise
 
         """
-        contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user), b = "AND password = '{}'".format(password))[0][0]
+        contain = self.get(USER_TABLE, "count({})".format(USER), a = "WHERE {} = '{}'".format(USER, user), b = "AND password = '{}'".format(password))[0][0]
 
         return contain != 0
 
@@ -209,25 +209,37 @@ class Database:
         print("VALUES")
         print(values)
 
-        a = self.insert("users", values)
-        b = self.insert("schedules", timeTable)
+        a = self.insert(USER_TABLE, values)
+        b = self.insert(SCHEDULES_TABLE, timeTable)
         c = a and b
 
         # print(a, b, c)
         return c
 
     def getUser(self, user):
-        """ Gets first and last name of user
+        """ Gets profile info of user
 
         Args:
-            Username (str)
+            user (str): the name of the user
 
         Returns:
-            List of info [user, first, last]
+            dict: dictionary of user info
+                {
+                    personal: [USER, FIRST, LAST, SALARY or None]
+                    schedule: [MONDAY, TUESDAY, ... , SUNDAY]
+                }
         """
-        info = self.get("users", "first, last", a = "WHERE user = '{}'".format(user))[0]
-        print(info)
-        return info
+        order = [USER, FIRST, LAST, SALARY]
+        info = self.get(USER_TABLE, *order, a = "WHERE {} = '{}'".format(USER, user))[0]
+        schedule = self.getSchedule(user)
+        profile = {
+            "personal" : dict(zip(order, info)),
+            "schedule" : schedule
+        }
+        print(type(info), info)
+        print(type(schedule), schedule)
+        print(profile)
+        return profile
 
     def updateSchedule(self, db, user, updates):
         """ Updates the hours for an user
@@ -255,13 +267,16 @@ class Database:
             user (str): The name of the user
 
         Returns:
-            list: the schedule
+            dict: the schedule
+                ex. "monday": "9:30 - 16:00"
+            None: if the user does not have an assign schedule as of right now
         """
         # contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user), b = "AND password = '{}'".format(password))[0][0]
-
-        sch = self.get( 'schedules', '*', a = "WHERE user = '{}'".format(user))[0]
-        return sch
-
+        order = [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY]
+        schedule = self.get(SCHEDULES_TABLE, *order, a = "WHERE {} = '{}'".format(USER, user))[0]
+        if "".join(schedule) == "":
+            return None
+        return dict(zip(order, schedule))
 
     def checkProject(self, project_name):
         """Checks if the project is in the the database
