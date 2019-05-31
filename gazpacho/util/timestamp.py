@@ -41,4 +41,5 @@ def test():
     localtime = convertTimestamp(timestamp)
     print(localtime)
 
-test()
+if __name__ == "__main__":
+    test()
