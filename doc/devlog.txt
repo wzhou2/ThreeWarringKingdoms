@@ -169,7 +169,7 @@ weiwenZ -- 2019-05-31 13:00
 - change db.getSchedule to return of dict of dayOfWeek: hours
 - added days of the week constants to constants.py
 - work on accounts page display
-=======
+
 JackL -- 2019-05-31 14:02
 --------------------------------------------------------------
 - finished getUser
@@ -181,3 +181,10 @@ mingM -- 2019-06-01 15:52
 - Added inbox page along with templating
 - Added intermediate create project page for new projects
 - Added new routing for aforementioned pages
+
+weiwenZ -- 2019-06-01 19:02
+--------------------------------------------------------------
+- Don't use "git add ." very bad
+- Added back /data directory to store the sqlite3 db file
+- Added *.db to .gitignore file to maintain a clean repo.
+    - remove any remaining db files 
