@@ -162,7 +162,6 @@ mingM -- 2019-05-31 7:42
 --------------------------------------------------------------
 - Attempted adding sessions to templates
 
-<<<<<<< HEAD
 weiwenZ -- 2019-05-31 13:00
 --------------------------------------------------------------
 - change user to username in database columns
@@ -176,4 +175,9 @@ JackL -- 2019-05-31 14:02
 - finished getUser
 - working on getAllUsers
 - working on project db functions and record db functions
->>>>>>> 2e4e98a6e4483c655e077388cfac7822360d5782
+
+mingM -- 2019-06-01 15:52
+--------------------------------------------------------------
+- Added inbox page along with templating
+- Added intermediate create project page for new projects
+- Added new routing for aforementioned pages
