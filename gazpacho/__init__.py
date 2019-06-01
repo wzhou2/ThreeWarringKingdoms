@@ -18,7 +18,7 @@ for name, cols in TABLES.items():
     # print(name, cols)
     state = store.createTable(name, *cols)
     # print(state)
-
+#home,login,register
 @app.route("/")
 def index():
     """Returns the welcome page if there is
@@ -86,7 +86,7 @@ def home():
         return redirect(url_for("index"))
     projects = store.getProjects(session[USER])
     return render_template("home.html")
-
+#projects
 @app.route("/project")
 def project():
     """ Returns the project page
@@ -95,6 +95,24 @@ def project():
         return redirect(url_for("index"))
     return render_template("project.html")
 
+@app.route("/create_project")
+def create_project():
+    """ determines project status
+    """
+    return render_template("create_project.html",employees=store.getAllEmployees())
+
+@app.route("/create", methods=['POST'])
+def create():
+    form = request.form
+    name=form["name"]
+    record=''
+    if store.createProject(name,session[USER],record):#
+        store.addMembers(name,request.form.getlist('workers'))
+        pass
+    else:
+        return redirect(url_for("project"))
+    
+#account
 @app.route("/account")
 def account():
     """ Returns the account page

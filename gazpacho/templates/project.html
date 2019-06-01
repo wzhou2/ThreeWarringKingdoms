@@ -2,20 +2,7 @@
 
 {% block title %}Landing{% endblock %}
 {% block body %}
-<form action="/createproj">
-<label for="name">Enter Name:</label>
-<input type="text" placeholder="Name" required></input>
-<br>
-<label for="taskers">Taskers:</label>
-{% if employees%}
-<select multiple>
-  {% for item  in employees %}
-  <option>{{item}}</option>
-  {% endfor %}
-</select>
-{% endif %}
-<button type="submit" class="btn btn-light btn-outline-success">Create Project</button>
-</form>
+{{name}}
 <div>
     Assign to:
 <div class="dropdown">
