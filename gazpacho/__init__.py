@@ -142,7 +142,7 @@ def schedule():
 def inbox():
     """Return the messages
     """
-    return render_template("inbox.html")
+    return render_template("inbox.html",messages=False)
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0")
