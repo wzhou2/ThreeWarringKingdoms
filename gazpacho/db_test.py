@@ -1,10 +1,11 @@
 from util.db import *
+from util.timestamp import *
 
 # data = Database("../data/block.db")
 # d = data.get("users", "*", "WHERE user='asd'")
 # print(d)
 
-data = Database("test.db")
+data = Database("util/test.db")
 a = data.tableInDB('d')
 # print(a)
 
@@ -13,13 +14,13 @@ createTable
 tableInDB
 insert 
 '''
-# vals = ['userna', 'frist', 'lsat', 'pw', 100, 'noob']
-# args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT", "salary INTEGER", "position TEXT"]
+vals = ['eeeuserna', 'frist', 'lsat', 'pw']
+args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT", "salary INTEGER", "position TEXT"]
 # b = data.createTable("test_user", *args)
 # print(b)
 # t = data.tableInDB("users")
 # print(t)
-# c = data.insert("users", vals)
+# c = data.insert("test_user", vals)
 # print(c)
 
 '''
@@ -36,17 +37,19 @@ updateUser
 # f = data.checkUser("bleh")
 # print(e, f)
 # di = {
-#     "first": "f1",
-#     "last": "l1",
-#     "password": "cba",
+#     "username": "test1",
+#     "first": "fname1",
+#     "last": "lname1",
+#     "password": "pw1",
 #     "salary": 1000000,
-#     "position": "boss"
+#     "position": "employee"
 # }
 # f = data.insertUser(di)
 # print(f)
-# ver = data.verifyUser( 'test1', 'cba' )
+# ver = data.verifyUser( 'test0', 'pw0' )
 # print(ver)
 # guser = data.getUser('test1')
+# print(guser)
 # upda = {
 #         'first': 'u first',
 #         'last': 'u last',
@@ -56,6 +59,8 @@ updateUser
 #         }
 # up = data.updateUser('test0', upda)
 # print(up)
+# guser = data.getUser('test0')
+# print(guser)
 
 '''
 updateSchedule
@@ -71,24 +76,30 @@ getSchedule
 #         'sunday': 'a6',
 #         }
 # s = data.updateSchedule( 'test0', sch )
-# gets = data.getSchedule('test1')
+# gets = data.getSchedule('test0')
 # print(gets)
+# a = data.getUser('test0')
+# print(a)
 
 '''
 checkProject
 createProject
 getProjects
 '''
-# info = {
-#     'target': 'target text',
-#     'type': 'type txt',
-#     'description': 'descr text',
-#     'timestamp': 12345,
-#     'message': 'msg text',
-#     'view_level': 900
-#         }
+info = {
+    'target': 'target text',
+    'type': 'type txt',
+    'description': 'descr text',
+    'message': 'msg text',
+    'view_level': 900
+        }
 # a = data.checkProject('project0')
 # print(a)
-# proj = createProject('project0', 'test0', info)
+# proj = data.createProject('project0', 'test0', info)
+# print(proj)
 # print(data.checkProject('project0'))
-
+# add = data.addMembers('project0', 'u1', 'u2')
+# add = data.addMembers('project0', 'bob', 'steve')
+# print(add)
+remove = data.removeMembers('project0', 'u1', 'steve', 'aefaewf')
+print(remove)

@@ -46,6 +46,7 @@ class Database:
         """
         # print(cols, len(cols))
         if self.tableInDB(name):
+            print("table exists already")
             return False
         c = db.cursor()
         command = "CREATE TABLE " + name
@@ -148,9 +149,7 @@ class Database:
 
         """
         values = ",".join( [ "=".join([x, "'" + str(updates[x]) + "'"]) for x in updates] )
-        print(values)
         command = "UPDATE {} SET {} WHERE {}='{}'".format(table, values, USER, user)
-        print(command)
         c = db.cursor()
         try:
             c.execute(command)
@@ -202,6 +201,7 @@ class Database:
         """
         print(info)
         if self.checkUser(info[USER]):
+            print('user exists already')
             return False
 
         values = [ info[USER], info[FIRST], info[LAST], info[PASSWORD], 0, info[POSITION] ]
@@ -224,7 +224,6 @@ class Database:
         Returns:
             bool: True if successful, False otherwise
         """
-        print('ppppppppppppppppppp')
         return self.update(user, 'users', info)
 
 
@@ -260,12 +259,12 @@ class Database:
             "personal" : dict(zip(order, info)),
             "schedule" : schedule
         }
-        print(type(info), info)
-        print(type(schedule), schedule)
-        print(profile)
+        # print(type(info), info)
+        # print(type(schedule), schedule)
+        # print(profile)
         return profile
 
-    def updateSchedule(self, db, user, updates):
+    def updateSchedule(self, user, updates):
         """ Updates the hours for an user
 
         Args:
@@ -295,11 +294,11 @@ class Database:
                 ex. "monday": "9:30 - 16:00"
             None: if the user does not have an assign schedule as of right now
         """
-        # contain = self.get("users", "count(user)", a = "WHERE user = '{}'".format(user), b = "AND password = '{}'".format(password))[0][0]
         order = [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY]
         schedule = self.get(SCHEDULES_TABLE, *order, a = "WHERE {} = '{}'".format(USER, user))[0]
-        if "".join(schedule) == "":
-            return None
+        # print(schedule)
+        # if "".join(schedule) == "":
+        #     return None
         return dict(zip(order, schedule))
 
     def checkProject(self, project_name):
@@ -328,29 +327,34 @@ class Database:
             bool: True if successful, False otherwise
         """
         if self.checkProject(project_name):
-            # already exist
+            print("project already exists")
             return False
+
         values = [project_name, creator, '']
         if self.insert('projects', values) != True:
             print('insert project fail')
             return False
-        if self.createRecord(creator, record_info) != True:
+
+        project_id = self.get("projects", "rowid", a = "WHERE name='{}'".format(project_name))[0][0]
+        if self.createRecord(creator, record_info, project_id) != True:
             print('insert record fail')
             return False
-        return True
+
         # return self.insert('projects', values)
+        return True
 
-    def createRecord(self, creator, info):
+    def createRecord(self, creator, info, project_id):
         """ inserts row in record table corresponding to a project
-
         Args:
             creator (str): name of creator
             info (dict): dict of info to be inserted
-
         Returns:
             bool: True if successful
         """
-        pass
+        # [target, initated_by, type, description, id, timeStamp, message, view_level]
+        time = createTimestamp()
+        values = [info['target'], creator, info['type'], info['description'], project_id, time, info['message'], info['view_level']]
+        return self.insert('record', values)
 
     def getProjects(self, user):
         """ Gets all projects a user is part of
@@ -364,23 +368,34 @@ class Database:
         projects = self.get("projects", "*", a = "WHERE name = '{}'".format(user))
         return projects
 
-    def addMembers(self, project, *user):
+    @openDB
+    def addMembers(self, db, project, *users):
         """ Adds new users to the project
-
         Args:
             project (str): the name of the project
             *user : a variable number of new users to add to projects
-
         Returns:
             bool: True if successful, False otherwise
         """
+        old_users = self.get("projects", "*", a = "WHERE name = '{}'".format(project))[0][2]
+        new_users = ','.join(users)
+        if old_users !='':
+            u = old_users + ',' + new_users
+        else:
+            u = new_users
+        userlist = ','.join(list(set(u.split(','))))
+        # print(userlist)
+        cmd = "UPDATE {} SET members='{}' WHERE name='{}'".format('projects', userlist, project)
+        c = db.cursor()
+        try:
+            c.execute(cmd)
+            return True
+        except:
+            print("add members failed")
+            return False
 
-        p = self.get("projects", "*", a = "WHERE name = '{}'".format(project))[0]
-        values = [project, p[1], users]
-
-        return self.insert(project, values)
-
-    def removeMembers(self, project, *user):
+    @openDB
+    def removeMembers(self, db, project, *users):
         """ Removes the users from the project
 
         Args:
@@ -394,15 +409,22 @@ class Database:
             - ValueError: if a user requested to be removed is not in
             the project
         """
-        info = self.get("projects", "members", a = "WHERE name = '{}'".format(project))[0]
-        userlist = info[2].split(',')
-        for u in user:
+        userlist = self.get("projects", "*", a = "WHERE name = '{}'".format(project))[0][2]
+        userlist = userlist.split(',')
+        for u in users:
             try:
                 userlist.remove(u)
             except:
-                print("user not in list")
-        values = [project, info[1], userlist]
-        return self.insert('projects', values)
+                print('user not found')
+        userlist = ','.join(userlist)
+        cmd = "UPDATE {} SET members='{}' WHERE name='{}'".format('projects', userlist, project)
+        c = db.cursor()
+        try:
+            c.execute(cmd)
+            return True
+        except:
+            print("remove members failed")
+            return False
 
 
     # RECORD TABLE METHODS
