@@ -237,7 +237,20 @@ class Database:
                     schedule: [MONDAY, TUESDAY, ... , SUNDAY]
                 }
         """
-        pass
+        employees = self.get(USER_TABLE, "{}, {}, {}, {}".format(USER, FIRST, LAST, SALARY), 
+                a = "WHERE position='employee'")
+
+        conditions = ["username = '{}'".format(i[0]) for i in employees]
+        conditions = "WHERE " + " OR ".join(conditions)
+        schedules = self.get(SCHEDULES_TABLE, "*", a = conditions)
+
+        diction = {
+                "personal": employees,
+                "schedule": schedules
+                }
+        return diction
+
+
 
     def getUser(self, user):
         """ Gets profile info of user

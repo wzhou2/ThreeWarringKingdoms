@@ -6,7 +6,7 @@ from util.timestamp import *
 # print(d)
 
 data = Database("util/test.db")
-a = data.tableInDB('d')
+# a = data.tableInDB('d')
 # print(a)
 
 ''' functions tested:
@@ -37,11 +37,11 @@ updateUser
 # f = data.checkUser("bleh")
 # print(e, f)
 # di = {
-#     "username": "test1",
-#     "first": "fname1",
-#     "last": "lname1",
+#     "username": "bbbbb",
+#     "first": "dsa",
+#     "last": "earaelname1",
 #     "password": "pw1",
-#     "salary": 1000000,
+#     "salary": 100,
 #     "position": "employee"
 # }
 # f = data.insertUser(di)
@@ -75,7 +75,7 @@ getSchedule
 #         'saturday': 'a5',
 #         'sunday': 'a6',
 #         }
-# s = data.updateSchedule( 'test0', sch )
+# s = data.updateSchedule( 'test1', sch )
 # gets = data.getSchedule('test0')
 # print(gets)
 # a = data.getUser('test0')
@@ -101,5 +101,13 @@ info = {
 # add = data.addMembers('project0', 'u1', 'u2')
 # add = data.addMembers('project0', 'bob', 'steve')
 # print(add)
-remove = data.removeMembers('project0', 'u1', 'steve', 'aefaewf')
-print(remove)
+# remove = data.removeMembers('project0', 'u1', 'steve', 'aefaewf')
+# print(remove)
+
+'''
+getAllEmployees
+'''
+e = data.getAllEmployees()
+for i in e:
+    print(i)
+    print(e[i])
