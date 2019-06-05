@@ -250,7 +250,17 @@ class Database:
                 }
         return diction
 
+    def getPosition(self, user):
+        """ Returns the position of the user
 
+        Args:
+            user (str): name of the user
+
+        Returns:
+            str : position of the user
+        """
+
+        return self.get(USER_TABLE, POSITION, a = "WHERE {} = '{}'".format(USER, user))[0][0]
 
     def getUser(self, user):
         """ Gets profile info of user
@@ -369,6 +379,14 @@ class Database:
         values = [info['target'], creator, info['type'], info['description'], project_id, time, info['message'], info['view_level']]
         return self.insert('record', values)
 
+    def getAllProjects(self):
+        """ Get list of project names
+
+        Returns:
+            list: list of project names
+        """
+        return self.get(PROJECTS_TABLE, PROJECT_NAME)
+
     def getProjects(self, user):
         """ Gets all projects a user is part of
 
@@ -378,7 +396,7 @@ class Database:
         Returns:
             list: list of projects
         """
-        projects = self.get("projects", "*", a = "WHERE name = '{}'".format(user))
+        projects = self.get(PROJECTS_TABLE, ALL, a = "WHERE name = '{}'".format(user))
         return projects
 
     @openDB

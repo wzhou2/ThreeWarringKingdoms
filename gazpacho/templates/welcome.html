@@ -27,7 +27,7 @@ Go login or register in the links below.
                 document.getElementById('form').innerHTML = this.responseText;
             }
         };
-        xhttp.open("GET", "/getForms?form=login", true);
+        xhttp.open("GET", "/getHTML?type=login", true);
         xhttp.send();
     }
 
@@ -38,7 +38,7 @@ Go login or register in the links below.
                 document.getElementById('form').innerHTML = this.responseText;
             }
         };
-        xhttp.open("GET", "/getForms?form=register", true);
+        xhttp.open("GET", "/getHTML?type=register", true);
         xhttp.send();
     }
 </script>
