@@ -3,6 +3,20 @@ from util.constants import *
 from util.timestamp import *
 
 
+'''
+RECORD:
+    Types:
+        - project commit logs
+            - project creation
+        - salary change
+        - issues
+        - add/remove member
+        - changing schedule
+
+
+'''
+
+
 class Database:
     """A class to faciliate database read/write.
     """
