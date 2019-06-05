@@ -384,7 +384,7 @@ class Database:
         values = [info['target'], creator, info['type'], info['description'], project_id, time, info['message'], info['view_level']]
         return self.insert('record', values)
 
-    def getRecordByType(self, conditions):
+    def getRecord(self, conditions):
         """ gets records by defined conditions
         Args:
             conditions (dict): Dict of key:value pairs
@@ -392,7 +392,13 @@ class Database:
         Returns:
             list of records
         """
-        pass
+        # print(conditions)
+        conds = " AND ".join([ "{}='{}'".format( i, conditions[i] ) for i in conditions])
+        # conds = ' AND '.join( [ i + "'{}'".format( conditions[i] ) for i in conditions] )
+        # print(conds)
+        recs = self.get("record", "*", a = "WHERE {}".format(conds))
+
+        return recs
 
 
     def getAllProjects(self):

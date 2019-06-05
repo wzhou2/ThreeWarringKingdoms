@@ -107,7 +107,18 @@ info = {
 '''
 getAllEmployees
 '''
-e = data.getAllEmployees()
-for i in e:
-    print(i)
-    print(e[i])
+# e = data.getAllEmployees()
+# for i in e:
+#     print(i)
+#     print(e[i])
+
+'''
+getRecordByType
+'''
+conds = {
+        'type': 'type txt',
+        'target': 'target text',
+        'initated_by': 'test0'
+        }
+r = data.getRecord(conds)
+print(r)
