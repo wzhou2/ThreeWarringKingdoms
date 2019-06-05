@@ -187,8 +187,16 @@ weiwenZ -- 2019-06-01 19:02
 - Don't use "git add ." very bad
 - Added back /data directory to store the sqlite3 db file
 - Added *.db to .gitignore file to maintain a clean repo.
-    - remove any remaining db files 
+    - remove any remaining db files
 
 JackL -- 2019-05-31 14:02
 --------------------------------------------------------------
 - Finished getALlUsers
+
+weiwenZ -- 2019-06-5 12:30
+--------------------------------------------------------------
+- login/register.html are now form snippets for ajax call to
+put on welcome.html. route(/)
+- put off updating personal info on account.html
+- put back none for getSchedule
+- ISSUE our container cuts off stuff 
