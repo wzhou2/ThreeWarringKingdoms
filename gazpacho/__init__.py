@@ -9,6 +9,7 @@ app.secret_key = os.urandom(32)
 DIR = os.path.dirname(__file__) or '.'
 DIR += '/'
 DB_PATH = DIR + 'data/block.db'
+# DB_PATH = DIR + 'util/test.db'
 print(DB_PATH)
 # Database setup
 

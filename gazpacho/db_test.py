@@ -36,15 +36,24 @@ updateUser
 # e = data.checkUser("userna")
 # f = data.checkUser("bleh")
 # print(e, f)
-# di = {
-#     "username": "bbbbb",
-#     "first": "dsa",
-#     "last": "earaelname1",
-#     "password": "pw1",
-#     "salary": 100,
-#     "position": "employee"
-# }
-# f = data.insertUser(di)
+di = {
+    "username": "a0",
+    "first": "dsa",
+    "last": "earaelname1",
+    "password": "pw1",
+    "salary": 100,
+    "position": "employee"
+}
+f = data.insertUser(di)
+di = {
+    "username": "a1",
+    "first": "dsa",
+    "last": "earaelname1",
+    "password": "pw1",
+    "salary": 100,
+    "position": "employee"
+}
+f = data.insertUser(di)
 # print(f)
 # ver = data.verifyUser( 'test0', 'pw0' )
 # print(ver)
@@ -115,10 +124,10 @@ getAllEmployees
 '''
 getRecordByType
 '''
-conds = {
-        'type': 'type txt',
-        'target': 'target text',
-        'initated_by': 'test0'
-        }
-r = data.getRecord(conds)
-print(r)
+# conds = {
+#         'type': 'type txt',
+#         'target': 'target text',
+#         'initated_by': 'test0'
+#         }
+# r = data.getRecord(conds)
+# print(r)

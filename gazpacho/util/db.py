@@ -479,5 +479,10 @@ class Database:
             print("remove members failed")
             return False
 
+    def getInbox( self, user ):
+        """
+
+        """
+        pass
 
     # RECORD TABLE METHODS
