@@ -31,18 +31,6 @@ def index():
         return redirect(url_for("home"))
     return render_template("welcome.html")
 
-@app.route("/login")
-def login():
-    """ Returns the login form
-    """
-    return render_template("login.html")
-
-@app.route("/register")
-def register():
-    """ Returns the register form
-    """
-    return render_template("register.html")
-
 @app.route("/auth_login", methods=['POST'])
 def auth_login():
     """ Verifiy the login information
