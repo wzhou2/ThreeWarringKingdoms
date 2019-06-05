@@ -237,7 +237,7 @@ class Database:
                     schedule: [MONDAY, TUESDAY, ... , SUNDAY]
                 }
         """
-        employees = self.get(USER_TABLE, "{}, {}, {}, {}".format(USER, FIRST, LAST, SALARY), 
+        employees = self.get(USER_TABLE, "{}, {}, {}, {}".format(USER, FIRST, LAST, SALARY),
                 a = "WHERE position='employee'")
 
         conditions = ["username = '{}'".format(i[0]) for i in employees]
@@ -310,8 +310,8 @@ class Database:
         order = [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY]
         schedule = self.get(SCHEDULES_TABLE, *order, a = "WHERE {} = '{}'".format(USER, user))[0]
         # print(schedule)
-        # if "".join(schedule) == "":
-        #     return None
+        if "".join(schedule) == "":
+            return None
         return dict(zip(order, schedule))
 
     def checkProject(self, project_name):
