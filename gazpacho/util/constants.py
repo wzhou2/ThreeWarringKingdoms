@@ -28,10 +28,11 @@ FRIDAY = "friday"
 SATURDAY = "saturday"
 SUNDAY = "sunday"
 
-# ACCESS LEVEL
+PROJECT_NAME = "name"
+# ACCESS LEVEL (0 is the highest access level)
 ACCESS = {
-    'Employee': 0,
-    'Admin': 1
+    'Admin': 0,
+    'Employee': 1
 }
 
 

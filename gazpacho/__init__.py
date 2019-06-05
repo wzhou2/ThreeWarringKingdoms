@@ -51,11 +51,12 @@ def auth_login():
     # print(name, pd)
     if store.verifyUser(name, pd):
         session[USER] = name
+        session[POSITION] = ACCESS[store.getPosition(name)]
         return redirect(url_for("home"))
     else:
         # print("FLASH")
         flash("The username and password do not match")
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
 @app.route("/auth_register", methods=['POST'])
 def auth_register():
@@ -65,16 +66,17 @@ def auth_register():
     name = form[USER]
     if store.insertUser(form):
         session[USER] = name
+        session[POSITION] = ACCESS[store.getPosition(name)]
         return redirect(url_for("home"))
     else:
         flash("Username is already taken")
-        return redirect(url_for("register"))
+        return redirect(url_for("index"))
 
 @app.route('/logout')
 def logout():
     """ Logs the user out and clears the session info
     """
-    session.pop(USER, None)
+    session.clear()
     return redirect(url_for("index"))
 
 @app.route("/home")
@@ -138,19 +140,21 @@ def schedule():
     """Return the schedule page
     """
     return render_template("schedule.html")
+
 @app.route("/inbox")
 def inbox():
     """Return the messages
     """
     return render_template("inbox.html",messages=False)
 
-@app.route("/getForms")
+@app.route("/getHTML")
 def getForms():
     """Returns the form requested by ajax
     """
-    type = request.args['form']
+    type = request.args['type']
 
     return render_template("{}.html".format(type))
+
 
 
 if __name__ == "__main__":

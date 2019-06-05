@@ -2,7 +2,9 @@
 
 {% block title %}Landing{% endblock %}
 {% block body %}
-{{name}}
+{% if session['position'] %}
+
+{% else %}
 <div>
     Assign to:
 <div class="dropdown">
@@ -30,4 +32,5 @@ Issues:
   </div>
   <input class="btn btn-primary" type="submit" value="Create Issue">
 <br>
+{% endif %}
 {% endblock %}
