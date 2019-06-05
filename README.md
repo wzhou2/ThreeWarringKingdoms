@@ -20,7 +20,7 @@ $ . name/bin/activate
 ```
 5. Navigate to our project.
 ```
-$ cd ThreeWarringKingdoms/gazpacho/
+$ cd ThreeWarringKingdoms/workbuddy/
 ```
 6. Make sure you have all the dependencies installed in your virtual environment.
 ```
@@ -56,22 +56,22 @@ $ cd /var/www
 ```
 4. Clone the repo via https:
 ```
-$ sudo git clone https://github.com/wzhou2/ThreeWarringKingdoms.git gazpacho
+$ sudo git clone https://github.com/wzhou2/ThreeWarringKingdoms.git workbuddy
 ```
 5. Move into the repo, add write permisssions, and install requirements:
 ```
-$ cd gazpacho
-$ sudo chgrp -R www-data gazpacho
-$ sudo chmod -R g+w gazpacho
-$ sudo pip3 install -r gazpacho/requirements.txt
+$ cd workbuddy
+$ sudo chgrp -R www-data workbuddy
+$ sudo chmod -R g+w workbuddy
+$ sudo pip3 install -r workbuddy/requirements.txt
 ```
 6. Open the conf file and change the server name to your ip address:
 ```
-$ sudo nano gazpacho.conf
+$ sudo nano workbuddy.conf
 ```
 7. Move the conf file to the sites-available directory:
 ```
-$ sudo mv /var/www/gazpacho/gazpacho.conf /etc/apache2/sites-available/
+$ sudo mv /var/www/workbuddy/workbuddy.conf /etc/apache2/sites-available/
 ```
 8. Move to the sites-available directory
 ```
@@ -79,7 +79,7 @@ $ cd /etc/apache2/sites-available/
 ```
 9. Enable the site:
 ```
-$ sudo a2ensite gazpacho.conf
+$ sudo a2ensite workbuddy.conf
 ```
 10. Enable WSGI module
 ```
