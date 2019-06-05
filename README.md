@@ -20,7 +20,7 @@ $ . name/bin/activate
 ```
 5. Navigate to our project.
 ```
-$ cd ThreeWarringKingdoms/gazpacho/ 
+$ cd ThreeWarringKingdoms/gazpacho/
 ```
 6. Make sure you have all the dependencies installed in your virtual environment.
 ```
@@ -29,7 +29,7 @@ $ cd ThreeWarringKingdoms/gazpacho/
 7. Run the python file.
 ```
 (venv)$ python __init__.py
-``` 
+```
 8. This should appear in the terminal after running the python file.   
 ```
 * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
@@ -38,7 +38,7 @@ $ cd ThreeWarringKingdoms/gazpacho/
 * Debugger PIN: 248-748-502
 ```
 9. Open a web browser and navigate to the link http://127.0.0.1:5000/.
-10. Register if you are a new user or login if you are an existing user and enjoy our web application! 
+10. Register if you are a new user or login if you are an existing user and enjoy our web application!
 
 ### To Run on Apache2:
 1. SSH into your droplet:
@@ -52,7 +52,7 @@ $ sudo apt upgrade
 ```
 3. Move to the www directory:
 ```
-$ cd ../../var/www
+$ cd /var/www
 ```
 4. Clone the repo via https:
 ```
