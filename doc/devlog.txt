@@ -204,3 +204,9 @@ put on welcome.html. route(/)
 JackL -- 2019-06-05 14:02
 --------------------------------------------------------------
 - new table messages, WIP on db functions for it and inbox.html
+
+JackL -- 2019-06-05 14:02
+--------------------------------------------------------------
+- removed record table in db
+- added timeline table in db
+    - started work on timeline db functions

@@ -4,7 +4,7 @@ from util.timestamp import *
 
 
 '''
-RECORD:
+RECORD: DEPRECIATED
     Types:
         - project commit logs
             - project creation
@@ -12,8 +12,6 @@ RECORD:
         - issues
         - add/remove member
         - changing schedule
-
-
 '''
 
 
@@ -351,19 +349,12 @@ class Database:
 
         return contain != 0
 
-    def createProject(self, project_name, creator, record_info):
+    def createProject(self, project_name, creator):
         """ Adds a project into the table projects
-            Adds a row to records table corresponding to project entry
 
         Args:
             project_name (str): The name of the project
             creator (str): The user who is creating the project
-            record_info (dict): specifies details of project (filled out by form)
-                - target
-                - type
-                - description
-                - message
-                - view_level
 
         Returns:
             bool: True if successful, False otherwise
@@ -377,42 +368,42 @@ class Database:
             print('insert project fail')
             return False
 
-        project_id = self.get("projects", "rowid", a = "WHERE name='{}'".format(project_name))[0][0]
-        if self.createRecord(creator, record_info, project_id) != True:
-            print('insert record fail')
-            return False
+        # project_id = self.get("projects", "rowid", a = "WHERE name='{}'".format(project_name))[0][0]
+        # if self.createRecord(creator, record_info, project_id) != True:
+        #     print('insert record fail')
+        #     return False
 
         # return self.insert('projects', values)
         return True
 
-    def createRecord(self, creator, info, project_id):
-        """ inserts row in record table corresponding to a project
-        Args:
-            creator (str): name of creator
-            info (dict): dict of info to be inserted
-        Returns:
-            bool: True if successful
-        """
-        # [target, initated_by, type, description, id, timeStamp, message, view_level]
-        time = createTimestamp()
-        values = [info['target'], creator, info['type'], info['description'], project_id, time, info['message'], info['view_level']]
-        return self.insert('record', values)
+    # def createRecord(self, creator, info, project_id):
+    #     """ inserts row in record table corresponding to a project
+    #     Args:
+    #         creator (str): name of creator
+    #         info (dict): dict of info to be inserted
+    #     Returns:
+    #         bool: True if successful
+    #     """
+    #     # [target, initated_by, type, description, id, timeStamp, message, view_level]
+    #     time = createTimestamp()
+    #     values = [info['target'], creator, info['type'], info['description'], project_id, time, info['message'], info['view_level']]
+    #     return self.insert('record', values)
 
-    def getRecord(self, conditions):
-        """ gets records by defined conditions
-        Args:
-            conditions (dict): Dict of key:value pairs
-            ex: { 'type': 'message' } gets all messages
-        Returns:
-            list of records
-        """
-        # print(conditions)
-        conds = " AND ".join([ "{}='{}'".format( i, conditions[i] ) for i in conditions])
-        # conds = ' AND '.join( [ i + "'{}'".format( conditions[i] ) for i in conditions] )
-        # print(conds)
-        recs = self.get("record", "*", a = "WHERE {}".format(conds))
+    # def getRecord(self, conditions):
+    #     """ gets records by defined conditions
+    #     Args:
+    #         conditions (dict): Dict of key:value pairs
+    #         ex: { 'type': 'message' } gets all messages
+    #     Returns:
+    #         list of records
+    #     """
+    #     # print(conditions)
+    #     conds = " AND ".join([ "{}='{}'".format( i, conditions[i] ) for i in conditions])
+    #     # conds = ' AND '.join( [ i + "'{}'".format( conditions[i] ) for i in conditions] )
+    #     # print(conds)
+    #     recs = self.get("record", "*", a = "WHERE {}".format(conds))
 
-        return recs
+    #     return recs
 
 
     def getAllProjects(self):
@@ -493,10 +484,38 @@ class Database:
             print("remove members failed")
             return False
 
-    def getInbox( self, user ):
-        """
+#Timeline
+#    - Add event
+#    - Delete event
+#    - get all events
 
+    def createEvent(self, info):
+        """Create event in timeline
+        Args: 
+            info (dict): keys: { username, title, description }
+        Return:
+            bool: true if successful
         """
         pass
 
-    # RECORD TABLE METHODS
+    def deleteEvent(self, rowid):
+        """Deletes event in timeline
+        Args: 
+            rowid: row id of event in timeline table in db
+        Return:
+            bool: true if successful
+        """
+        pass
+
+    def getAllEvents(self):
+        """Gets all events for rendering timeline
+        Return:
+            array of events (sorted)
+        """
+        pass
+
+    # def getInbox( self, user ):
+    #     """
+
+    #     """
+    #     pass
