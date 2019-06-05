@@ -1,0 +1,14 @@
+<div class="card text-center">
+    <div class="card-header"> Projects </div>
+</div>
+{% if dict['projectList']|length > 0 %}
+    <ul class="list-group list-group-flush text-center">
+        {% for item in dict['projectList'] %}
+            <li class="list-group-item"><a href="project">{{item[0]}}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="alert alert-warning"> There are no existing project currently. </p>
+{% endif %}
+<br>
+<a class="btn btn-primary float-right" onclick="display('create_project')">Create Project</a>

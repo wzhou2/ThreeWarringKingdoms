@@ -349,11 +349,12 @@ class Database:
 
         return contain != 0
 
-    def createProject(self, project_name, creator):
+    def createProject(self, project_name, description, creator, record_info):
         """ Adds a project into the table projects
 
         Args:
             project_name (str): The name of the project
+            description (str): description of the project
             creator (str): The user who is creating the project
 
         Returns:
@@ -363,8 +364,8 @@ class Database:
             print("project already exists")
             return False
 
-        values = [project_name, creator, '']
-        if self.insert('projects', values) != True:
+        values = [project_name, description, creator, '']
+        if self.insert(PROJECTS_TABLE, values) != True:
             print('insert project fail')
             return False
 
@@ -376,6 +377,7 @@ class Database:
         # return self.insert('projects', values)
         return True
 
+<<<<<<< HEAD:gazpacho/util/db.py
     # def createRecord(self, creator, info, project_id):
     #     """ inserts row in record table corresponding to a project
     #     Args:
@@ -404,6 +406,36 @@ class Database:
     #     recs = self.get("record", "*", a = "WHERE {}".format(conds))
 
     #     return recs
+=======
+    def createRecord(self, creator, info, project_id):
+        """ inserts row in record table corresponding to a project
+        Args:
+            creator (str): name of creator
+            info (dict): dict of info to be inserted
+        Returns:
+            bool: True if successful
+        """
+        # [target, initated_by, type, description, id, timeStamp, message, view_level]
+        time = createTimestamp()
+        print(info)
+        values = [info['target'], creator, info['type'], info['description'], project_id, time, info['message'], info['view_level']]
+        return self.insert('record', values)
+
+    def getRecord(self, conditions):
+        """ gets records by defined conditions
+        Args:
+            conditions (dict): Dict of key:value pairs
+            ex: { 'type': 'message' } gets all messages
+        Returns:
+            list of records
+        """
+        # print(conditions)
+        conds = " AND ".join([ "{}='{}'".format( i, conditions[i] ) for i in conditions])
+        # conds = ' AND '.join( [ i + "'{}'".format( conditions[i] ) for i in conditions] )
+        # print(conds)
+        recs = self.get("record", "*", a = "WHERE {}".format(conds))
+
+        return recs
 
 
     def getAllProjects(self):
