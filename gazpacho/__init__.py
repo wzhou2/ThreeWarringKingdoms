@@ -90,18 +90,19 @@ def project():
 def create_project():
     """ determines project status
     """
-    return render_template("create_project.html",employees=store.getAllEmployees())
+    return render_template("create_project.html")
 
 @app.route("/create", methods=['POST'])
 def create():
     form = request.form
     name=form["name"]
+    description = form["description"]
     record=''
-    if store.createProject(name,session[USER],record):#
+    if store.createProject(name, description, session[USER], record):#
         store.addMembers(name,request.form.getlist('workers'))
         pass
     else:
-        return redirect(url_for("project"))
+        return redirect(url_for("home"))
 
 #account
 @app.route("/account")
@@ -141,8 +142,11 @@ def getForms():
     """Returns the form requested by ajax
     """
     type = request.args['type']
+    template_vars = {}
 
-    return render_template("{}.html".format(type))
+    if type == 'projectList' and session[POSITION] == 0:
+        template_vars[type] = store.getAllProjects()
+    return render_template("{}.html".format(type), dict = template_vars)
 
 
 
