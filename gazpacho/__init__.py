@@ -111,7 +111,7 @@ def create():
         pass
     else:
         return redirect(url_for("project"))
-    
+
 #account
 @app.route("/account")
 def account():
@@ -124,7 +124,7 @@ def account():
 ##    if store.get('block.db',session[USER],salary,WHERE salary != 0):
 ##        return render_template("account.html")
 ##    return render_template("account.html",editable=True)
-    
+
 @app.route("/task")
 def task():
     """ Return the task creation page
@@ -143,6 +143,16 @@ def inbox():
     """Return the messages
     """
     return render_template("inbox.html",messages=False)
+
+@app.route("/getForms")
+def getForms():
+    """Returns the form requested by ajax
+    """
+    type = request.args['form']
+
+    return render_template("{}.html".format(type))
+
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0")

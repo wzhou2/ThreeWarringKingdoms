@@ -2,17 +2,44 @@
 
 {% block title %}Landing{% endblock %}
 {% block body %}
-<center>
-    Welcome to our website.
+
+<div id="form">
+
+</div>
+
+Go login or register in the links below.
+
+<div>
+    <a href="/login">Login</a>
     <br>
+    <a href="/register">Register</a>
+</div>
 
-    Go login or register in the links below.
+<script type="text/javascript">
+    window.onload = function() {
+        loginForm();
+    };
 
-    <div>
-        <a href="/login">Login</a>
-        <br>
-        <a href="/register">Register</a>
-    </div>
-</center>
+    var loginForm = function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('form').innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/getForms?form=login", true);
+        xhttp.send();
+    }
+
+    var registerForm = function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('form').innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/getForms?form=register", true);
+        xhttp.send();
+    }
+</script>
 {% endblock %}
-
