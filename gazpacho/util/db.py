@@ -335,6 +335,11 @@ class Database:
             project_name (str): The name of the project
             creator (str): The user who is creating the project
             record_info (dict): specifies details of project (filled out by form)
+                - target
+                - type
+                - description
+                - message
+                - view_level
 
         Returns:
             bool: True if successful, False otherwise
@@ -368,6 +373,17 @@ class Database:
         time = createTimestamp()
         values = [info['target'], creator, info['type'], info['description'], project_id, time, info['message'], info['view_level']]
         return self.insert('record', values)
+
+    def getRecordByType(self, conditions):
+        """ gets records by defined conditions
+        Args:
+            conditions (dict): Dict of key:value pairs
+            ex: { 'type': 'message' } gets all messages
+        Returns:
+            list of records
+        """
+
+
 
     def getProjects(self, user):
         """ Gets all projects a user is part of
