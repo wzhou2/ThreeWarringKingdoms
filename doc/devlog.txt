@@ -200,3 +200,7 @@ put on welcome.html. route(/)
 - put off updating personal info on account.html
 - put back none for getSchedule
 - ISSUE our container cuts off stuff 
+
+JackL -- 2019-06-05 14:02
+--------------------------------------------------------------
+- new table messages, WIP on db functions for it and inbox.html
