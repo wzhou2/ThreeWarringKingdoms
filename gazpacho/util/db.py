@@ -337,12 +337,13 @@ class Database:
 
         return contain != 0
 
-    def createProject(self, project_name, creator, record_info):
+    def createProject(self, project_name, description, creator, record_info):
         """ Adds a project into the table projects
             Adds a row to records table corresponding to project entry
 
         Args:
             project_name (str): The name of the project
+            description (str): description of the project
             creator (str): The user who is creating the project
             record_info (dict): specifies details of project (filled out by form)
                 - target
@@ -358,8 +359,8 @@ class Database:
             print("project already exists")
             return False
 
-        values = [project_name, creator, '']
-        if self.insert('projects', values) != True:
+        values = [project_name, description, creator, '']
+        if self.insert(PROJECTS_TABLE, values) != True:
             print('insert project fail')
             return False
 
@@ -381,6 +382,7 @@ class Database:
         """
         # [target, initated_by, type, description, id, timeStamp, message, view_level]
         time = createTimestamp()
+        print(info)
         values = [info['target'], creator, info['type'], info['description'], project_id, time, info['message'], info['view_level']]
         return self.insert('record', values)
 
