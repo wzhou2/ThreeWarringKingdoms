@@ -14,8 +14,8 @@ createTable
 tableInDB
 insert 
 '''
-vals = ['eeeuserna', 'frist', 'lsat', 'pw']
-args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT", "salary INTEGER", "position TEXT"]
+# vals = ['eeeuserna', 'frist', 'lsat', 'pw']
+# args = ["user TEXT", "first TEXT", "last TEXT", "password TEXT", "salary INTEGER", "position TEXT"]
 # b = data.createTable("test_user", *args)
 # print(b)
 # t = data.tableInDB("users")
@@ -31,29 +31,29 @@ verifyuser
 getUser
 updateUser
 '''
-# d = data.get("users", "user", "password")
+# d = data.get("users", "username", "password")
 # print(d)
 # e = data.checkUser("userna")
 # f = data.checkUser("bleh")
-# print(e, f)
-di = {
-    "username": "a0",
-    "first": "dsa",
-    "last": "earaelname1",
-    "password": "pw1",
-    "salary": 100,
-    "position": "employee"
-}
-f = data.insertUser(di)
-di = {
-    "username": "a1",
-    "first": "dsa",
-    "last": "earaelname1",
-    "password": "pw1",
-    "salary": 100,
-    "position": "employee"
-}
-f = data.insertUser(di)
+# # print(e, f)
+# di = {
+#     "username": "a0",
+#     "first": "dsa",
+#     "last": "earaelname1",
+#     "password": "pw1",
+#     "salary": 100,
+#     "position": "employee"
+# }
+# f = data.insertUser(di)
+# di = {
+#     "username": "a1",
+#     "first": "dsa",
+#     "last": "earaelname1",
+#     "password": "pw1",
+#     "salary": 100,
+#     "position": "employee"
+# }
+# f = data.insertUser(di)
 # print(f)
 # ver = data.verifyUser( 'test0', 'pw0' )
 # print(ver)
@@ -122,12 +122,16 @@ getAllEmployees
 #     print(e[i])
 
 '''
-getRecordByType
+Timeline functions
 '''
-# conds = {
-#         'type': 'type txt',
-#         'target': 'target text',
-#         'initated_by': 'test0'
-#         }
-# r = data.getRecord(conds)
-# print(r)
+timeline_info = {
+        'username': 'a1',
+        'title': 'adsfjawelk',
+        'description': 'desccccccccccccc'
+        }
+# a = data.createEvent(timeline_info)
+# print(a)
+# b = data.deleteEvent(2)
+# print(b)
+c = data.getAllEvents()
+print(c)

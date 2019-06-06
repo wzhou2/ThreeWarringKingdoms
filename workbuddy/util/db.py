@@ -218,8 +218,6 @@ class Database:
 
         values = [ info[USER], info[FIRST], info[LAST], info[PASSWORD], 0, info[POSITION] ]
         timeTable = [ info[USER], '', '', '', '', '', '', '']
-        print("VALUES")
-        print(values)
 
         a = self.insert(USER_TABLE, values)
         b = self.insert(SCHEDULES_TABLE, timeTable)
@@ -377,7 +375,6 @@ class Database:
         # return self.insert('projects', values)
         return True
 
-<<<<<<< HEAD:gazpacho/util/db.py
     # def createRecord(self, creator, info, project_id):
     #     """ inserts row in record table corresponding to a project
     #     Args:
@@ -406,20 +403,19 @@ class Database:
     #     recs = self.get("record", "*", a = "WHERE {}".format(conds))
 
     #     return recs
-=======
-    def createRecord(self, creator, info, project_id):
-        """ inserts row in record table corresponding to a project
-        Args:
-            creator (str): name of creator
-            info (dict): dict of info to be inserted
-        Returns:
-            bool: True if successful
-        """
-        # [target, initated_by, type, description, id, timeStamp, message, view_level]
-        time = createTimestamp()
-        print(info)
-        values = [info['target'], creator, info['type'], info['description'], project_id, time, info['message'], info['view_level']]
-        return self.insert('record', values)
+    # def createRecord(self, creator, info, project_id):
+    #     """ inserts row in record table corresponding to a project
+    #     Args:
+    #         creator (str): name of creator
+    #         info (dict): dict of info to be inserted
+    #     Returns:
+    #         bool: True if successful
+    #     """
+    #     # [target, initated_by, type, description, id, timeStamp, message, view_level]
+    #     time = createTimestamp()
+    #     print(info)
+    #     values = [info['target'], creator, info['type'], info['description'], project_id, time, info['message'], info['view_level']]
+    #     return self.insert('record', values)
 
     def getRecord(self, conditions):
         """ gets records by defined conditions
@@ -528,23 +524,49 @@ class Database:
         Return:
             bool: true if successful
         """
-        pass
+        time = createTimestamp()
+        info_array = [info[USER], time, info['title'], info['description']]
+        return self.insert(TIMELINE_TABLE, info_array)
 
-    def deleteEvent(self, rowid):
+    @openDB
+    def deleteEvent(self, db, rowid):
         """Deletes event in timeline
         Args: 
             rowid: row id of event in timeline table in db
         Return:
             bool: true if successful
         """
-        pass
+        cmd = "DELETE FROM {} WHERE rowid={}".format(TIMELINE_TABLE, rowid)
+        c = db.cursor()
+        try:
+            c.execute(cmd)
+            return True
+        except:
+            print('delete event failed')
+            return False
 
     def getAllEvents(self):
         """Gets all events for rendering timeline
         Return:
-            array of events (sorted)
+            array of event dictionaries (sorted by time)
+                dict:
+                {
+                username (str): usr of creator,
+                timestamp (float): time of creation,
+                title (str): title of event,
+                description (str): body text,
+                rowid (int): used for deleting event
+                }
         """
-        pass
+        events = self.get(TIMELINE_TABLE, "*, rowid")
+        events.sort(key = lambda tup: tup[1])
+
+        keys = ['username', 'timestamp', 'title', 'description', 'rowid']
+        for e in range(len(events)):
+            di = { keys[i]:events[e][i] for i in range(5) }
+            events[e] = di
+
+        return events
 
     # def getInbox( self, user ):
     #     """

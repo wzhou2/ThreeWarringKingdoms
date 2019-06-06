@@ -210,3 +210,7 @@ JackL -- 2019-06-05 14:02
 - removed record table in db
 - added timeline table in db
     - started work on timeline db functions
+
+JackL -- 2019-06-05 20:25
+--------------------------------------------------------------
+- completed timeline functions
