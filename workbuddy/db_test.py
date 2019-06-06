@@ -5,7 +5,8 @@ from util.timestamp import *
 # d = data.get("users", "*", "WHERE user='asd'")
 # print(d)
 
-data = Database("util/test.db")
+# data = Database("util/test.db")
+data = Database("data/block.db")
 # a = data.tableInDB('d')
 # print(a)
 
@@ -116,7 +117,8 @@ info = {
 '''
 getAllEmployees
 '''
-# e = data.getAllEmployees()
+e = data.getAllEmployees()
+print(e)
 # for i in e:
 #     print(i)
 #     print(e[i])
@@ -133,5 +135,5 @@ timeline_info = {
 # print(a)
 # b = data.deleteEvent(2)
 # print(b)
-c = data.getAllEvents()
-print(c)
+# c = data.getAllEvents()
+# print(c)

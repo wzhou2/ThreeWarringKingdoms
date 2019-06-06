@@ -248,7 +248,7 @@ class Database:
                 }
         """
         employees = self.get(USER_TABLE, "{}, {}, {}, {}".format(USER, FIRST, LAST, SALARY),
-                a = "WHERE position='employee'")
+                a = "WHERE position='Employee'")
 
         conditions = ["username = '{}'".format(i[0]) for i in employees]
         conditions = "WHERE " + " OR ".join(conditions)
