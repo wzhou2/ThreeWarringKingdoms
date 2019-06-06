@@ -568,8 +568,10 @@ class Database:
 
         return events
 
-    # def getInbox( self, user ):
-    #     """
-
-    #     """
-    #     pass
+    def getInbox( self, user ):
+        """ Get a user's inbox
+        Args:
+            user: username
+        Return: Dict: {sent_by, topic, context, timestamp}
+        """
+        pass
