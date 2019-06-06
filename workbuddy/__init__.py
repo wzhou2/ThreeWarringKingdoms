@@ -84,7 +84,11 @@ def project():
     """
     if session.get(USER) == None:
         return redirect(url_for("index"))
-    return render_template("project.html")
+    alist=[]
+    for i in store.getAllEmployees()['personal']:
+        alist.append(i[1]+" "+i[2])
+    print(alist)
+    return render_template("project.html",employees=alist)
 
 @app.route("/create_project")
 def create_project():
@@ -135,8 +139,12 @@ def schedule():
 def inbox():
     """Return the messages
     """
-    #print(store.getAllEmployees())
-    return render_template("inbox.html",messages=False,employees=["Darryl","Courtney"])
+    print(store.getAllEmployees())
+    alist=[]
+    for i in store.getAllEmployees()['personal']:
+        alist.append(i[1]+" "+i[2])
+    print(alist)
+    return render_template("inbox.html",messages=False,employees=alist)
 
 @app.route("/getHTML")
 def getForms():
