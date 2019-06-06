@@ -135,7 +135,8 @@ def schedule():
 def inbox():
     """Return the messages
     """
-    return render_template("inbox.html",messages=False)
+    #print(store.getAllEmployees())
+    return render_template("inbox.html",messages=False,employees=["Darryl","Courtney"])
 
 @app.route("/getHTML")
 def getForms():

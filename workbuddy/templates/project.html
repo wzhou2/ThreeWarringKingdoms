@@ -5,6 +5,14 @@
 {% if session['position'] %}
 
 {% else %}
+Add new members:
+{% if employees%}
+    <select name="workers" multiple>
+        {% for item  in employees %}
+        <option value={{item}}>{{item}}</option>
+        {% endfor %}
+    </select>
+{% endif %}
 <div>
     Assign to:
 <div class="dropdown">
