@@ -80,7 +80,7 @@ def home():
     if session.get(USER) == None:
         return redirect(url_for("index"))
     projects = store.getProjects(session[USER])
-    return render_template("home.html", projects = projects)
+    return render_template("home.html")
 #projects
 @app.route("/project")
 def project():
@@ -90,8 +90,8 @@ def project():
         return redirect(url_for("index"))
     alist=[]
     for i in store.getAllEmployees()['personal']:
-        alist.append(i[1]+" "+i[2])
-    #print(alist)
+        alist.append(i[1])#+" "+i[2])  #rip last name hard for list comps
+    print(alist)
     project=store.getProjects(session[USER])
     print(project)
     index=0
@@ -101,7 +101,9 @@ def project():
     blist=project[index]["members"].split(",")
     blist=[b for b in blist if b !='']
     print(blist)
-    return render_template("project.html",employees=alist,workers=blist,project=session["project"])
+    remain=[a for a in alist if a not in blist]
+    print(remain)
+    return render_template("project.html",employees=remain,workers=blist,project=session["project"])
 
 @app.route("/link_project", methods=['POST'])
 def link_project():
@@ -204,7 +206,7 @@ def inbox():
     msg_list.sort(key = lambda msg: msg[4], reverse=True)
     # print(session.get(USER))
     # print(msg_list)
-    return render_template("inbox.html", messages = msg_list)
+    return render_template("inbox.html", messages = msg_list) 
 
 @app.route("/compose")
 def compose():
@@ -255,8 +257,6 @@ def getForms():
 
     if type == 'projectList' and session[POSITION] == 0:
         template_vars[type] = store.getAllProjects()
-    if type == 'assign' and session[POSITION] == 0:
-        template_vars[type] = store.getAllEmployees()
     return render_template("{}.html".format(type), dict = template_vars)
 
 
