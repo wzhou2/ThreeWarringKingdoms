@@ -478,6 +478,8 @@ class Database:
         Returns:
             bool: True if successful, False otherwise
         """
+        if self.checkProject(project) == False:
+            return False
         old_users = self.get("projects", "*", a = "WHERE name = '{}'".format(project))[0][2]
         new_users = ','.join(users)
         if old_users !='':
@@ -589,4 +591,56 @@ class Database:
             user: username
         Return: Dict: {sent_by, topic, context, timestamp}
         """
-        pass
+        inbox = self.get(MESSAGE_TABLE, "*, rowid", a = "WHERE sent_to='{}'".format(user))
+        return inbox
+
+    def send( self, user, send_to, topic, content ):
+        ''' Send msg to multiple users
+        Args:
+            user (str): username of sender
+            sent_to (str): receiver
+            topic (str): title of msg
+            content (str): text of msg
+        return:
+            True if success
+        '''
+        time = createTimestamp()
+        values = [send_to, user, topic, content, time]
+        print(values)
+        try:
+            self.insert(MESSAGE_TABLE, values)
+            print("succeed send")
+            return True
+        except:
+            print("fail send")
+            return False
+            
+
+
+    def reply(self, db, rowid):
+        ''' send message in reply
+        Args:
+           rowid (int): rowid of msg given by getInbox 
+        return:
+            true if successful
+        '''
+
+
+    @openDB
+    def delete(self, db, rowid ):
+        ''' delete a message in inbox
+        Args:
+           rowid (int): rowid of msg given by getInbox 
+        return:
+            true if successful
+        '''
+        cmd = "DELETE FROM {} WHERE rowid={}".format(MESSAGE_TABLE, rowid)
+        c = db.cursor()
+        try:
+            c.execute(cmd)
+            return True
+        except:
+            print('delete failed')
+            return False
+
+

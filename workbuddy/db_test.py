@@ -116,7 +116,7 @@ getProjects
 # proj = data.createProject('project2', 'a1', 'p2 faweseaeeeee')
 # add = data.addMembers('project2', 'u1', 'u2', 'a0')
 
-g = data.getProjects('bob')
+# g = data.getProjects('bob')
 
 '''
 getAllEmployees
@@ -141,3 +141,24 @@ timeline_info = {
 # print(b)
 # c = data.getAllEvents()
 # print(c)
+
+
+'''
+Inbox functions
+
+getInbox
+send
+reply
+delete
+'''
+
+# inb = data.getInbox( 'receiver' )
+# print(inb)
+
+# a = data.send( 'sender', 'receiver', 'test topic', 'test content' )
+# b = data.send( 'sender', 'receiver', 'test topic1j', 'test content' )
+# b = data.send( 'sender', 'receiver', 'test topic2', 'test content' )
+
+
+# d = data.delete( 6 )
+# print(d)
