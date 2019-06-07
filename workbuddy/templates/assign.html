@@ -1,0 +1,13 @@
+{{dict['assign']['personal']}}
+<select name="sent_to" class="custom-select" id="selector" onselect="update();">
+    {% for user in dict['assign']['personal'] %}
+    <option value="{{user[0]}}">{{user[1] }}, {{user[2]}}</option>
+    {% endfor %}
+</select>
+<div id="content">
+
+</div>
+
+<script type="text/javascript">
+
+</script>

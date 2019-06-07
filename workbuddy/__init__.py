@@ -80,7 +80,7 @@ def home():
     if session.get(USER) == None:
         return redirect(url_for("index"))
     projects = store.getProjects(session[USER])
-    return render_template("home.html")
+    return render_template("home.html", projects = projects)
 #projects
 @app.route("/project")
 def project():
@@ -204,7 +204,7 @@ def inbox():
     msg_list.sort(key = lambda msg: msg[4], reverse=True)
     # print(session.get(USER))
     # print(msg_list)
-    return render_template("inbox.html", messages = msg_list) 
+    return render_template("inbox.html", messages = msg_list)
 
 @app.route("/compose")
 def compose():
@@ -255,6 +255,8 @@ def getForms():
 
     if type == 'projectList' and session[POSITION] == 0:
         template_vars[type] = store.getAllProjects()
+    if type == 'assign' and session[POSITION] == 0:
+        template_vars[type] = store.getAllEmployees()
     return render_template("{}.html".format(type), dict = template_vars)
 
 

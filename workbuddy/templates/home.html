@@ -6,24 +6,31 @@
 {% if session['position'] == 0 %}
     <div class="row">
         <div class="col-sm-4 col-md-3 col-lg-2 flex-column" bg-success id="buttonColumn">
-            <button class="btn btn-lg btn-block btn-light btn-outline-dark" onclick="display('todo');">Todos</button>
             <button class="btn btn-lg btn-block btn-light btn-outline-dark" onclick="display('assign');">Assign</button>
             <button class="btn btn-lg btn-block btn-light btn-outline-dark" onclick="display('projectList');">Projects</button>
         </div>
         <div class="col-sm-8 col-md-9 col-lg-10" id="contentColumn"> </div>
     </div>
 {% else %}
-    <div class="card" style="width: 18rem;">
-      <div class="card-header">
-        Featured
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="project">Project 1</a></li>
-        <li class="list-group-item"><a href="project">Project 2</a></li>
-        <li class="list-group-item"><a href="project">Project 3</a></li>
-      </ul>
+    <div class="card text-center">
+        <div class="card-header"> Projects </div>
     </div>
-    <a class="btn btn-primary" href="create_project" role="button">Create Project</a>
+    {% if projects|length > 0 %}
+        <ul class="list-group list-group-flush text-center">
+            {% for item in projects %}
+                <li class="list-group-item">
+                <form method="post" action="link_project" class="inline">
+                  <button type="submit" name="project" value={{item[0]}} class="link-button">
+                    {{item[0]}}
+                  </button>
+                </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="alert alert-warning"> You are not in any projects currently. </p>
+    {% endif %}
+    <br>
 {% endif %}
 
 <script type="text/javascript">
