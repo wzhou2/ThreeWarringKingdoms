@@ -94,7 +94,11 @@ def project():
     print(alist)
     project=store.getProjects(session[USER])
     print(project)
-    blist=project[0]["members"].split(",")
+    index=0
+    for i in project:
+        if i["name"]==session["project"]:
+            index=project.index(i)
+    blist=project[index]["members"].split(",")
     blist=[b for b in blist if b !='']
     print(blist)
     remain=[a for a in alist if a not in blist]
@@ -132,7 +136,6 @@ def remove_members():
     form = request.form.getlist('workers')
     #name=form["workers"]
     project=session["project"]
-    print("Inside REMOVE")
     print(form)
     string="store.removeMembers(project,"
     for i in form:
@@ -178,6 +181,7 @@ def account():
 ##        return render_template("account.html")
 ##    return render_template("account.html",editable=True)
 
+#tasks
 @app.route("/task")
 def task():
     """ Return the task creation page
