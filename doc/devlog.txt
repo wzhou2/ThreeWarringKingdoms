@@ -218,3 +218,9 @@ JackL -- 2019-06-05 20:25
 JackL -- 2019-06-07 04:05
 --------------------------------------------------------------
 - Completed front end for inbox and messaging
+
+mingM -- 2019-06-07 7:49
+--------------------------------------------------------------
+- Added best version of timeline
+- Added select functionality and styling
+- Added session variable for projects
