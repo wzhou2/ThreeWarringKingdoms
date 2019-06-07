@@ -20,6 +20,10 @@ for name, cols in TABLES.items():
     state = store.createTable(name, *cols)
     # print(state)
 #home,login,register
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
 @app.route("/")
 def index():
     """Returns the welcome page if there is
@@ -86,13 +90,16 @@ def project():
         return redirect(url_for("index"))
     alist=[]
     for i in store.getAllEmployees()['personal']:
-        alist.append(i[1]+" "+i[2])
-    #print(alist)
+        alist.append(i[1])#+" "+i[2])  #rip last name hard for list comps
+    print(alist)
     project=store.getProjects(session[USER])
     print(project)
-    blist=project[0]["members"]
+    blist=project[0]["members"].split(",")
+    blist=[b for b in blist if b !='']
     print(blist)
-    return render_template("project.html",employees=alist,workers=blist,project=session["project"])
+    remain=[a for a in alist if a not in blist]
+    print(remain)
+    return render_template("project.html",employees=remain,workers=blist,project=session["project"])
 
 @app.route("/link_project", methods=['POST'])
 def link_project():
@@ -125,6 +132,7 @@ def remove_members():
     form = request.form.getlist('workers')
     #name=form["workers"]
     project=session["project"]
+    print("Inside REMOVE")
     print(form)
     string="store.removeMembers(project,"
     for i in form:
@@ -194,6 +202,40 @@ def inbox():
         alist.append(i[1]+" "+i[2])
     print(alist)
     return render_template("inbox.html",messages=False,employees=alist)
+    # print(store.getAllEmployees())
+    # alist=[]
+    # for i in store.getAllEmployees()['personal']:
+    #     alist.append(i[1]+" "+i[2])
+    # print(alist)
+    if session.get(USER) == None:
+        return redirect(url_for("index"))
+    msg_list = store.getInbox(session.get(USER))
+    print(session.get(USER))
+    print(msg_list)
+    return render_template("inbox.html") #,messages=False,employees=alist)
+
+@app.route("/compose")
+def compose():
+    """ compose message
+    """
+    if session.get(USER) == None:
+        return redirect(url_for("index"))
+    userlist = store.getAllEmployees()['personal']
+    userlist = [u[1] + " " + u[2] for u in userlist]
+    return render_template("inbox_compose.html", u_list = userlist)
+
+@app.route("/send_mail")
+def send():
+    # form = request.values['send_to']
+    form = request.values
+    sent_to = form['sent_to']
+    topic = form['topic']
+    content = form['content']
+    # print(form)
+    sent_bool = store.send( session.get(USER), sent_to, topic, content )
+    # print("SEND SUCCEED???????????")
+    # print(sent_bool)
+    return redirect(url_for("compose"))
 
 @app.route("/getHTML")
 def getForms():
