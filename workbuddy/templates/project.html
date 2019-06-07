@@ -15,7 +15,7 @@
 {% endif %}
 {% if employees %}
 Add new members:
-    <select name="employees" class="form-control inputstl" multiple>
+    <select name="employees" class="selectpicker" multiple>
         {% for item  in employees %}
         <option value={{item}}>{{item}}</option>
         {% endfor %}
@@ -34,7 +34,7 @@ Add new members:
 {% endif %}
 {% if workers %}
 Remove members:
-    <select name="workers" class="form-control inputstl" multiple>
+    <select name="workers" class="selectpicker" multiple>
         {% for item  in workers %}
         <option value={{item}}>{{item}}</option>
         {% endfor %}
