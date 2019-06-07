@@ -4,8 +4,9 @@
 }
 
 .container {
-    height: 600px;
-    overflow:hidden
+    height: auto;
+    min-height: 600px;
+    overflow: hidden;
 }
 
 #timeline {

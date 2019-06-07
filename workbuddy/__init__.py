@@ -192,17 +192,12 @@ def schedule():
 def inbox():
     """Return the messages
     """
-    # print(store.getAllEmployees())
-    # alist=[]
-    # for i in store.getAllEmployees()['personal']:
-    #     alist.append(i[1]+" "+i[2])
-    # print(alist)
     if session.get(USER) == None:
         return redirect(url_for("index"))
     msg_list = store.getInbox(session.get(USER))
     print(session.get(USER))
-    print(msg_list)
-    return render_template("inbox.html") #,messages=False,employees=alist)
+    print(msg_list[0])
+    return render_template("inbox.html", messages = msg_list) 
 
 @app.route("/compose")
 def compose():
@@ -211,7 +206,7 @@ def compose():
     if session.get(USER) == None:
         return redirect(url_for("index"))
     userlist = store.getAllEmployees()['personal']
-    userlist = [u[1] + " " + u[2] for u in userlist]
+    userlist = [(u[0], u[1] + " " + u[2]) for u in userlist]
     return render_template("inbox_compose.html", u_list = userlist)
 
 @app.route("/send_mail")
