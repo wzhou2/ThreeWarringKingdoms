@@ -228,12 +228,17 @@ def send():
     # print(sent_bool)
     return redirect(url_for("compose"))
 
-@app.route("/reply")
-def reply():
-    form = request.values
-    print('-------------------------------------')
-    print(form)
-    print('-------------------------------------')
+@app.route("/reply_delete")
+def reply_delete():
+    if request.values.get('delete') != None:
+        a = store.delete( request.values.get('delete') )
+        print('delete success?')
+        print(a)
+    if request.values.get('reply') != None:
+        userlist = store.getAllEmployees()['personal']
+        userlist = [(u[0], u[1] + " " + u[2]) for u in userlist]
+        return render_template("inbox_compose.html", u_list = userlist, 
+                rowid = request.values.get('reply'))
     return redirect(url_for("inbox"))
 
 @app.route("/getHTML")
