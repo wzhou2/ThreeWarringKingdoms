@@ -90,13 +90,16 @@ def project():
         return redirect(url_for("index"))
     alist=[]
     for i in store.getAllEmployees()['personal']:
-        alist.append(i[1]+" "+i[2])
-    #print(alist)
+        alist.append(i[1])#+" "+i[2])  #rip last name hard for list comps
+    print(alist)
     project=store.getProjects(session[USER])
     print(project)
-    blist=project[0]["members"]
+    blist=project[0]["members"].split(",")
+    blist=[b for b in blist if b !='']
     print(blist)
-    return render_template("project.html",employees=alist,workers=blist,project=session["project"])
+    remain=[a for a in alist if a not in blist]
+    print(remain)
+    return render_template("project.html",employees=remain,workers=blist,project=session["project"])
 
 @app.route("/link_project", methods=['POST'])
 def link_project():
@@ -129,6 +132,7 @@ def remove_members():
     form = request.form.getlist('workers')
     #name=form["workers"]
     project=session["project"]
+    print("Inside REMOVE")
     print(form)
     string="store.removeMembers(project,"
     for i in form:
@@ -221,7 +225,6 @@ def send():
     # print("SEND SUCCEED???????????")
     # print(sent_bool)
     return redirect(url_for("compose"))
-
 
 @app.route("/getHTML")
 def getForms():
