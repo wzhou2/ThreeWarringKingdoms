@@ -1,0 +1,34 @@
+{%  extends "template.html" %}
+{% block title %}Inbox{% endblock %}
+{% block body %}
+<form action="/send_mail">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">To</label>
+        </div>
+        <select name="sent_to" class="custom-select" id="inputGroupSelect01">
+            <option disabled selected value></option>
+            {% for user in u_list %}
+            <option value="{{user}}">{{user}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Subject</span>
+    </div>
+
+    <input name="topic" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+
+    <div class="input-group-prepend">
+        <span class="input-group-text">Body</span>
+    </div>
+    <textarea name="content" class="form-control" aria-label="With textarea"></textarea>
+
+    <input type="submit" class="btn btn-outline-secondary" value="Send">
+
+    </div>
+
+</form>
+
+{% endblock %}

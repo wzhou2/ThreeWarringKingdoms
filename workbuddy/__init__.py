@@ -20,6 +20,10 @@ for name, cols in TABLES.items():
     state = store.createTable(name, *cols)
     # print(state)
 #home,login,register
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
 @app.route("/")
 def index():
     """Returns the welcome page if there is
@@ -188,12 +192,41 @@ def schedule():
 def inbox():
     """Return the messages
     """
-    print(store.getAllEmployees())
-    alist=[]
-    for i in store.getAllEmployees()['personal']:
-        alist.append(i[1]+" "+i[2])
-    print(alist)
-    return render_template("inbox.html",messages=False,employees=alist)
+    # print(store.getAllEmployees())
+    # alist=[]
+    # for i in store.getAllEmployees()['personal']:
+    #     alist.append(i[1]+" "+i[2])
+    # print(alist)
+    if session.get(USER) == None:
+        return redirect(url_for("index"))
+    msg_list = store.getInbox(session.get(USER))
+    print(session.get(USER))
+    print(msg_list)
+    return render_template("inbox.html") #,messages=False,employees=alist)
+
+@app.route("/compose")
+def compose():
+    """ compose message
+    """
+    if session.get(USER) == None:
+        return redirect(url_for("index"))
+    userlist = store.getAllEmployees()['personal']
+    userlist = [u[1] + " " + u[2] for u in userlist]
+    return render_template("inbox_compose.html", u_list = userlist)
+
+@app.route("/send_mail")
+def send():
+    # form = request.values['send_to']
+    form = request.values
+    sent_to = form['sent_to']
+    topic = form['topic']
+    content = form['content']
+    # print(form)
+    sent_bool = store.send( session.get(USER), sent_to, topic, content )
+    # print("SEND SUCCEED???????????")
+    # print(sent_bool)
+    return redirect(url_for("compose"))
+
 
 @app.route("/getHTML")
 def getForms():
