@@ -5,8 +5,8 @@ from util.timestamp import *
 # d = data.get("users", "*", "WHERE user='asd'")
 # print(d)
 
-# data = Database("util/test.db")
-data = Database("data/block.db")
+data = Database("util/test.db")
+# data = Database("data/block.db")
 # a = data.tableInDB('d')
 # print(a)
 
@@ -96,16 +96,16 @@ checkProject
 createProject
 getProjects
 '''
-info = {
-    'target': 'target text',
-    'type': 'type txt',
-    'description': 'descr text',
-    'message': 'msg text',
-    'view_level': 900
-        }
+# info = {
+#     'target': 'target text',
+#     'type': 'type txt',
+#     'description': 'descr text',
+#     'message': 'msg text',
+#     'view_level': 900
+#         }
 # a = data.checkProject('project0')
 # print(a)
-# proj = data.createProject('project0', 'test0', info)
+# proj = data.createProject('project0', 'a0', 'ooffffffffffff')
 # print(proj)
 # print(data.checkProject('project0'))
 # add = data.addMembers('project0', 'u1', 'u2')
@@ -113,12 +113,16 @@ info = {
 # print(add)
 # remove = data.removeMembers('project0', 'u1', 'steve', 'aefaewf')
 # print(remove)
+# proj = data.createProject('project2', 'a1', 'p2 faweseaeeeee')
+# add = data.addMembers('project2', 'u1', 'u2', 'a0')
+
+g = data.getProjects('bob')
 
 '''
 getAllEmployees
 '''
-e = data.getAllEmployees()
-print(e)
+# e = data.getAllEmployees()
+# print(e)
 # for i in e:
 #     print(i)
 #     print(e[i])

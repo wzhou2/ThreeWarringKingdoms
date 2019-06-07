@@ -250,9 +250,13 @@ class Database:
         employees = self.get(USER_TABLE, "{}, {}, {}, {}".format(USER, FIRST, LAST, SALARY),
                 a = "WHERE position='Employee'")
 
-        conditions = ["username = '{}'".format(i[0]) for i in employees]
-        conditions = "WHERE " + " OR ".join(conditions)
-        schedules = self.get(SCHEDULES_TABLE, "*", a = conditions)
+        schedules = []
+        if len(employees) != 0:
+            print(employees)
+            conditions = ["username = '{}'".format(i[0]) for i in employees]
+            conditions = "WHERE " + " OR ".join(conditions)
+            print(conditions)
+            schedules = self.get(SCHEDULES_TABLE, "*", a = conditions)
 
         diction = {
                 "personal": employees,
@@ -347,7 +351,7 @@ class Database:
 
         return contain != 0
 
-    def createProject(self, project_name, description, creator, record_info):
+    def createProject(self, project_name, creator, description):
         """ Adds a project into the table projects
 
         Args:
@@ -362,7 +366,7 @@ class Database:
             print("project already exists")
             return False
 
-        values = [project_name, description, creator, '']
+        values = [project_name, creator, '', description]
         if self.insert(PROJECTS_TABLE, values) != True:
             print('insert project fail')
             return False
@@ -417,21 +421,21 @@ class Database:
     #     values = [info['target'], creator, info['type'], info['description'], project_id, time, info['message'], info['view_level']]
     #     return self.insert('record', values)
 
-    def getRecord(self, conditions):
-        """ gets records by defined conditions
-        Args:
-            conditions (dict): Dict of key:value pairs
-            ex: { 'type': 'message' } gets all messages
-        Returns:
-            list of records
-        """
-        # print(conditions)
-        conds = " AND ".join([ "{}='{}'".format( i, conditions[i] ) for i in conditions])
-        # conds = ' AND '.join( [ i + "'{}'".format( conditions[i] ) for i in conditions] )
-        # print(conds)
-        recs = self.get("record", "*", a = "WHERE {}".format(conds))
+    # def getRecord(self, conditions):
+    #     """ gets records by defined conditions
+    #     Args:
+    #         conditions (dict): Dict of key:value pairs
+    #         ex: { 'type': 'message' } gets all messages
+    #     Returns:
+    #         list of records
+    #     """
+    #     # print(conditions)
+    #     conds = " AND ".join([ "{}='{}'".format( i, conditions[i] ) for i in conditions])
+    #     # conds = ' AND '.join( [ i + "'{}'".format( conditions[i] ) for i in conditions] )
+    #     # print(conds)
+    #     recs = self.get("record", "*", a = "WHERE {}".format(conds))
 
-        return recs
+    #     return recs
 
 
     def getAllProjects(self):
@@ -451,8 +455,19 @@ class Database:
         Returns:
             list: list of projects
         """
-        projects = self.get(PROJECTS_TABLE, ALL, a = "WHERE name = '{}'".format(user))
-        return projects
+        user_projects = []
+        project_list = self.get(PROJECTS_TABLE, "*")
+        for project in project_list:
+            userlist = project[2].split(',')
+            if project[1] == user or user in userlist:
+                u_p = {}
+                u_p['name'] = project[0]
+                u_p['creator'] = project[1]
+                u_p['members'] = project[2]
+                u_p['description'] = project[3]
+                user_projects.append(u_p)
+
+        return user_projects
 
     @openDB
     def addMembers(self, db, project, *users):

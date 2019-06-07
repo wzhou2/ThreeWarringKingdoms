@@ -34,12 +34,12 @@ SATURDAY = "saturday"
 SUNDAY = "sunday"
 
 # RECORD TYPES
-REC_PROJECT = "rec_project"
-REC_SALARY = "rec_salary"
-REC_ISSUE = "rec_issue"
-REC_ADD_MEMBER = "rec_add_member"
-REC_REMOVE_MEMBER = "rec_remove_member"
-REC_SCHEDULE_CHANGE = "rec_schedule_change"
+# REC_PROJECT = "rec_project"
+# REC_SALARY = "rec_salary"
+# REC_ISSUE = "rec_issue"
+# REC_ADD_MEMBER = "rec_add_member"
+# REC_REMOVE_MEMBER = "rec_remove_member"
+# REC_SCHEDULE_CHANGE = "rec_schedule_change"
 
 
 PROJECT_NAME = "name"
