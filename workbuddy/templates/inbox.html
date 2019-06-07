@@ -1,40 +1,56 @@
 {%  extends "template.html" %}
 {% block title %}Inbox{% endblock %}
 {% block body %}
-Messages:
+
+
+<a href="/compose">compose</a>
 <br>
-{%if messages %}
-<div class="card-group">
-    {% for message in messages %}
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">{{ message['description'] }}</h5>
-            <p class="card-text">{{ message['message'] }}</p>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">--{{message["first"]+message["last"]}} <br> Last updated 3 mins ago</small>
-        </div>
-    </div>
-    {% endfor %}
+
+<div class="card">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
 </div>
-{% else %}
-Messages are cool to have I guess.
-{% endif %}
-<form action="">
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Your response:</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-    </div>
-    <br>
-    To:
-    {% if employees%}
-    <select name="workers" multiple>
-        {% for item  in employees %}
-        <option value={{item}}>{{item}}</option>
-        {% endfor %}
-    </select>
-    {% endif %}
-    <br>
-    <input class="btn btn-primary" type="submit" value="Send">
+
+<!-- Messages: -->
+<!-- <br> -->
+<!-- {%if messages %} -->
+<!-- <div class="card-group"> -->
+<!--     {% for message in messages %} -->
+<!--     <div class="card"> -->
+<!--         <div class="card-body"> -->
+<!--             <h5 class="card-title">{{ message['description'] }}</h5> -->
+<!--             <p class="card-text">{{ message['message'] }}</p> -->
+<!--         </div> -->
+<!--         <div class="card-footer"> -->
+<!--             <small class="text-muted">--{{message["first"]+message["last"]}} <br> Last updated 3 mins ago</small> -->
+<!--         </div> -->
+<!--     </div> -->
+<!--     {% endfor %} -->
+<!-- </div> -->
+<!-- {% else %} -->
+<!-- Messages are cool to have I guess. -->
+<!-- {% endif %} -->
+<!-- <form action=""> -->
+<!--     <div class="form-group"> -->
+<!--         <label for="exampleFormControlTextarea1">Your response:</label> -->
+<!--         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
+<!--     </div> -->
+<!--     <br> -->
+<!--     To: -->
+<!--     {% if employees%} -->
+<!--     <select name="workers" multiple> -->
+<!--         {% for item  in employees %} -->
+<!--         <option value={{item}}>{{item}}</option> -->
+<!--         {% endfor %} -->
+<!--     </select> -->
+<!--     {% endif %} -->
+<!--     <br> -->
+<!--     <input class="btn btn-primary" type="submit" value="Send"> -->
 </form>
 {% endblock %}

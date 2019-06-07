@@ -252,10 +252,10 @@ class Database:
 
         schedules = []
         if len(employees) != 0:
-            print(employees)
+            # print(employees)
             conditions = ["username = '{}'".format(i[0]) for i in employees]
             conditions = "WHERE " + " OR ".join(conditions)
-            print(conditions)
+            # print(conditions)
             schedules = self.get(SCHEDULES_TABLE, "*", a = conditions)
 
         diction = {
@@ -594,7 +594,7 @@ class Database:
         inbox = self.get(MESSAGE_TABLE, "*, rowid", a = "WHERE sent_to='{}'".format(user))
         return inbox
 
-    def send( self, user, send_to, topic, content ):
+    def send( self, user, sent_to, topic, content ):
         ''' Send msg to multiple users
         Args:
             user (str): username of sender
@@ -605,7 +605,7 @@ class Database:
             True if success
         '''
         time = createTimestamp()
-        values = [send_to, user, topic, content, time]
+        values = [sent_to, user, topic, content, time]
         print(values)
         try:
             self.insert(MESSAGE_TABLE, values)

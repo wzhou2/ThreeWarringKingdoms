@@ -196,12 +196,6 @@ def schedule():
 def inbox():
     """Return the messages
     """
-    print(store.getAllEmployees())
-    alist=[]
-    for i in store.getAllEmployees()['personal']:
-        alist.append(i[1]+" "+i[2])
-    print(alist)
-    return render_template("inbox.html",messages=False,employees=alist)
     # print(store.getAllEmployees())
     # alist=[]
     # for i in store.getAllEmployees()['personal']:
