@@ -6,41 +6,163 @@
 .container {
     height: auto;
     min-height: 600px;
-    overflow: hidden;
+    overflow: hidden
 }
 
-#timeline {
-  overflow: hidden
-}
-#timeline svg { padding: 20px 30px; overflow: hidden }
-.axis text {
-  font-family: sans-serif;
-  font-size: 10px
-}
-.axis path,
-.axis line {
-  stroke: 3px;
-  fill: none;
-  stroke: black;
-  stroke-linecap: round
-}
-.node {
-  stroke-width: 3px;
-  stroke: white
-}
-.node-label {
-  font-family: sans-serif;
-  font-size: 11px
-}
-.node.proficient {
-  fill: green;
-  stroke: green
-}
-.node.not-proficient {
-  fill: orange;
-  stroke: orange
-}
-.node.summative {
-  stroke: none
-}
-.node.formative { fill: white }
+body {
+            font-family: "Open Sans", Arial, Helvetica, sans-serif;
+            font-size: 0.85em;
+        }
+
+        h2 {
+            margin-top: 0px;
+            margin-bottom: 5px;
+        }
+
+        div.example {
+            margin: 0 0 20px 20px;
+            padding: 10px;
+            border-top: 1px solid #a0a0a0;
+        }
+
+        div.api-controls {
+            max-width: 900px;
+            margin-left: 50px;
+        }
+
+            div.api-controls > div {
+                margin-bottom: 15px;
+            }
+
+            div.api-controls button {
+                height: 30px;
+            }
+
+            div.api-controls span {
+                padding: 5px;
+                border-radius: 5px;
+                margin-right: 20px;
+            }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+
+
+        .scrollbar {
+            position: absolute;
+            width: 10px;
+            background: rgba(208, 208, 208, 0.6);
+            border-radius: 10px;
+        }
+
+            .scrollbar .slider {
+                position: absolute;
+                background: rgba(0, 0, 0, 0.4);
+                width: 6px;
+                border-radius: 10px;
+                height: 40px;
+            }
+
+
+        /* End:  General styles for example page */
+
+        /* Begin:  Basic styles - contains minimum required styles for all timelines */
+
+        .basic rect.pane {
+            fill: none;
+            pointer-events: all;
+        }
+
+        .basic rect.event-rect {
+            height: 20px;
+        }
+
+        .basic line.current-date-line {
+            stroke-width: 2;
+            stroke: red;
+            fill: none;
+        }
+
+        .basic div.hover-div {
+            border: 1px solid #000;
+            padding: 5px;
+            background-color: #FFF;
+        }
+
+        /* End:  Basic styles - contains minimum required styles for any timeline */
+
+        /* Begin:  Advanced styles - custom styles for advanced version */
+
+        .adv rect.pane {
+            fill: none;
+            pointer-events: all;
+            stroke: #000;
+            stroke-width: 1;
+        }
+
+        .adv g.x.axis g.tick line {
+            stroke: #d0d0d0;
+            stroke-dasharray: 10,10;
+        }
+
+        .adv g.y.axis g.tick line {
+            stroke: #e4e4e4;
+        }
+
+        .adv line.current-date-line {
+            stroke-width: 3;
+            stroke: blue;
+            fill: none;
+            opacity: 0.8;
+        }
+
+        .adv rect.first {
+            height: 20px;
+            fill: #90a5d0;
+            stroke: #000;
+            stroke-width: 1;
+        }
+
+        .adv rect.second {
+            height: 28px;
+            fill: rgba(243,102,102, 0.75);
+            stroke: #000;
+            stroke-width: 1;
+        }
+
+        .adv rect.third {
+            height: 10px;
+            fill: #7fe420;
+            stroke: #65b51a;
+            stroke-width: 1;
+        }
+
+        .adv rect.alt-third {
+            height: 15px;
+            fill: #1aafb5;
+            stroke: #179499;
+            stroke-width: 2;
+        }
+
+        .adv div.hover-div {
+            border: 1px solid #FFF;
+            padding: 5px;
+            background-color: #000;
+            color: #FFF;
+            opacity: 0.9;
+        }
+
+        /* Set the label-icons to use FontAwesome */
+        .adv text.label-icon {
+            font-family: "FontAwesome";
+            font-size: 1.3em;
+            fill: #000;
+        }
+
+        .adv text.fb-icon {
+            fill: #3E5B99;
+        }

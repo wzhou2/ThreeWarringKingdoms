@@ -1,12 +1,209 @@
+
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title> test</title>
- <link rel="stylesheet" type="text/css" href="style.css"> 
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+
+    <script src="stackedTimeline.js"></script>
+
+
 </head>
 <body>
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<div id ="timeline"></div>
-<script src="scripts.js"></script>
+
+    <div class="example">
+        <h2>Event Timeline</h2>
+        <div><strong>Description</strong></div>
+        <br />
+        <br />
+        <div id="basic-timeline" class="basic">
+        </div>
+    </div>
+
+    
+
+
+    <script type="text/javascript">
+
+        //set a base date, used to just generate test data
+        var dateFormat = d3.time.format("%d/%m/%Y");
+        var baseDate = addDays(new Date(), -3);
+        //the data set for the basic example
+        basicData = {
+            //config: [{ className: "bar", height: "20" }],
+            rows: [
+            {
+                label: "Task ABC",
+                events: [{ hoverText: "Task ABC details...", start: baseDate, end: addDays(baseDate, 4) }]
+            },
+            {
+                label: "Person 123",
+                events: [{ hoverText: "Something about person 123", start: addDays(baseDate, 2), end: addDays(baseDate, 7) }]
+            },
+            {
+                label: "Things happening",
+                events: [{ start: addDays(baseDate, 1), end: addDays(baseDate, 6) }]
+            },
+            {
+                label: "Events 987",
+                events: [{ hoverText: "Extra detail for 987", start: addDays(baseDate, 2), end: addDays(baseDate, 7) }]
+            },
+            {
+                label: "VB-QWE",
+                events: [{ start: addDays(baseDate, 2), end: addDays(baseDate, 10) }]
+            },
+            {
+                label: "James T",
+                events: [{ start: addDays(baseDate, 4), end: addDays(baseDate, 7) }]
+            },
+            {
+                label: "Project Stuff",
+                events: [{ start: addDays(baseDate, 5), end: addDays(baseDate, 9) }]
+            }
+            ]
+        };
+		//replacing with fresh data
+		var getData=function(data){
+			basicData=data;
+		};
+
+
+        //set up and create the basic example
+        var basicOptions = {
+            data: basicData,
+            transition: false
+        }	
+
+        var basicTimeline = d3.select("#basic-timeline")
+                        .stackedTimeline(basicOptions);
+
+
+        //assign event handlers to the api controls. Just to give examples of setting parameters after timeline creation
+        d3.selectAll(".zoom-in").on("click", function () {
+            var tl = d3.select(this).attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            tl.zoom(2);
+        });
+
+        d3.selectAll(".zoom-out").on("click", function () {
+            var tl = d3.select(this).attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            tl.zoom(0.5);
+        });
+
+        d3.selectAll(".center-now").on("click", function () {
+            var tl = d3.select(this).attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            tl.goToDate(new Date());
+        });
+
+        d3.selectAll(".go-to-range").on("click", function () {
+            var tl = d3.select(this).attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+
+            var xMin = d3.min(basicData.rows, function (d) {
+                return d3.min(d.events, function (d) { return d.start });
+            });
+
+            var xMax = d3.max(basicData.rows, function (d) {
+                return d3.max(d.events, function (d) { return d.end });
+            });
+
+            tl.goToDateRange(xMin, xMax);
+        });
+
+        d3.selectAll(".width").on("change", function () {
+            var tl = d3.select(this).attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            var val = this.value;
+            if (!isNaN(val)) {
+                tl.width(parseFloat(val));
+            }
+            else {
+                this.value = tl.width(); //reset text box to current value if entered value is not a number
+            }
+        });
+
+        d3.selectAll(".height").on("change", function () {
+            var tl = d3.select(this).attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            var val = this.value;
+            if (!isNaN(val)) {
+                tl.height(parseFloat(val));
+            }
+            else {
+                this.value = tl.height(); //reset text box to current value if entered value is not a number
+            }
+        });
+
+
+        d3.selectAll(".row-height").on("change", function () {
+            var tl = d3.select(this).attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            var val = this.value;
+            if (!isNaN(val)) {
+                tl.rowHeight(parseFloat(val));
+            }
+            else {
+                this.value = tl.rowHeight(); //reset text box to current value if entered value is not a number
+            }
+        });
+
+        d3.selectAll(".label-width").on("change", function () {
+            var tl = d3.select(this).attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            var val = this.value;
+            if (!isNaN(val)) {
+                tl.labelWidth(parseFloat(val));
+            }
+            else {
+                this.value = tl.labelWidth(); //reset text box to current value if entered value is not a number
+            }
+        });
+
+
+        d3.selectAll(".limit-data").on("change", function () {
+            var cb = d3.select(this);
+            var tl = cb.attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            tl.limitDatesToData(cb.property("checked"));
+        });
+
+        d3.selectAll(".display-current").on("change", function () {
+            var cb = d3.select(this);
+            var tl = cb.attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            tl.displayCurrent(cb.property("checked"));
+        });
+
+        d3.selectAll(".update-current").on("change", function () {
+            var tl = d3.select(this).attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            var val = this.value;
+            if (!isNaN(val)) {
+                tl.updateCurrentMs(parseFloat(val));
+            }
+            else {
+                this.value = tl.updateCurrentMs(); //reset text box to current value if entered value is not a number
+            }
+        });
+
+        d3.selectAll(".date-axis").on("change", function () {
+            var tl = d3.select(this).attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            tl.xAxisPosition(this.value);
+        });
+
+        d3.selectAll(".display-time-range").on("change", function () {
+            var cb = d3.select(this);
+            var tl = cb.attr("data-timeline") === "basic" ? basicTimeline : advancedTimeline;
+            tl.displayTimeRange(cb.property("checked"));
+        });
+
+
+        //helper function to add days to a date for the test data generation.
+        function addDays(date, days) {
+            return d3.time.day.offset(date, days);
+        }
+
+    </script>
+
+
 </body>
+
 </html>
