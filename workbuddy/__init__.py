@@ -201,8 +201,9 @@ def inbox():
     if session.get(USER) == None:
         return redirect(url_for("index"))
     msg_list = store.getInbox(session.get(USER))
+    msg_list.sort(key = lambda msg: msg[4], reverse=True)
     # print(session.get(USER))
-    # print(msg_list[0])
+    # print(msg_list)
     return render_template("inbox.html", messages = msg_list) 
 
 @app.route("/compose")
@@ -235,10 +236,14 @@ def reply_delete():
         print('delete success?')
         print(a)
     if request.values.get('reply') != None:
-        userlist = store.getAllEmployees()['personal']
-        userlist = [(u[0], u[1] + " " + u[2]) for u in userlist]
-        return render_template("inbox_compose.html", u_list = userlist, 
-                rowid = request.values.get('reply'))
+        print('===================')
+        print( request.values.get('reply') )
+        print('===================')
+        user = store.getUser( request.values.get('reply') )['personal']
+        print(user)
+        u = [( user[USER], user['first'] + " " + user['last'] )]
+        print(u)
+        return render_template("inbox_compose.html", u_list = u)
     return redirect(url_for("inbox"))
 
 @app.route("/getHTML")

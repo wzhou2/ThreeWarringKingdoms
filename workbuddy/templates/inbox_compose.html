@@ -7,7 +7,7 @@
             <label class="input-group-text" for="inputGroupSelect01">To</label>
         </div>
         <select name="sent_to" class="custom-select" id="inputGroupSelect01">
-            <option disabled selected value></option>
+            <!-- <option disabled selected value></option> -->
             {% for user in u_list %}
             <option value="{{user[0]}}">{{user[1]}}</option>
             {% endfor %}
