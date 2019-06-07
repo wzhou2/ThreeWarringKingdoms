@@ -1,5 +1,5 @@
 {%  extends "template.html" %}
-{% block title %}Inbox{% endblock %}
+{% block title %}Compose{% endblock %}
 {% block body %}
 <form action="/send_mail">
     <div class="input-group mb-3">
@@ -9,7 +9,7 @@
         <select name="sent_to" class="custom-select" id="inputGroupSelect01">
             <option disabled selected value></option>
             {% for user in u_list %}
-            <option value="{{user}}">{{user}}</option>
+            <option value="{{user[0]}}">{{user[1]}}</option>
             {% endfor %}
         </select>
     </div>
@@ -18,7 +18,7 @@
         <span class="input-group-text" id="basic-addon1">Subject</span>
     </div>
 
-    <input name="topic" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    <input name="topic" type="text" class="form-control" placeholder="Subject" aria-label="Subject" aria-describedby="basic-addon1">
 
     <div class="input-group-prepend">
         <span class="input-group-text">Body</span>

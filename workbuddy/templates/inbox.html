@@ -6,16 +6,63 @@
 <a href="/compose">compose</a>
 <br>
 
+
+{% for msg in messages %}
 <div class="card">
-  <div class="card-header">
-    Featured
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
+    <div class="card-header">
+        From: {{ msg[1] }}
+    </div>
+    <div class="card-header">
+        {{ msg[2] }}
+    </div>
+    <div class="card-body">
+        {{ msg[3] }} 
+        <!-- <h5 class="card-title">Special title treatment</h5> -->
+        <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+        <!-- <a href="#" class="btn btn-primary">Reply</a> -->
+    </div>
+        <table class="table">
+            <tr>
+                <td>Sent {{msg[4]}}</td>
+                <td>{{msg[5]}}</td>
+            </tr>
+        
+        </table>
 </div>
+<br>
+
+{% endfor %}
+
+
+</form>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- Messages: -->
 <!-- <br> -->
@@ -28,7 +75,6 @@
 <!--             <p class="card-text">{{ message['message'] }}</p> -->
 <!--         </div> -->
 <!--         <div class="card-footer"> -->
-<!--             <small class="text-muted">--{{message["first"]+message["last"]}} <br> Last updated 3 mins ago</small> -->
 <!--         </div> -->
 <!--     </div> -->
 <!--     {% endfor %} -->
@@ -52,5 +98,3 @@
 <!--     {% endif %} -->
 <!--     <br> -->
 <!--     <input class="btn btn-primary" type="submit" value="Send"> -->
-</form>
-{% endblock %}

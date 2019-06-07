@@ -592,6 +592,10 @@ class Database:
         Return: Dict: {sent_by, topic, context, timestamp}
         """
         inbox = self.get(MESSAGE_TABLE, "*, rowid", a = "WHERE sent_to='{}'".format(user))
+        inbox = [list(msg) for msg in inbox]
+        for msg in inbox:
+            msg[4] = convertTimestamp(msg[4])
+            print(msg[4])
         return inbox
 
     def send( self, user, sent_to, topic, content ):
