@@ -8,28 +8,30 @@
 
 
 {% for msg in messages %}
-<div class="card">
-    <div class="card-header">
-        From: {{ msg[1] }}
-    </div>
-    <div class="card-header">
-        {{ msg[2] }}
-    </div>
-    <div class="card-body">
-        {{ msg[3] }} 
-        <!-- <h5 class="card-title">Special title treatment</h5> -->
-        <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
-        <!-- <a href="#" class="btn btn-primary">Reply</a> -->
-    </div>
+<form action="/reply">
+    <div name="rowid" value={{msg[5]}} class="card border-primary">
+        <div class="card-header">
+            <h4>{{ msg[2] }}</h4>
+        </div>
+        <div class="card-header">
+            From {{ msg[1] }}
+        </div>
+        <div class="card-body">
+            {{ msg[3] }} 
+        </div>
         <table class="table">
             <tr>
                 <td>Sent {{msg[4]}}</td>
-                <td>{{msg[5]}}</td>
+                <td>
+                    <input type="submit" class="btn btn-info" value="Reply">
+                    <!-- <a href="/reply" class="btn btn-info" role="button">Reply</a> -->
+                </td>
             </tr>
-        
+
         </table>
-</div>
-<br>
+    </div>
+    <br>
+</form>
 
 {% endfor %}
 
