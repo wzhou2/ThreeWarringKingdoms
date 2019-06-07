@@ -4,7 +4,13 @@
 {% if dict['projectList']|length > 0 %}
     <ul class="list-group list-group-flush text-center">
         {% for item in dict['projectList'] %}
-            <li class="list-group-item"><a href="project">{{item[0]}}</a></li>
+            <li class="list-group-item">
+			<form method="post" action="link_project" class="inline">
+			  <button type="submit" name="project" value={{item[0]}} class="link-button">
+				{{item[0]}}
+			  </button>
+			</form>
+			</li>
         {% endfor %}
     </ul>
 {% else %}

@@ -5,6 +5,9 @@
 {% if session['position'] %}
 
 {% else %}
+<h2> {{project}}</h2>
+<form action="/add_members" method="post">
+<div style="float:left;width:49%">
 Add new members:
 {% if employees%}
     <select name="workers" multiple>
@@ -12,7 +15,24 @@ Add new members:
         <option value={{item}}>{{item}}</option>
         {% endfor %}
     </select>
+<button type="submit" class="btn btn-light btn-outline-dark">Add</button>
+</div>
+</form>
 {% endif %}
+<form action="/remove_members" method="post">
+<div style="float:left;width:49%">
+Add new members:
+{% if employees%}
+    <select name="workers" multiple>
+        {% for item  in employees %}
+        <option value={{item}}>{{item}}</option>
+        {% endfor %}
+    </select>
+<button type="submit" class="btn btn-light btn-outline-dark">Add</button>
+</div>
+</form>
+{% endif %}
+
 <div>
     Assign to:
 <div class="dropdown">

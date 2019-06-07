@@ -87,8 +87,34 @@ def project():
     alist=[]
     for i in store.getAllEmployees()['personal']:
         alist.append(i[1]+" "+i[2])
-    print(alist)
-    return render_template("project.html",employees=alist)
+    #print(alist)
+    return render_template("project.html",employees=alist,project=session["project"])
+
+@app.route("/link_project", methods=['POST'])
+def projectlink():
+    """ Returns the project page
+    """
+    form=request.form
+    session["project"]=form["project"]
+    return redirect(url_for("project"))
+
+@app.route("/add_members", methods=['POST'])
+def add_members():
+    """ Adds members
+    """
+    form = request.form.getlist('workers')
+    #name=form["workers"]
+    print(form)
+    return redirect(url_for("project"))
+
+@app.route("/remove_members", methods=['POST'])
+def remove_members():
+    """ Removes members
+    """
+    form = request.form.getlist('workers')
+    #name=form["workers"]
+    print(form)
+    return redirect(url_for("project"))
 
 @app.route("/create_project")
 def create_project():
@@ -102,8 +128,14 @@ def create():
     name=form["name"]
     description = form["description"]
     record=''
-    if store.createProject(name, description, session[USER], record):#
-        store.addMembers(name,request.form.getlist('workers'))
+    if store.createProject(name, description, session[USER], record):
+        session["project"]=name
+        return redirect(url_for("project"))
+##        string=""
+##        for i in form.getlist('workers'):
+##            string+=i
+##        print(string)
+        #store.addMembers(name,form.getlist('workers'))
         pass
     else:
         return redirect(url_for("home"))
