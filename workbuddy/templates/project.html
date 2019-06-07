@@ -8,14 +8,14 @@
 <h2> {{project}}</h2>
 {% if employees != [''] and employees != []%}
 <form action="/add_members" method="post">
-{% if workers == [''] and workers == []%}
+{% if workers == [''] or workers == []%}
 <div style="float:left;width:98%">
 {% else %}
 <div style="float:left;width:49%">
 {% endif %}
 {% if employees %}
 Add new members:
-    <select name="employees" multiple>
+    <select name="employees" class="selectpicker" multiple>
         {% for item  in employees %}
         <option value={{item}}>{{item}}</option>
         {% endfor %}
@@ -34,7 +34,7 @@ Add new members:
 {% endif %}
 {% if workers %}
 Remove members:
-    <select name="workers" multiple>
+    <select name="workers" class="selectpicker" multiple>
         {% for item  in workers %}
         <option value={{item}}>{{item}}</option>
         {% endfor %}
@@ -45,18 +45,7 @@ Remove members:
 {% endif %}
 {% endif %}
 <div>
-    Assign to:
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-    <button class="dropdown-item" type="button">Action</button>
-    <button class="dropdown-item" type="button">Another action</button>
-    <button class="dropdown-item" type="button">Something else here</button>
-  </div>
-</div>
-<a class="btn btn-primary" href="task" role="button">Create task</a>
+<a class="btn btn-primary" href="task" role="button">Assign tasks</a>
 </div>
 Set Dates:
 Clickable timeline

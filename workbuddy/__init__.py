@@ -94,7 +94,12 @@ def project():
     #print(alist)
     project=store.getProjects(session[USER])
     print(project)
-    blist=project[0]["members"]
+    index=0
+    for i in project:
+        if i["name"]==session["project"]:
+            index=project.index(i)
+    blist=project[index]["members"].split(",")
+    blist=[b for b in blist if b !='']
     print(blist)
     return render_template("project.html",employees=alist,workers=blist,project=session["project"])
 
@@ -174,6 +179,7 @@ def account():
 ##        return render_template("account.html")
 ##    return render_template("account.html",editable=True)
 
+#tasks
 @app.route("/task")
 def task():
     """ Return the task creation page
@@ -195,8 +201,8 @@ def inbox():
     if session.get(USER) == None:
         return redirect(url_for("index"))
     msg_list = store.getInbox(session.get(USER))
-    print(session.get(USER))
-    print(msg_list[0])
+    # print(session.get(USER))
+    # print(msg_list[0])
     return render_template("inbox.html", messages = msg_list) 
 
 @app.route("/compose")
