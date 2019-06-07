@@ -614,16 +614,25 @@ class Database:
         except:
             print("fail send")
             return False
-            
 
-
-    def reply(self, db, rowid):
+    def reply(self, rowid, topic, content):
         ''' send message in reply
         Args:
            rowid (int): rowid of msg given by getInbox 
         return:
             true if successful
         '''
+        parent_msg = self.get(MESSAGE_TABLE, "*", a = "WHERE rowid={}".format(rowid))[0]
+        print(parent_msg)
+        time = createTimestamp()
+        values = [ parent_msg[1], parent_msg[0], topic, content, time ]
+        try:
+            self.insert(MESSAGE_TABLE, values)
+            print("succeed reply")
+            return True
+        except:
+            print("fail reply")
+            return False
 
 
     @openDB
@@ -642,5 +651,4 @@ class Database:
         except:
             print('delete failed')
             return False
-
 

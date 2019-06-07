@@ -159,6 +159,8 @@ delete
 # b = data.send( 'sender', 'receiver', 'test topic1j', 'test content' )
 # b = data.send( 'sender', 'receiver', 'test topic2', 'test content' )
 
+# a0 = data.send( 'sender', 'receiver', 'sending topic', 'sending content' )
+# b0 = data.reply( 6, 'replying topic', 'replying content' )
 
 # d = data.delete( 6 )
 # print(d)
