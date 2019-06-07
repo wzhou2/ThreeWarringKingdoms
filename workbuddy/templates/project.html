@@ -7,10 +7,14 @@
 {% else %}
 <h2> {{project}}</h2>
 <form action="/add_members" method="post">
+{% if workers == [] %}
+<div style="float:left;width:98%">
+{% else %}
 <div style="float:left;width:49%">
+{% endif %}
 Add new members:
 {% if employees%}
-    <select name="workers" multiple>
+    <select name="employees" multiple>
         {% for item  in employees %}
         <option value={{item}}>{{item}}</option>
         {% endfor %}
@@ -19,16 +23,16 @@ Add new members:
 </div>
 </form>
 {% endif %}
+{% if workers%}
 <form action="/remove_members" method="post">
 <div style="float:left;width:49%">
-Add new members:
-{% if employees%}
+Remove members:
     <select name="workers" multiple>
-        {% for item  in employees %}
+        {% for item  in workers %}
         <option value={{item}}>{{item}}</option>
         {% endfor %}
     </select>
-<button type="submit" class="btn btn-light btn-outline-dark">Add</button>
+<button type="submit" class="btn btn-light btn-outline-dark">Remove</button>
 </div>
 </form>
 {% endif %}
