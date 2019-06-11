@@ -220,7 +220,7 @@ def schedule():
     if info['personal']['position'] == "Admin":
         userlist = store.getAllEmployees()['personal']
         userlist = [(u[0], u[1] + " " + u[2]) for u in userlist]
-        return render_template("assign_schedule.html", u_list=userlist)
+        return render_template("assign_schedule.html", u_list=userlist,salary=store.getAllEmployees()["personal"])
     else:
         return redirect(url_for("account"))
 
@@ -229,12 +229,18 @@ def assign_schedule_function():
     form = request.values
     sch = {}
     user = ""
+    salary=0
     for i in form:
         if i == "username":
             user = form[i]
+        elif i == "salary":
+            salary = form[i]
         else:
             sch[i] = form[i]
     print(sch)
+    info=store.getUser(user)
+    info['personal']['salary']=salary
+    print(store.updateUser(user,info))
     store.updateSchedule(user, sch)
     return redirect(url_for("home"))
 
