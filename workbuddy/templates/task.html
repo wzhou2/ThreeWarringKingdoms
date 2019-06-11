@@ -2,39 +2,57 @@
 
 {% block title %}Landing{% endblock %}
 {% block body %}
-<div>
-    Assign task to:
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-    <button class="dropdown-item" type="button" id="Claurice">Claurice</button>
-    <button class="dropdown-item" type="button" id="Nathan">Nathan</button>
-    <button class="dropdown-item" type="button" id="Robert">Robert</button>
-  </div>
-</div>
-<p id="name"></p>
-    Task:
-	<input type="text" name="task" required>
-	<br>
-	<br>
-	<input class="btn btn-primary" type="submit" value="Submit">
-</div>
-<br>
-Issues:
-  <div class="card">
-    <div class="card-body">Scripting is off.</div>
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Your response:</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-  </div>
-  <input class="btn btn-primary" type="submit" value="Create Issue">
-<br>
+<form action="assign_task">
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Assign To</label>
+        </div>
+        <select name="sent_to" class="custom-select" id="inputGroupSelect01">
+            <!-- <option disabled selected value></option> -->
+            {% for member in members %}
+            <option value="{{member}}">{{member}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <!-- <div class="dropdown"> -->
+    <!--     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+    <!--         Dropdown -->
+    <!--     </button> -->
+    <!--     <div class="dropdown-menu" aria-labelledby="dropdownMenu2"> -->
+    <!--         <button class="dropdown-item" type="button" id="Claurice">Claurice</button> -->
+    <!--         <button class="dropdown-item" type="button" id="Nathan">Nathan</button> -->
+    <!--         <button class="dropdown-item" type="button" id="Robert">Robert</button> -->
+    <!--     </div> -->
+    <!-- </div> -->
+
+    <!-- <p id="name"></p> -->
+    <!-- Task: -->
+    <!-- <input name="task" type="text" required> -->
+    <!-- <br> -->
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Task</span>
+    </div>
+    <input name="task" type="text" class="form-control" placeholder="Task" aria-label="Task" aria-describedby="basic-addon1">
+
+    <!-- <br> -->
+    <!-- <input class="btn btn-primary" type="submit" value="Submit"> -->
+    <!-- <br> -->
+    <!-- Issues: -->
+    <!-- <div class="card"> -->
+    <!--     <div class="card-body">Scripting is off.</div> -->
+    <!-- </div> -->
+    <!-- <div class="form-group"> -->
+    <!--     <label for="exampleFormControlTextarea1">Your response:</label> -->
+    <!--     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
+    <!-- </div> -->
+    <!-- <input class="btn btn-primary" type="submit" value="Create Issue"> -->
+    <!-- <br> -->
+    <input type="submit" class="btn btn-outline-secondary" value="Send">
+</form>
 {% endblock %}
 <script>
-var buttons = document.getElementsByTagName("button");
+    var buttons = document.getElementsByTagName("button");
 var buttonsCount = buttons.length;
 for (var i = 0; i <= buttonsCount; i += 1) {
     buttons[i].onclick = function(e) {

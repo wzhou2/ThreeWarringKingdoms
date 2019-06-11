@@ -91,18 +91,18 @@ def project():
     alist=[]
     for i in store.getAllEmployees()['personal']:
         alist.append(i[1])#+" "+i[2])  #rip last name hard for list comps
-    print(alist)
+    # print(alist)
     project=store.getProjects(session[USER])
-    print(project)
+    # print(project)
     index=0
     for i in project:
         if i["name"]==session["project"]:
             index=project.index(i)
     blist=project[index]["members"].split(",")
     blist=[b for b in blist if b !='']
-    print(blist)
+    # print(blist)
     remain=[a for a in alist if a not in blist]
-    print(remain)
+    # print(remain)
     return render_template("project.html",employees=remain,workers=blist,project=session["project"])
 
 @app.route("/link_project", methods=['POST'])
@@ -188,7 +188,11 @@ def task():
     """
     if session.get(USER) == None:
         return redirect(url_for("index"))
-    return render_template("task.html")
+    proj = session.get('project')
+    project = store.get("projects", "*", a = "WHERE name='{}'".format(proj))[0]
+    employees = project[2].split(',')
+    print(employees)
+    return render_template("task.html", members=employees)
 
 @app.route("/schedule")
 def schedule():

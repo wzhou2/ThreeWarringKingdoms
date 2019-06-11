@@ -13,7 +13,7 @@ TABLES = {
     # RECORD_TABLE: ['target TEXT', 'initated_by TEXT', 'type TEXT', 'description TEXT', 'id INTEGER', 'timeStamp INTEGER', 'message TEXT', 'view_level INTEGER'],
     # RECORD_TABLE: ["username TEXT", "project TEXT", "type TEXT", "timestamp INTEGER", "description TEXT"],
     MESSAGE_TABLE: ['sent_to TEXT', 'sent_by TEXT', 'topic TEXT', 'content TEXT', 'timestamp INTEGER' ],
-    TIMELINE_TABLE: ['username TEXT', 'timestamp INTEGER', 'title TEXT', 'description TEXT']
+    TIMELINE_TABLE: ['username TEXT', 'start_time INTEGER','end_time INTEGER', 'title TEXT', 'description TEXT']
 }
 
 # CONSTANTS
