@@ -208,7 +208,7 @@ def assign():
     form = request.values
     sent_to = form['sent_to']
     content = form['content']
-    print(session)
+    # print(session)
     topic = "TASK for {}".format( session.get('project'))
     sent_bool = store.send( session.get(USER), sent_to, topic, content )
     return redirect(url_for("project"))
@@ -234,20 +234,27 @@ def assign_schedule_function():
     form = request.values
     sch = {}
     user = ""
-    salary=0
     for i in form:
         if i == "username":
             user = form[i]
-        elif i == "salary":
-            salary = form[i]
         else:
             sch[i] = form[i]
-    print(sch)
-    info=store.getUser(user)
-    info['personal']['salary']=salary
-    print(store.updateUser(user,info))
+    # print(sch)
     store.updateSchedule(user, sch)
     return redirect(url_for("home"))
+
+@app.route("/update_salary")
+def update_salary():
+    form = request.values
+    user = form['username']
+    sal = form['salary']
+    userinfo = store.getUser( user )['personal']
+    userinfo['salary'] = sal
+    store.updateUser( user, userinfo )
+
+    return redirect(url_for("home"))
+
+
 
 @app.route("/inbox")
 def inbox():

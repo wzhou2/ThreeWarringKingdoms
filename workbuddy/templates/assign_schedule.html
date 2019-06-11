@@ -2,6 +2,26 @@
 
 {% block title %}Assign Schedule{% endblock %}
 {% block body %}
+<form action="/update_salary">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Employee</label>
+        </div>
+        <select name="username" class="custom-select" id="inputGroupSelect01">
+            <!-- <option disabled selected value></option> -->
+            {% for user in u_list %}
+            <option value="{{user[0]}}">{{user[1]}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    Assign Salary(per hour):$
+    <input type="number" id="salary" name="salary" required>
+    <input type="submit" class="btn btn-outline-secondary" value="Update Salary">
+</form>
+<br>
+<br>
+
+
 <form action="assign_schedule_function">
     <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -14,9 +34,6 @@
             {% endfor %}
         </select>
     </div>
-	Assign Salary(per hour):$
-	<input type="number" id="salary" name="salary"
-       min="15" max="100" >
     <div class="input-group-prepend">
         <span class="input-group-text">Monday</span>
     </div>
