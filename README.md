@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/wzhou2/ThreeWarringKingdoms.svg?branch=master)]
 
+## Video Demo
+[Our Demo](https://youtu.be/w4YqzRvPxPg)
+
 ## Instructions to Run:
 Click this link to go to our website: [Live Link](http://206.189.184.181/)
 ### To Run Locally:
