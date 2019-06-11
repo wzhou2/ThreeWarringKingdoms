@@ -103,7 +103,9 @@ def project():
     # print(blist)
     remain=[a for a in alist if a not in blist]
     # print(remain)
-    return render_template("project.html",employees=remain,workers=blist,project=session["project"])
+    clist=project[index]["description"]
+    print(clist)
+    return render_template("project.html",employees=remain,workers=blist,project=session["project"],description=clist)
 
 @app.route("/link_project", methods=['POST'])
 def link_project():
