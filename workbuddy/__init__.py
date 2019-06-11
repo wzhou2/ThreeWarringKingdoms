@@ -80,7 +80,7 @@ def home():
     if session.get(USER) == None:
         return redirect(url_for("index"))
     projects = store.getProjects(session[USER])
-    return render_template("home.html")
+    return render_template("home.html",projects=projects)
 #projects
 @app.route("/project")
 def project():
