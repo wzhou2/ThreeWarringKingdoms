@@ -220,9 +220,7 @@ def schedule():
         userlist = [(u[0], u[1] + " " + u[2]) for u in userlist]
         return render_template("assign_schedule.html", u_list=userlist)
     else:
-        sch = store.getSchedule( session.get(USER) )
-        print(sch)
-        return render_template("schedule.html")
+        return redirect(url_for("account"))
 
 @app.route("/assign_schedule_function")
 def assign_schedule_function():
