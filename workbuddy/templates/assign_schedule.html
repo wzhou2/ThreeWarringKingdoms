@@ -1,0 +1,49 @@
+{%  extends "template.html" %}
+
+{% block title %}Assign Schedule{% endblock %}
+{% block body %}
+<form action="assign_schedule_function">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Employee</label>
+        </div>
+        <select name="username" class="custom-select" id="inputGroupSelect01">
+            <!-- <option disabled selected value></option> -->
+            {% for user in u_list %}
+            <option value="{{user[0]}}">{{user[1]}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="input-group-prepend">
+        <span class="input-group-text">Monday</span>
+    </div>
+    <textarea name="monday" class="form-control" aria-label="With textarea"></textarea>
+    <div class="input-group-prepend">
+        <span class="input-group-text">Tuesday</span>
+    </div>
+    <textarea name="tuesday" class="form-control" aria-label="With textarea"></textarea>
+    <div class="input-group-prepend">
+        <span class="input-group-text">Wednesday</span>
+    </div>
+    <textarea name="wednesday" class="form-control" aria-label="With textarea"></textarea>
+    <div class="input-group-prepend">
+        <span class="input-group-text">Thursday</span>
+    </div>
+    <textarea name="thursday" class="form-control" aria-label="With textarea"></textarea>
+    <div class="input-group-prepend">
+        <span class="input-group-text">Friday</span>
+    </div>
+    <textarea name="friday" class="form-control" aria-label="With textarea"></textarea>
+    <div class="input-group-prepend">
+        <span class="input-group-text">Saturday</span>
+    </div>
+    <textarea name="saturday" class="form-control" aria-label="With textarea"></textarea>
+    <div class="input-group-prepend">
+        <span class="input-group-text">Sunday</span>
+    </div>
+    <textarea name="sunday" class="form-control" aria-label="With textarea"></textarea>
+
+    <input type="submit" class="btn btn-outline-secondary" value="Send">
+
+</form>
+{% endblock %}

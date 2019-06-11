@@ -12,13 +12,13 @@
     <div style="float:left;width:98%">
         {% else %}
         <div style="float:left;width:49%">
-    {% endif %}
-    {% if employees %}
+            {% endif %}
+            {% if employees %}
             Add new members:
             <select name="employees" class="selectpicker" multiple>
                 {% for item  in employees %}
                 <option value={{item}}>{{item}}</option>
-    {% endfor %}
+                {% endfor %}
             </select>
             <button type="submit" class="btn btn-light btn-outline-dark">Add</button>
         </div>

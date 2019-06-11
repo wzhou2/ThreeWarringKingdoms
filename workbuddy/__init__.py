@@ -194,11 +194,49 @@ def task():
     print(employees)
     return render_template("task.html", members=employees)
 
+@app.route("/assign_task")
+def assign():
+    if session.get(USER) == None:
+        return redirect(url_for("index"))
+    form = request.values
+    sent_to = form['sent_to']
+    content = form['content']
+    print(session)
+    topic = "TASK for {}".format( session.get('project'))
+    sent_bool = store.send( session.get(USER), sent_to, topic, content )
+    return redirect(url_for("project"))
+
 @app.route("/schedule")
 def schedule():
-    """Return the schedule page
-    """
-    return render_template("schedule.html")
+    '''
+    admin assign schedules
+    user view schedules
+    '''
+    if session.get(USER) == None:
+        return redirect(url_for("index"))
+    info = store.getUser( session.get(USER) )
+    if info['personal']['position'] == "Admin":
+        userlist = store.getAllEmployees()['personal']
+        userlist = [(u[0], u[1] + " " + u[2]) for u in userlist]
+        return render_template("assign_schedule.html", u_list=userlist)
+    else:
+        sch = store.getSchedule( session.get(USER) )
+        print(sch)
+        return render_template("schedule.html")
+
+@app.route("/assign_schedule_function")
+def assign_schedule_function():
+    form = request.values
+    sch = {}
+    user = ""
+    for i in form:
+        if i == "username":
+            user = form[i]
+        else:
+            sch[i] = form[i]
+    print(sch)
+    store.updateSchedule(user, sch)
+    return redirect(url_for("home"))
 
 @app.route("/inbox")
 def inbox():

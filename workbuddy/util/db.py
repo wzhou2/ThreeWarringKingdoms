@@ -289,7 +289,7 @@ class Database:
                     schedule: [MONDAY, TUESDAY, ... , SUNDAY]
                 }
         """
-        order = [USER, FIRST, LAST, SALARY]
+        order = [USER, FIRST, LAST, SALARY, "position"]
         info = self.get(USER_TABLE, *order, a = "WHERE {} = '{}'".format(USER, user))[0]
         schedule = self.getSchedule(user)
         profile = {
