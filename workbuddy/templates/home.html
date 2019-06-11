@@ -20,7 +20,7 @@
             {% for item in projects %}
                 <li class="list-group-item">
                 <form method="post" action="link_project" class="inline">
-                  <button type="submit" name="project" value={{item['name']}} class="link-button">
+                  <button type="submit" name="project" value="{{item['name']}}" class="link-button">
                     {{item['name']}}
                   </button>
                 </form>
