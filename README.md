@@ -3,7 +3,13 @@
 [![Build Status](https://travis-ci.org/wzhou2/ThreeWarringKingdoms.svg?branch=master)]
 
 ## Video Demo
-[Our Demo](https://youtu.be/w4YqzRvPxPg)
+[Watch our video demo here](https://youtu.be/w4YqzRvPxPg)
+
+## Roster:
+- Wei Wen Zhou: project manager
+- Jack Lu: database
+- Matthew Ming: application routing
+
 
 ## Instructions to Run:
 Click this link to go to our website: [Live Link](http://206.189.184.181/)
